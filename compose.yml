@@ -1,0 +1,12 @@
+services:
+  dev:
+    build: 
+      context: .
+      dockerfile: Dockerfile.dev
+      args:
+        - UID=1000
+        - GID=1000
+    volumes:
+      - .:/home/node/app
+    tty: true
+    working_dir: /home/node/app
