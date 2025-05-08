@@ -1,0 +1,124 @@
+@import "@/styles/variables.scss";
+@import "@/styles/common.scss";
+
+.container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 48px;
+  color: var(--text-color);
+  transition: color 0.3s ease, background-color 0.3s ease;
+  background-color: var(--background-color);
+}
+
+.menuButton {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  height: 48px;
+  width: 48px;
+  padding: 8px;
+  @include hover();
+  // border-radius: 8px;
+  // margin: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .icon {
+    color: var(--primary-color);
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.themeButton {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  height: 48px;
+  width: 48px;
+  padding: 8px;
+  @include hover();
+  // border-radius: 8px;
+  // margin: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 0;
+
+  .mode {
+    color: var(--primary-color);
+    width: 80%;
+    height: 80%;
+  }
+}
+
+.title {
+  font-size: 24px;
+  margin-left: 32px;
+  font-weight: bold;
+}
+
+.sidebar {
+  position: fixed;
+  top: 48px;
+  left: 0;
+  z-index: 90;
+  height: 100vh;
+  width: 240px;
+  transform: translateX(-100%);
+  overflow-y: auto;
+  // padding-left: 1rem;
+  // border-top-right-radius: 16px;
+  // border-bottom-right-radius: 16px;
+  color: var(--text-color);
+  background-color: var(--background-color);
+  transition: color 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
+
+  &.open {
+    transform: translateX(0);
+  }
+}
+
+.wrapper {
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0);
+  transition: background-color 0.3s ease;
+
+  &.active {
+    pointer-events: auto;
+    display: block;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 80;
+  }
+}
+
+.linkContainer {
+  // display: flex;
+  // flex-direction: column;
+}
+
+.linkItem {
+  color: var(--text-color);
+  font-size: 20px;
+  padding-left: 48px;
+  display: flex;
+  align-items: center;
+  height: 52px;
+  @include hover();
+  @include removeTextDecoration();
+  // border-radius: 8px;
+  // margin: 8px;
+  transition: color 0.3s ease, background-color 0.3s ease;
+}

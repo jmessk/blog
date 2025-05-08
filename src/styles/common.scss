@@ -1,0 +1,44 @@
+@import "@/styles/variables.scss";
+
+@mixin hover {
+  transition: background-color 0.3s ease;
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: var(--secondary-color);
+    }
+  }
+
+  @media (hover: none) {
+    &:active {
+      background-color: var(--secondary-color);
+    }
+  }
+}
+
+@mixin removeTextDecoration {
+
+  &:hover,
+  :hover {
+    text-decoration: none !important;
+    text-decoration-line: none !important;
+  }
+
+  &:active,
+  :active {
+    text-decoration: none !important;
+    text-decoration-line: none !important;
+  }
+}
+
+@mixin animation {
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+@mixin responsive {
+  font-size: 16px;
+
+  @media (max-width: $mobile) {
+    font-size: 15px;
+  }
+}

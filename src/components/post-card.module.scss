@@ -1,0 +1,72 @@
+@import "/src/styles/common.scss";
+@import "/src/styles/variables.scss";
+
+.container {
+  overflow: hidden;
+  border-radius: 1.5rem;
+  @include hover();
+  background-color: var(--background-color);
+  @include removeTextDecoration();
+  transition: background-color 0.3s ease;
+
+  .imageContainer {
+    height: 12rem;
+    background-color: rgba(149, 202, 255, 0.232);
+    overflow: hidden;
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .text {
+    padding: 1.5rem;
+    padding-top: 0.5rem;
+  }
+
+  .dateContainer {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-top: 0.5rem;
+  }
+
+  .title {
+    height: 3.2rem;
+    font-size: 1.1rem;
+    margin: 0;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    color: var(--text-color);
+    transition: color 0.3s ease;
+  }
+
+  .tagContainer {
+    display: flex;
+    position: relative;
+    align-items: flex-end;
+    color: var(--text-color);
+    height: 4rem;
+    @include removeTextDecoration();
+  }
+}
+
+.cardContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+  gap: 2rem;
+  width: 100%;
+  justify-content: center;
+  margin: 1rem 0;
+}

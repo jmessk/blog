@@ -1,0 +1,77 @@
+@import "@/styles/common.scss";
+@import "@/styles/variables.scss";
+
+.container {
+  border: 1px solid var(--border-color);
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: row;
+  height: 6rem;
+  @include removeTextDecoration();
+  @include hover();
+  overflow: hidden;
+  position: relative;
+  margin: 2rem 0;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+
+  .innerContainer {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+    width: calc(100% - 6rem);
+
+    .title {
+      height: 1.2rem;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      color: var(--text-color);
+      font-size: 0.9rem;
+      transition: color 0.3s ease;
+    }
+
+    .description {
+      color: gray;
+      font-size: 0.8rem;
+      height: 1.2rem;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .url {
+      font-size: 0.9rem;
+      height: 1.2rem;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .imgContainer {
+    display: flex;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    object-fit: cover;
+    width: 6rem;
+  }
+}
+
+.youtube {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  margin: 2rem 0;
+
+  iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+}
+
+.twitter {
+  margin: 2rem 0;
+}

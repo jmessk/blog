@@ -1,0 +1,128 @@
+@import "@/styles/variables.scss";
+@import "@/styles/common.scss";
+
+@font-face {
+  font-family: "Consolas";
+  src: url(../assets/fonts/CONSOLA.TTF) format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Consolas";
+  src: url(../assets/fonts/CONSOLAI.TTF) format("truetype");
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Consolas";
+  src: url(../assets/fonts/CONSOLAB.TTF) format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Consolas";
+  src: url(../assets/fonts/CONSOLAZ.TTF) format("truetype");
+  font-weight: bold;
+  font-style: italic;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+  display: flex;
+  flex-direction: column;
+  scroll-padding-top: 64px;
+  font-size: 16px;
+  scroll-behavior: smooth;
+
+  // variables
+  --light-text-color: gray;
+
+  &[data-theme="light"] {
+    --primary-color: #006ac6;
+    --secondary-color: #e6f1ff;
+    --border-color: #ddd;
+    --text-color: black;
+    --background-color: #fff;
+    --body-background-color: #eeeef2;
+    --tag-color: #399681;
+    --backquote-color: #555;
+    --note-color: #fff6d0;
+    --warning-color: #ffe5e5;
+  }
+
+  &[data-theme="dark"] {
+    --primary-color: #47a9ff;
+    --secondary-color: #68a7ff24;
+    --border-color: #404040;
+    --text-color: #eee;
+    --background-color: #161616;
+    --body-background-color: #000;
+    --tag-color: #2c7564;
+    --backquote-color: #bbb;
+    --note-color: #3b3727;
+    --warning-color: #3d2a2a;
+  }
+
+  color: var(--text-color);
+  background-color: var(--body-background-color);
+  transition: color 0.3s ease,
+  background-color 0.3s ease;
+}
+
+.wrapper {
+  display: flex;
+  width: 100%;
+  margin-top: 48px;
+  margin-bottom: 3rem;
+  justify-content: center;
+  flex: 1;
+}
+
+main {
+  width: 100%;
+  /* max-width: var(--tablet-breakpoint); */
+  max-width: 990px;
+  padding: 0 3rem;
+
+  @media (max-width: $tablet) {
+    padding: 0 2rem;
+  }
+
+  @media (max-width: $mobile) {
+    padding: 0 1.1rem;
+  }
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+
+  @media (hover: hover) {
+
+    &:hover,
+    :hover {
+      text-decoration: underline;
+    }
+  }
+
+  @media (hover: none) {
+
+    &:active,
+    :active {
+      text-decoration: underline;
+    }
+  }
+}

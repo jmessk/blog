@@ -1,0 +1,23 @@
+@import "/src/styles/common.scss";
+
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  align-items: flex-start;
+  margin-left: 0.5rem;
+
+  .title {
+    max-width: 100%;
+    font-size: 1.8rem;
+    text-align: center;
+    font-weight: 600;
+  }
+
+  .description {
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--light-text-color);
+  }
+}

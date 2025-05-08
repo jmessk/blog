@@ -1,0 +1,34 @@
+@import "/src/styles/common.scss";
+
+.container {
+  display: flex;
+  flex-direction: row;
+
+  .icon {
+    margin-top: 0.7rem;
+    margin-right: 0.5rem;
+    width: 1.2rem;
+    height: 1.2rem;
+    animation: color 0.3s ease;
+    color: var(--tag-color);
+  }
+
+  .tagContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    .tag {
+      margin-right: 0.5rem;
+      margin-top: 0.5rem;
+      padding: 0 0.5rem;
+      color: white;
+      background-color: var(--tag-color);
+      border-radius: 0.7rem;
+      font-size: 0.8rem;
+      height: 1.4rem;
+      display: flex;
+      align-items: center;
+    }
+  }
+}

@@ -1,0 +1,45 @@
+@import "/src/styles/common.scss";
+
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background-color);
+  border-radius: 1rem;
+  padding: 2rem 2rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  transition: background-color 0.3s ease;
+
+  @media (max-width: $mobile) {
+    padding: 2rem 1rem;
+  }
+
+  .date {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    // margin-bottom: 1rem;
+  }
+
+  .title {
+    max-width: 100%;
+    font-size: 1.5rem;
+    text-align: center;
+    font-weight: 600;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .description {
+    text-align: center;
+    color: var(--light-text-color);
+    margin-bottom: 1rem;
+  }
+
+  .tagContainer {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    justify-content: left;
+  }
+}

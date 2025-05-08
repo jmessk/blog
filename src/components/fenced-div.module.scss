@@ -1,0 +1,40 @@
+.container {
+  margin: 2rem 0;
+  padding: 1rem;
+  border-radius: 1rem;
+  transition: background-color 0.3s ease;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  background-color: var(--note-color);
+
+  .icon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .content {
+    margin-left: 1rem;
+
+    p {
+      margin: 0;
+    }
+  }
+
+  &.note {
+    background-color: var(--note-color);
+
+    .icon {
+      color: orange;
+    }
+  }
+
+  &.warning {
+    background-color: var(--warning-color);
+
+    .icon {
+      color: red;
+    }
+  }
+}
