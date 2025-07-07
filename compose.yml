@@ -8,5 +8,6 @@ services:
         - GID=1000
     volumes:
       - .:/home/node/app
-    tty: true
     working_dir: /home/node/app
+    entrypoint:
+      - /bin/bash
