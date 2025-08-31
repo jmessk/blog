@@ -2,4 +2,5 @@
 // by running `wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts`
 
 interface CloudflareEnv {
+  POSTS_DB: D1Database;
 }

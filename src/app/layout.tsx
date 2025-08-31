@@ -25,7 +25,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className={`${notoSansJP.variable}`}>
+      <body className={notoSansJP.variable}>
         <NextThemesProvider>
           <SidebarProvider>
             <AppSidebar />

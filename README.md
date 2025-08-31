@@ -1,36 +1,160 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# My Markdown Blog
 
-## Getting Started
+## API
 
-First, run the development server:
+- `GET /api/posts/<post_id>`
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+    ```json
+    {
+        "title": "Test Post",
+        "description": "This is a test post.",
+        "tags": [ "tag1", "tag2" ],
+        "thumbnail": "https://example.com/thumbnail.jpg",
+        "created_at": "2023-10-01T12:00:00Z",
+        "updated_at": "2023-10-01T12:00:00Z",
+    }
+    ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- `GET /api/posts/<post_id>?content_md=true`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+    ```json
+    {
+        "title": "Test Post",
+        "description": "This is a test post.",
+        "tags": [ "tag1", "tag2" ],
+        "thumbnail": "https://example.com/thumbnail.jpg",
+        "created_at": "2023-10-01T12:00:00Z",
+        "updated_at": "2023-10-01T12:00:00Z",
+        "content_md": "# Test Post\n\nThis is a test post."
+    }
+    ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `GET /api/posts/<post_id>/markdown`
 
-## Learn More
+    ```plaintext
+    ---
+    "title": "Test Post",
+    "description": "This is a test post.",
+    "tags": [ "tag1", "tag2" ],
+    "thumbnail": "https://example.com/thumbnail.jpg"
+    "created_at": "2023-10-01T12:00:00Z",
+    "updated_at": "2023-10-01T12:00:00Z",
+    ---
 
-To learn more about Next.js, take a look at the following resources:
+    # Test Post
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+    This is a test post.
+    ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `POST /api/posts`
 
-## Deploy on Vercel
+    Request:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+    ```json
+    [
+        {
+            "post_id": "test-post", // generate in CI
+            "title": "Test Post",
+            "description": "This is a test post.",
+            "tags": [ "tag1", "tag2" ],
+            "thumbnail": "./thumbnail.jpg",
+            "content_md": "# Test Post\n\nThis is a test post."
+        },
+        {
+            "post_id": "another-post", // generate in CI
+            "title": "Another Post",
+            "description": "This is another post.",
+            "tags": [ "tag3" ],
+            "thumbnail": "./thumbnail.jpg",
+            "content_md": "# Another Post\n\nThis is another post."
+        }
+    ]
+    ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+    Response:
+
+    ```json
+    [
+        {
+            "post_id": "test-post",
+            "tags": [ "tag1", "tag2" ], // 
+            "created_at": "2023-10-01T12:00:00Z", // 
+        },
+        {
+            "post_id": "another-post",
+            "tags": [ "tag3" ],
+            "created_at": "2023-10-02T12:00:00Z",
+        }
+    ]
+    ```
+
+- `UPDATE /api/posts`
+
+    Request:
+
+    ```json
+    [
+        {
+            "post_id": "test-post",
+            "title": "Test Post",
+            "description": "This is a test post.",
+            "tags": [ "tag1", "tag2" ],
+            "thumbnail": "./thumbnail.jpg",
+            "content_md": "# Test Post\n\nThis is a test post."
+        },
+        {
+            "post_id": "another-post",
+            "title": "Another Post",
+            "description": "This is another post.",
+            "tags": [ "tag3" ],
+            "thumbnail": "./thumbnail.jpg",
+            "content_md": "# Another Post\n\nThis is another post."
+        }
+    ]
+    ```
+
+    Response:
+
+    ```json
+    [
+        {
+            "post_id": "test-post",
+            "tags": [ "tag1", "tag2" ],
+            "created_at": "2023-10-01T12:00:00Z",
+            "updated_at": "2023-10-01T12:00:00Z"
+        },
+        {
+            "post_id": "another-post",
+            "tags": [ "tag3" ],
+            "created_at": "2023-10-02T12:00:00Z",
+            "updated_at": "2023-10-02T12:00:00Z"
+        }
+    ]
+    ```
+
+- `GET /api/posts?tags=<tag>,<tag>`
+
+    ```json
+    {
+        "tags": [ "tag1", "tag2" ],
+        "posts": [
+            {
+                "post_id": "test-post",
+                "title": "Test Post",
+                "description": "This is a test post.",
+                "tags": [ "tag1", "tag2" ],
+                "thumbnail": "https://example.com/thumbnail.jpg",
+                "created_at": "2023-10-01T12:00:00Z",
+                "updated_at": "2023-10-01T12:00:00Z"
+            },
+            {
+                "post_id": "another-post",
+                "title": "Another Post",
+                "description": "This is another post.",
+                "tags": [ "tag3" ],
+                "thumbnail": "https://example.com/thumbnail.jpg",
+                "created_at": "2023-10-02T12:00:00Z",
+            }
+        ]
+    }
+    ```
