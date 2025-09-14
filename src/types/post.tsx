@@ -1,9 +1,20 @@
-type PostMeta = {
-  post_id: string;
+export type Tag = {
+  id: string;
+  name: string;
+  icon_url?: string;
+}
+
+export type PostMeta = {
+  id: string;
   title: string;
   description?: string;
-  tags?: string[];
-  thumbnail: string;
-  created_at?: string;
+  thumbnail_url?: string;
+  created_at: string;
   updated_at?: string;
+  deleted_at?: string;
+
+  tags: Tag[];
 };
+
+// `content` is includeing the front-matter
+export type Post = PostMeta & { content: string; };

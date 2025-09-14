@@ -3,4 +3,6 @@
 
 interface CloudflareEnv {
   POSTS_DB: D1Database;
+  TAGS_DB: D1Database;
+  POST_TAGS_DB: D1Database;
 }

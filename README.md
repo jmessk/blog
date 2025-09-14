@@ -37,6 +37,38 @@
     }
     ```
 
+- `POST /api/posts`: Create new posts.
+
+    Request:
+
+    ```plaintext
+    Content-Type: multipart/form-data; boundary=boundary
+
+    --boundary
+    Content-Disposition: form-data; name="post"
+    Content-Type: application/plaintext
+
+    # New Post
+    
+    This is new post.
+    --boundary
+    Content-Disposition: form-data; name="files"; filename="diagram.png"
+    Content-Type: image/png
+
+    (binary...)
+    --boundary--
+    ```
+
+    Response:
+
+    ```json
+    {
+        "id": "<UUID>", 
+        "created_at": "2023-10-01T12:00:00Z",
+        "registered_content": "# Test Post\n\nThis is a test post.",
+    }
+    ```
+
 - `GET /api/posts/<post_id>`
 
     ```json
@@ -64,7 +96,7 @@
     }
     ```
 
-- `GET /api/posts/<post_id>/markdown`
+- `GET /api/posts/<post_id>/plaintext`
 
     ```plaintext
     ---
@@ -81,112 +113,35 @@
     This is a test post.
     ```
 
-- `POST /api/posts`: Create new posts.
+- `UPDATE /api/posts/<post_id>`
 
     Request:
 
-    ```json
-    [
-        {
-            // Temporary ID generated in the client for tracking.
-            // This is enabled in the session.
-            "temp_id": "1",
-            "content": "# Test Post\n\nThis is a test post."
-        },
-        {
-            "temp_id": "2",
-            "content": "# Another Post\n\nThis is another post."
-        }
-    ]
+    ```markdown
+    # New Post
+    
+    This is new post.
     ```
 
     Response:
 
     ```json
-    [
-        {
-            // Generated in the client.
-            "temp_id": "1",
-            // Unique ID generated in the server.
-            // ID should not be generated in the client even if the ID is unique in the world.
-            // Because the method of generating IDs may change in the future.
-            "post_id": "<UUID>", 
-            "created_at": "2023-10-01T12:00:00Z",
-            "modified_content": "# Test Post\n\nThis is a test post.",
-        },
-        {
-            "temp_id": "2",
-            "post_id": "<UUID>",
-            "created_at": "2023-10-02T12:00:00Z",
-            "modified_content": "# Another Post\n\nThis is another post.",
-        }
-    ]
+    {
+        "id": "<UUID>",
+        "updated_at": "2023-10-01T12:00:00Z",
+        "registered_content": "# New Post\n\nThis is new post."
+    },
     ```
 
-- `UPDATE /api/posts`
-
-    Request:
-
-    ```json
-    [
-        {
-            "post_id": "<UUID>",
-            "content": "# Test Post\n\nThis is a test post."
-        },
-        {
-            "post_id": "<UUID>",
-            "content": "# Another Post\n\nThis is another post."
-        }
-    ]
-    ```
+- `DELETE /api/posts/<post_id>?type=soft|hard`
 
     Response:
 
     ```json
-    [
-        {
-            "post_id": "test-post",
-            "updated_at": "2023-10-01T12:00:00Z",
-            "modified_content": "# Test Post\n\nThis is a test post."
-        },
-        {
-            "post_id": "another-post",
-            "updated_at": "2023-10-02T12:00:00Z",
-            "modified_content": "# Another Post\n\nThis is another post."
-        }
-    ]
-    ```
-
-- `DELETE /api/posts`
-
-    Request:
-
-    ```json
-    [
-        {
-            "post_id": "test-post",
-            "delete_type": "soft"
-        },
-        {
-            "post_id": "another-post",
-            "delete_type": "hard"
-        }
-    ]
-    ```
-
-    Response:
-
-    ```json
-    [
-        {
-            "post_id": "test-post",
-            "deleted_at": "2023-10-01T12:00:00Z",
-            "delete_type": "soft"
-        },
-        {
-            "post_id": "another-post",
-            "deleted_at": "2023-10-02T12:00:00Z",
-            "delete_type": "hard"
-        }
-    ]
+    {
+        "id": "<UUID>",
+        "deleted_at": "2023-10-01T12:00:00Z",
+        "delete_type": "soft",
+        "deleted_content": "# Test Post\n\nThis is a test post."
+    }
     ```
