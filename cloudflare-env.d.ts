@@ -2,7 +2,6 @@
 // by running `wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts`
 
 interface CloudflareEnv {
-  POSTS_DB: D1Database;
-  TAGS_DB: D1Database;
-  POST_TAGS_DB: D1Database;
+  D1_POSTS: D1Database;
+  R2_IMAGES: R2Bucket;
 }

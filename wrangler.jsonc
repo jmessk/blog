@@ -31,10 +31,16 @@
 	 */
 	"d1_databases": [
 		{
-			"binding": "POSTS_DB",
+			"binding": "DB_POSTS",
 			"database_name": "blog-posts",
 			"database_id": "87f19df3-d14b-4f1c-8cde-93c6b64c06fc"
 		},
+	],
+	"r2_buckets": [
+		{
+			"binding": "R2_IMAGES",
+			"bucket_name": "blog-images",
+		}
 	],
 
 	/**

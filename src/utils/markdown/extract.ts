@@ -1,4 +1,4 @@
-import { unified, Plugin } from "unified";
+import { unified } from "unified";
 import remarkParse from "remark-parse";
 import remarkStringify from "remark-stringify";
 import remarkFrontmatter from "remark-frontmatter";
@@ -11,12 +11,12 @@ import { Node } from "unist";
 import type { Root, Image } from "mdast";
 import type { VFile } from "vfile";
 
-import { PostMeta } from "@/types/post";
+import { FrontMatter } from "@/types/post";
 
 
 declare module "vfile" {
   interface DataMap {
-    frontmatter?: Partial<PostMeta>;
+    frontmatter?: FrontMatter;
     images?: string[];
   }
 }
@@ -40,7 +40,7 @@ const processor = unified()
   .use(collectImagesPaths)
   .use(remarkStringify);
 
-export function parse(markdown: string) {
+export function extractContents(markdown: string) {
   const file = processor.processSync(markdown);
   const frontmatter = file.data.frontmatter ?? {}
   const imagePaths = file.data.images ?? [];

@@ -9,7 +9,8 @@
 		"lint": "next lint",
 		"deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
 		"preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
-		"cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
+		"cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
+		"db:migrate:local": "NODE_ENV=development drizzle-kit migrate"
 	},
 	"dependencies": {
 		"@radix-ui/react-dialog": "^1.1.14",
@@ -36,7 +37,8 @@
 		"tailwindcss": "^4.1.11",
 		"tw-animate-css": "^1.3.5",
 		"unified": "^11.0.5",
-		"unist-util-remove": "^4.0.0"
+		"unist-util-remove": "^4.0.0",
+		"uuidv7": "^1.0.2"
 	},
 	"devDependencies": {
 		"@cloudflare/workers-types": "^4.20250407.0",
@@ -44,6 +46,7 @@
 		"@types/node": "^20",
 		"@types/react": "^19",
 		"@types/react-dom": "^19",
+		"better-sqlite3": "^12.2.0",
 		"drizzle-kit": "^0.31.4",
 		"i": "^0.3.7",
 		"npm": "^11.5.2",
