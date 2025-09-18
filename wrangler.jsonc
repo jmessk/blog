@@ -31,7 +31,7 @@
 	 */
 	"d1_databases": [
 		{
-			"binding": "DB_POSTS",
+			"binding": "D1_POSTS",
 			"database_name": "blog-posts",
 			"database_id": "87f19df3-d14b-4f1c-8cde-93c6b64c06fc"
 		},

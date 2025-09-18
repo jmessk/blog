@@ -9,8 +9,8 @@ export const postsTable = sqliteTable("posts", {
   description: text(),
   thumbnail_url: text(),
   content: text().notNull(),
-  created_at: text().notNull().default(sql`CURRENT_TIMESTAMP`),
-  updated_at: text().$onUpdate(() => sql`CURRENT_TIMESTAMP`),
+  created_at: text().notNull(),
+  updated_at: text(),
   deleted_at: text()
 });
 

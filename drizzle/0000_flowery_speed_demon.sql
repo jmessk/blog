@@ -11,7 +11,7 @@ CREATE TABLE `posts` (
 	`description` text,
 	`thumbnail_url` text,
 	`content` text NOT NULL,
-	`created_at` text DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	`created_at` text NOT NULL,
 	`updated_at` text,
 	`deleted_at` text
 );

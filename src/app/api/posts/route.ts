@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getCloudflareContext } from "@opennextjs/cloudflare";
 import { drizzle } from "drizzle-orm/d1";
-import { eq, and, isNull, inArray, sql } from "drizzle-orm";
+import { eq, and, isNull, inArray, sql, exists } from "drizzle-orm";
 import path from "path";
 import { URL } from "url";
 import { uuidv7 } from "uuidv7";
@@ -37,32 +37,43 @@ export async function GET(request: NextRequest): Promise<NextResponse<PostMeta[]
       created_at: postsTable.created_at,
       updated_at: postsTable.updated_at,
       deleted_at: postsTable.deleted_at,
-      tags: sql<Array<Tag>>`json_group_array(
-        json_object(
-          'id', ${tagsTable.id},
-          'name', ${tagsTable.name},
-          'icon_url', ${tagsTable.icon_url}
-        )
-      )`.as("tags"),
+      tags: sql<Array<Tag>>`
+        CASE
+          WHEN COUNT(${tagsTable.id}) = 0 THEN json('[]')
+          ELSE json_group_array(
+            json_object(
+              'id', ${tagsTable.id},
+              'name', ${tagsTable.name},
+              'icon_url', ${tagsTable.icon_url}
+            )
+          )
+        END`
+        .as("tags"),
     })
     .from(postsTable)
-    .innerJoin(postTagsTable, eq(postsTable.id, postTagsTable.post_id))
-    .innerJoin(tagsTable, eq(tagsTable.id, postTagsTable.tag_id))
-    .where(and(isNull(postsTable.deleted_at), inArray(tagsTable.name, tagIds)))
+    .leftJoin(postTagsTable, eq(postsTable.id, postTagsTable.post_id))
+    .leftJoin(tagsTable, eq(tagsTable.id, postTagsTable.tag_id))
+    .where(
+      tagIds.length === 0
+        ? isNull(postsTable.deleted_at)
+        : and(
+          isNull(postsTable.deleted_at),
+          exists(
+            db
+              .select()
+              .from(postTagsTable)
+              .where(
+                and(
+                  eq(postTagsTable.post_id, postsTable.id),
+                  inArray(postTagsTable.tag_id, tagIds)
+                )
+              )
+          )
+        )
+    )
     .groupBy(postsTable.id);
 
-  const posts: PostMeta[] = rows.map(row => ({
-    id: row.id,
-    title: row.title,
-    description: row.description || undefined,
-    thumbnail_url: row.thumbnail_url || undefined,
-    created_at: row.created_at,
-    updated_at: row.updated_at || undefined,
-    deleted_at: row.deleted_at || undefined,
-    tags: row.tags,
-  }));
-
-  return NextResponse.json(posts);
+  return NextResponse.json(rows as PostMeta[]);
 };
 
 // `POST /api/posts`
@@ -130,24 +141,27 @@ export async function POST(request: NextRequest) {
   const db = drizzle(env.D1_POSTS);
 
   const id = uuidv7();
-  const createdAt = new Date().toLocaleString("en-US", { timeZone: "Asia/Tokyo" });
+  const createdAt = new Date().toISOString();
 
   const newTags = normalizeTags(frontmatter.tags || []);
-  const newFrontmatter = updateFrontmatter(frontmatter, id, newTags, createdAt, urlMap);
+  const newFrontmatter = updateFrontmatter(
+    frontmatter,
+    id, newTags, createdAt, urlMap
+  );
   const newContent = replacePaths(content, urlMap);
   const newMarkdown = rebuildMarkdown(newFrontmatter, newContent);
 
-  db.insert(postsTable).values({
+  await db.insert(postsTable).values({
     id,
     title: newFrontmatter.title!,
     description: newFrontmatter.description!,
     thumbnail_url: newFrontmatter.thumbnail_url!,
     created_at: createdAt,
     content: newContent,
-  })
+  }).run();
 
   // もし存在しないタグがあれば追加
-  db.insert(tagsTable).values(
+  await db.insert(tagsTable).values(
     newTags.map((tag) => ({
       id: tag,
       name: tag,
@@ -155,7 +169,7 @@ export async function POST(request: NextRequest) {
   ).onConflictDoNothing().run();
 
   // Post と Tag の関連付けを追加
-  db.insert(postTagsTable).values(
+  await db.insert(postTagsTable).values(
     newTags.map((tag) => ({
       post_id: id,
       tag_id: tag,

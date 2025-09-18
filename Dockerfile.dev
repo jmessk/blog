@@ -1,7 +1,10 @@
-FROM node:18-bookworm
+FROM node:24-bookworm
 
 ARG UID
 ARG GID
+
+RUN apt-get update && apt-get install -y \
+    sqlite3
 
 RUN groupmod -g ${UID} node  \
     && usermod -u ${UID} -g ${GID} node
