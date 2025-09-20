@@ -23,7 +23,7 @@ export async function GET(request: NextRequest): Promise<NextResponse<PostMeta[]
   const tagsNames = request
     .nextUrl
     .searchParams
-    .get("tags")?.split(",") || [];
+    .get("tags")?.split(",") ?? [];
 
   const tagIds = normalizeTags(tagsNames);
 
@@ -37,7 +37,7 @@ export async function GET(request: NextRequest): Promise<NextResponse<PostMeta[]
       created_at: postsTable.created_at,
       updated_at: postsTable.updated_at,
       deleted_at: postsTable.deleted_at,
-      tags: sql<Array<Tag>>`
+      tags: sql<string>`
         CASE
           WHEN COUNT(${tagsTable.id}) = 0 THEN json('[]')
           ELSE json_group_array(
@@ -73,7 +73,15 @@ export async function GET(request: NextRequest): Promise<NextResponse<PostMeta[]
     )
     .groupBy(postsTable.id);
 
-  return NextResponse.json(rows as PostMeta[]);
+  const posts = rows
+    .map((row) => {
+      return {
+        ...row,
+        tags: JSON.parse(row.tags) as Tag[]
+      } as PostMeta;
+    });
+
+  return NextResponse.json(posts);
 };
 
 // `POST /api/posts`
@@ -108,6 +116,7 @@ export async function GET(request: NextRequest): Promise<NextResponse<PostMeta[]
 // }
 // ```
 export async function POST(request: NextRequest) {
+
   const form = await request.formData();
 
   let content;
@@ -115,6 +124,7 @@ export async function POST(request: NextRequest) {
   let urlMap;
 
   try {
+
     const { markdown, files } = validateFormData(form);
 
     let imagePaths;
@@ -125,14 +135,16 @@ export async function POST(request: NextRequest) {
       throw new Error("`title` does not exists in frontmatter");
     }
 
-    const mdFileNames = extractPathFileNames(imagePaths);
+    // const mdFileNames = extractPathFileNames(imagePaths);
+    const mdImagePaths = imagePaths.filter((imagePath) => !isUrl(imagePath));
 
-    if (!checkAllFilesExist(mdFileNames, files)) {
+    if (!checkAllFilesExist(mdImagePaths, files)) {
       throw new Error("Some files are referenced in markdown, but not uploaded");
     }
 
-    const fileMap = makeFileMap(mdFileNames, files);
-    urlMap = await makeUrlMap(fileMap);
+    const fileMap = makeFileMap(mdImagePaths, files);
+    urlMap = await uploadAndMakeMap(fileMap);
+
   } catch (error) {
     return NextResponse.json({ error: (error as Error).message }, { status: 400 });
   }
@@ -213,29 +225,32 @@ function isUrl(value: string): boolean {
   }
 }
 
-function extractPathFileNames(paths: string[]): string[] {
-  return paths
-    .filter((path) => !isUrl(path))
-    .map((imagePath) => path.basename(imagePath));
+// function extractPathFileNames(paths: string[]): string[] {
+//   return paths
+//     .filter((path) => !isUrl(path))
+//     .map((imagePath) => path.basename(imagePath));
+// }
+
+function checkAllFilesExist(filePaths: string[], files: File[]): boolean {
+  return filePaths
+    .map((filename) => path.basename(filename))
+    .every((filename) =>
+      files.some((file) => file.name === filename)
+    );
 }
 
-function checkAllFilesExist(fileNames: string[], files: File[]): boolean {
-  return fileNames.every((filename) =>
-    files.some((file) => file.name === filename)
-  );
-}
-
-function makeFileMap(fileNames: string[], files: File[]): Record<string, File> {
-  const fileMap = fileNames
+function makeFileMap(filePaths: string[], files: File[]): Record<string, File> {
+  const fileMap = filePaths
     // only include the files that are actually referenced in markdown
-    .filter((fileName) => files.find((file) => file.name === fileName))
+    // .filter((fileName) => files.find((file) => file.name === fileName))
 
     // create a map of filename -> File
-    .reduce((map, fileName) => {
+    .reduce((map, filePath) => {
+      const fileName = path.basename(filePath);
       const file = files.find((file) => file.name === fileName);
 
       if (file) {
-        map[fileName] = file;
+        map[filePath] = file;
       }
 
       return map;
@@ -244,14 +259,14 @@ function makeFileMap(fileNames: string[], files: File[]): Record<string, File> {
   return fileMap;
 }
 
-async function makeUrlMap(fileMap: Record<string, File>): Promise<Record<string, string>> {
+async function uploadAndMakeMap(fileMap: Record<string, File>): Promise<Record<string, string>> {
   const urlMap: Record<string, string> = {};
 
   const uploadings = Object.entries(fileMap)
-    .map(async ([fileName, file]) => {
+    .map(async ([filePath, file]) => {
       const uploadedPath = await uploadImage(file);
       if (uploadedPath) {
-        urlMap[fileName] = uploadedPath;
+        urlMap[filePath] = uploadedPath;
       }
     });
 
@@ -269,11 +284,10 @@ function updateFrontmatter(
 ): FrontMatter {
   frontmatter.id = id;
   frontmatter.created_at = createdAt;
-  frontmatter.tags = tags
+  frontmatter.tags = tags;
 
   if (frontmatter.thumbnail_url) {
-    const thumbnailFileName = path.basename(frontmatter.thumbnail_url);
-    frontmatter.thumbnail_url = urlMap[thumbnailFileName];
+    frontmatter.thumbnail_url = urlMap[frontmatter.thumbnail_url];
   }
 
   return frontmatter;
