@@ -12,6 +12,5 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
   const image_id = path.parse(file_name).name;
   const options = { cf: { images: {} } };
 
-
   return await fetch(`${R2_IMAGES_URL}/${image_id}`, options);
 }
