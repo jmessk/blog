@@ -1,15 +1,25 @@
+"use client"
+
 import { useTheme } from "next-themes";
 import { Moon, Sun } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
+
+const twIcon = `stroke-slate-600 dark:stroke-gray-400 w-7 h-7`;
 
 
-export function DarkModeButton() {
+export function DarkModeButton(props: React.HTMLAttributes<HTMLButtonElement>) {
   const { theme, setTheme } = useTheme();
 
   return (
-    <Button onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
-      {theme === "dark" ? <Sun /> : <Moon />}
-    </Button>
+    <button
+      {...props}
+      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+      className={`w-10 h-10 flex items-center justify-center ${props.className}`}
+    >
+      {theme === "dark"
+        ? <Moon className={twIcon} />
+        : <Sun className={twIcon} />
+      }
+    </button>
   )
 }

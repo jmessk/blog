@@ -3,10 +3,11 @@ import { Noto_Sans_JP } from "next/font/google";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 
+import "@/styles/globals.css";
 import { AppSidebar } from "@/components/AppSidebar";
 import { BreadcrumbDemo } from "@/components/common/AppBreadcrumb";
-import "@/styles/globals.css";
 import { AppHeader } from "@/components/header/AppHeader";
+import { MainContainer } from "@/components/common/MainContainer";
 
 
 const notoSansJP = Noto_Sans_JP({
@@ -24,17 +25,22 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={notoSansJP.variable}>
-        <NextThemesProvider>
+        <NextThemesProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
           <SidebarProvider>
+            <AppHeader />
             <AppSidebar />
             <SidebarInset>
-              <AppHeader />
-              <main>
-                <BreadcrumbDemo />
+              <MainContainer>
+                <BreadcrumbDemo className="my-6" />
                 {children}
-              </main>
+              </MainContainer>
             </SidebarInset>
           </SidebarProvider>
         </NextThemesProvider>

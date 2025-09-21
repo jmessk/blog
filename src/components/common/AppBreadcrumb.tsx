@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/breadcrumb";
 
 
-export function BreadcrumbDemo() {
+export function BreadcrumbDemo({ className }: { className?: string }) {
   const paths = usePathname().split("/").filter(Boolean);
 
   let pathsWithLabel = paths.map((path, index) => {
@@ -25,7 +25,7 @@ export function BreadcrumbDemo() {
   pathsWithLabel.unshift({ path: "/", label: "Home" });
 
   return (
-    <Breadcrumb>
+    <Breadcrumb className={className}>
       <BreadcrumbList>
         {/* <BreadcrumbSeparator /> */}
         {pathsWithLabel.map(({ path, label }) => {
@@ -34,7 +34,7 @@ export function BreadcrumbDemo() {
           if (path === usePathname()) {
             return (
               <BreadcrumbItem key={path}>
-                <BreadcrumbPage >{label}</BreadcrumbPage>
+                <BreadcrumbPage className="text-lg" >{label}</BreadcrumbPage>
               </BreadcrumbItem>
             )
           }
@@ -42,7 +42,7 @@ export function BreadcrumbDemo() {
           return (
             <>
               <BreadcrumbItem key={path}>
-                <BreadcrumbLink asChild>
+                <BreadcrumbLink asChild className="text-base">
                   <Link href={path}>{label}</Link>
                 </BreadcrumbLink>
               </BreadcrumbItem>
