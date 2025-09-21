@@ -19,9 +19,8 @@ function replaceImagePath() {
     const urlMap = file.data.urlMap || {};
 
     visit(tree, "image", (node: Image) => {
-      const fileName = path.basename(node.url);
-      if (urlMap[fileName]) {
-        node.url = urlMap[fileName];
+      if (urlMap[node.url]) {
+        node.url = urlMap[node.url];
       }
     });
 
