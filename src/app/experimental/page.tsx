@@ -6,9 +6,8 @@ export default function Experimental() {
   return (
     <>
       <Island>
-        <Link href="/experimental/MetaViewer">MetaViewer</Link>
+        <Link href="/experimental/post">post</Link>
       </Island>
-      <Island>Island</Island>
       <Island>Island</Island>
     </>
   );

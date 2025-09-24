@@ -22,10 +22,12 @@ export function BreadcrumbDemo({ className }: { className?: string }) {
     return { path: fullPath, label };
   });
 
-  pathsWithLabel.unshift({ path: "/", label: "Home" });
+  if (pathsWithLabel.length === 0) {
+    pathsWithLabel.push({ path: "/", label: "Home" });
+  }
 
   return (
-    <Breadcrumb className={className}>
+    <Breadcrumb className={`${className}`}>
       <BreadcrumbList>
         {/* <BreadcrumbSeparator /> */}
         {pathsWithLabel.map(({ path, label }) => {

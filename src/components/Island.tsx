@@ -1,8 +1,16 @@
+export function Island(
+  { children, className, noPadding: noPadding, onMobileExpand }: {
+    children?: React.ReactNode,
+    className?: string,
+    noPadding?: boolean,
+    onMobileExpand?: boolean,
+  }) {
 
+  const twPadding = noPadding ? '' : 'px-4 sm:px-6 md:px-8';
+  const twExpand = onMobileExpand ? 'max-sm:-mx-4 max-sm:w-screen max-sm:rounded-none' : '';
 
-export function Island({ children, className }: { children?: React.ReactNode, className?: string }) {
   return (
-    <div className={`grid my-6 w-full py-6 px-4 sm:px-6 md:px-8 rounded-xl bg-card ${className}`}>
+    <div className={`grid my-6 py-6 w-full bg-card rounded-xl ${twExpand} ${twPadding} ${className}`}>
       {children}
     </div>
   );

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { ForwardRefExoticComponent, RefAttributes } from "react";
-import { Home, Code, Sprout, LucideProps, Timer, FlaskConical } from "lucide-react"
+import { Home, Code, Sprout, LucideProps, History, FlaskConical } from "lucide-react"
 
 import {
   Sidebar,
@@ -81,7 +81,7 @@ export function AppSidebar() {
           <SidebarGroupContent>
             <SidebarMenu>
 
-              <ButtonItem text={"Changelog"} href={"/changelog"} icon={Timer} />
+              <ButtonItem text={"Changelog"} href={"/changelog"} icon={History} />
               <ButtonItem text={"Experimental"} href={"/experimental"} icon={FlaskConical} />
 
             </SidebarMenu>
