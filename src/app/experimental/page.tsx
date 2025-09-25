@@ -9,6 +9,7 @@ export default function Experimental() {
         <Link href="/experimental/post">post</Link>
       </Island>
       <Island>Island</Island>
+      <Island onMobileExpand>Island onMobileExpand</Island>
     </>
   );
 }

@@ -10,7 +10,7 @@ export function AppHeader() {
       <ToggleSidebarButton className="" />
       <Link
         href={"/"}
-        className="ml-7 text-lg font-semibold text-gray-700 dark:text-gray-400">
+        className="ml-7 text-lg font-semibold text-gray-700 dark:text-gray-300">
         {String(metadata.title)}
       </Link>
       <DarkModeButton className="ml-auto" />

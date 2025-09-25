@@ -5,6 +5,7 @@ import { AspectRatio } from "@/components/ui/aspect-ratio"
 
 import { Island } from "@/components/Island";
 import { PostMeta } from "@/types/post";
+import { TagList } from "./TagList";
 
 
 // 2025/01/01 15:30
@@ -23,6 +24,7 @@ function formatDate(isoString: string): string {
 
 const twTimestamp = `text-sm flex items-center gap-2 text-muted-foreground stroke-muted-foreground`;
 const twIcon = `w-4 h-4`;
+
 
 export function PostHeader({ postMeta }: { postMeta: PostMeta }) {
   return (
@@ -46,20 +48,7 @@ export function PostHeader({ postMeta }: { postMeta: PostMeta }) {
 
         {postMeta.tags &&
           <div className="flex flex-row justify-center gap-3">
-            {postMeta.tags.map(tag => (
-              <Link
-                href={`/tags/${tag.id}`}
-                key={tag.id}
-                className="flex items-center gap-1 rounded-full p-1 pr-3 text-foreground transition-colors bg-slate-100 dark:bg-slate-900  hover:bg-slate-200 dark:hover:bg-slate-800 border"
-              >
-                <div className="w-5 h-5 overflow-hidden rounded-full">
-                  {tag.icon_url &&
-                    <Image src={tag.icon_url} alt="" width={30} height={30} className="object-cover w-full h-full" />
-                  }
-                </div>
-                <span className="text-sm">{tag.name}</span>
-              </Link>
-            ))}
+            <TagList tags={postMeta.tags} />
           </div>
         }
 

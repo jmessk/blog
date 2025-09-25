@@ -44,7 +44,7 @@ export function BreadcrumbDemo({ className }: { className?: string }) {
           return (
             <>
               <BreadcrumbItem key={path}>
-                <BreadcrumbLink asChild className="text-base">
+                <BreadcrumbLink asChild className="text-base text-neutral-500">
                   <Link href={path}>{label}</Link>
                 </BreadcrumbLink>
               </BreadcrumbItem>
