@@ -14,7 +14,7 @@ export function DarkModeButton(props: React.HTMLAttributes<HTMLButtonElement>) {
     <button
       {...props}
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-      className={`w-10 h-10 flex items-center justify-center ${props.className}`}
+      className={`w-10 h-10 flex items-center justify-center transition-colors rounded-md hover:bg-slate-200 dark:hover:bg-zinc-900 ${props.className}`}
     >
       {theme === "dark"
         ? <Moon className={twIcon} />

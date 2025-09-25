@@ -36,7 +36,7 @@ export function BreadcrumbDemo({ className }: { className?: string }) {
           if (path === usePathname()) {
             return (
               <BreadcrumbItem key={path}>
-                <BreadcrumbPage className="text-lg" >{label}</BreadcrumbPage>
+                <BreadcrumbPage className="text-base" >{label}</BreadcrumbPage>
               </BreadcrumbItem>
             )
           }

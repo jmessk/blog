@@ -10,8 +10,8 @@ const mockPost1: PostMeta = {
   thumbnail_url: "https://upload.wikimedia.org/wikipedia/commons/4/4b/Cloudflare_Logo.svg",
   created_at: new Date().toISOString(),
   tags: [
-    { id: "typescript", name: "TypeScript", icon_url: undefined },
-    { id: "linux", name: "Linux", icon_url: undefined }
+    { id: "typescript", name: "TypeScript", icon_url: "https://upload.wikimedia.org/wikipedia/commons/4/4c/Typescript_logo_2020.svg" },
+    { id: "linux", name: "Linux", icon_url: "https://upload.wikimedia.org/wikipedia/commons/3/35/Tux.svg" }
   ]
 };
 
@@ -21,7 +21,7 @@ const mockPost2: PostMeta = {
   description: "This is a mock post for testing purposes.",
   thumbnail_url: undefined,
   tags: [
-    { id: "typescript", name: "TypeScript", icon_url: undefined },
+    { id: "typescript", name: "TypeScript", icon_url: "https://upload.wikimedia.org/wikipedia/commons/4/4b/Cloudflare_Logo.svg" },
     { id: "linux", name: "Linux", icon_url: undefined }
   ],
   created_at: new Date().toISOString(),

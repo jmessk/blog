@@ -31,7 +31,7 @@ function ButtonItem({
 
   return (
     <SidebarMenuItem>
-      <SidebarMenuButton asChild className="h-10" onClick={() => toggleSidebar()}>
+      <SidebarMenuButton asChild className="h-10 transition-colors" onClick={() => toggleSidebar()}>
         <Link href={href} className="gap-4 pl-4">
           {/*
             `size` prop is not working.
