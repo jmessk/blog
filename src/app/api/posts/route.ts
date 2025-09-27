@@ -9,7 +9,7 @@ import { FrontMatter, PostMeta } from "@/types/post";
 import { extractContents } from "@/utils/markdown/extract";
 import { replacePaths } from "@/utils/markdown/replace";
 import { rebuildMarkdown } from "@/utils/markdown/rebuild";
-import { uploadImage } from "@/utils/image";
+import { uploadImage } from "@/infrastructures/image";
 import { normalizeTags } from "@/utils/tag";
 import { getPosts } from "@/infrastructures/post";
 
