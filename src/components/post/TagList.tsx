@@ -8,20 +8,20 @@ const twTagColor = `transition-colors bg-gray-100 hover:bg-gray-200 dark:bg-neut
 
 export function TagList({ tags }: { tags: Tag[] }) {
   return tags.map(tag => (
-    <TagItem tag={tag} key={tag.id} />
+    <TagListItem tag={tag} key={tag.id} />
   ))
 }
 
-export function TagItem({ tag }: { tag: Tag }) {
+export function TagListItem({ tag }: { tag: Tag }) {
   return (
     <Link
       href={`/tags/${tag.id}`}
       key={tag.id}
-      className={`flex items-center gap-2 rounded-full p-1 text-foreground ${twTagColor} ${tag.icon_url ? "pr-3" : "px-3"}`}
+      className={`shrink-0 flex items-center gap-2 rounded-full p-1 text-foreground ${twTagColor} ${tag.icon_uri ? "pr-3" : "px-3"}`}
     >
-      {tag.icon_url &&
+      {tag.icon_uri &&
         <div className="w-5 h-5 overflow-hidden rounded-full bg-white">
-          <Image src={tag.icon_url} alt="" width={16} height={16} className="object-cover w-full h-full" />
+          <Image src={tag.icon_uri} alt="" width={16} height={16} className="object-cover w-full h-full" />
         </div>
       }
       <span className="text-sm">{tag.name}</span>

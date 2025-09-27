@@ -1,4 +1,4 @@
-import { Island } from "@/components/Island";
+import { Island } from "@/components/common/Island";
 
 
 export default function Changelog() {

@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { PostHeader } from "@/components/post/PostHeader";
-import { Island } from "@/components/Island";
-import { Markdown } from "@/components/post/Markdown";
+import { Island } from "@/components/common/Island";
+import { Markdown } from "@/components/common/Markdown";
 import { getPost } from "@/infrastructures/post";
 
 

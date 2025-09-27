@@ -1,0 +1,80 @@
+import Image from "next/image";
+import Link from "next/link";
+import path from "path";
+
+import { PostMeta } from "@/types/post";
+import { DateList, formatDateShort } from "./DateList";
+import { TagList } from "./TagList";
+import { Island } from "@/components/common/Island";
+
+
+type PostListProps = {
+  metas: PostMeta[];
+  basePath: string;
+  className?: string;
+};
+
+export function PostList({ metas, className, basePath }: PostListProps) {
+  return (
+    <ul className={`flex flex-col gap-6 ${className || ""}`}>
+      {metas.map((meta) => (
+        <PostListItem key={meta.id} meta={meta} basePath={basePath} />
+      ))}
+    </ul>
+  );
+}
+
+
+export function PostListItem({ meta, basePath }: { meta: PostMeta; basePath: string }) {
+  const href = path.join(basePath, meta.id);
+  const createdAt = formatDateShort(meta.created_at);
+  const updatedAt = meta.updated_at ? formatDateShort(meta.updated_at) : undefined;
+
+  const thumbnail = meta.thumbnail_uri ? (
+    <div className="relative w-full overflow-hidden h-20 sm:h-auto sm:w-1/4">
+      <Image
+        src={meta.thumbnail_uri}
+        alt=""
+        width={600}
+        height={400}
+        className="object-cover w-full h-full"
+        priority={false}
+      />
+    </div>
+  ) : null;
+
+  return (
+    <li className="list-none">
+      <Link href={href}>
+        <Island noPadding noMargin className="flex flex-col sm:flex-row overflow-hidden">
+
+          {thumbnail}
+
+          <div className="flex flex-col w-full sm:w-3/4 px-4 sm:px-6 md:px-8 gap-1 py-4 ">
+
+            <h2 className="text-xl text-foreground font-semibold leading-snug line-clamp-1">{meta.title}</h2>
+
+            {meta.description && (
+              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed line-clamp-1">
+                {meta.description}
+              </p>
+            )}
+
+            {meta.tags && meta.tags.length > 0 && (
+              <div className="relative overflow-hidden pr-4">
+                <div className="flex flex-nowrap gap-2 whitespace-nowrap">
+                  <TagList tags={meta.tags} />
+                </div>
+                <div className="pointer-events-none absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-card to-transparent" />
+              </div>
+            )}
+            <div className="mt-auto flex gap-5 text-muted-foreground">
+              <DateList createdAt={createdAt} updatedAt={updatedAt} />
+            </div>
+
+          </div>
+        </Island>
+      </Link>
+    </li >
+  );
+}
