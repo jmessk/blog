@@ -38,7 +38,7 @@
 
     /* リンク */
     .doc a {
-        @apply text-blue-600 dark:text-blue-400 no-underline;
+        @apply text-sky-600 no-underline;
     }
 
     /* インラインコード */

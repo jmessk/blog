@@ -5,9 +5,18 @@
 - `GET /api/posts/tags`
 
     ```json
-    {
-        "tags": [ "tag1", "tag2", "tag3" ]
-    }
+    [
+        {
+            "id": "tag1",
+            "name": "Tag 1",
+            "icon_url": "https://example.com/icon1.png"
+        },
+        {
+            "id": "tag2",
+            "name": "Tag 2",
+            "icon_url": "https://example.com/icon2.png"
+        }
+    ]
     ```
 
 - `GET /api/posts?tags=<tag>,<tag>`
@@ -21,17 +30,36 @@
                 "title": "Test Post",
                 "description": "This is a test post.",
                 "tags": [ "tag1", "tag2" ],
-                "thumbnail": "https://example.com/thumbnail.jpg",
+                "thumbnail_url": "https://example.com/thumbnail.jpg",
                 "created_at": "2023-10-01T12:00:00Z",
-                "updated_at": "2023-10-01T12:00:00Z"
+                "updated_at": "2023-10-01T12:00:00Z",
+                "tags": [
+                    {
+                        "id": "tag1",
+                        "name": "Tag 1",
+                        "icon_url": "https://example.com/icon1.png"
+                    },
+                    {
+                        "id": "tag2",
+                        "name": "Tag 2",
+                        "icon_url": "https://example.com/icon2.png"
+                    }
+                ]
             },
             {
                 "post_id": "another-post",
                 "title": "Another Post",
                 "description": "This is another post.",
                 "tags": [ "tag3" ],
-                "thumbnail": "https://example.com/thumbnail.jpg",
+                "thumbnail_url": "https://example.com/thumbnail.jpg",
                 "created_at": "2023-10-02T12:00:00Z",
+                "tags": [
+                    {
+                        "id": "tag3",
+                        "name": "Tag 3",
+                        "icon_url": "https://example.com/icon3.png"
+                    }
+                ]
             }
         ]
     }
@@ -76,9 +104,21 @@
         "title": "Test Post",
         "description": "This is a test post.",
         "tags": [ "tag1", "tag2" ],
-        "thumbnail": "https://example.com/thumbnail.jpg",
+        "thumbnail_url": "https://example.com/thumbnail.jpg",
         "created_at": "2023-10-01T12:00:00Z",
         "updated_at": "2023-10-01T12:00:00Z",
+        "tags": [
+            {
+                "id": "tag1",
+                "name": "Tag 1",
+                "icon_url": "https://example.com/icon1.png"
+            },
+            {
+                "id": "tag2",
+                "name": "Tag 2",
+                "icon_url": "https://example.com/icon2.png"
+            }
+        ]
     }
     ```
 
@@ -89,14 +129,26 @@
         "title": "Test Post",
         "description": "This is a test post.",
         "tags": [ "tag1", "tag2" ],
-        "thumbnail": "https://example.com/thumbnail.jpg",
+        "thumbnail_url": "https://example.com/thumbnail.jpg",
         "created_at": "2023-10-01T12:00:00Z",
         "updated_at": "2023-10-01T12:00:00Z",
-        "content": "# Test Post\n\nThis is a test post."
+        "content": "# Test Post\n\nThis is a test post.",
+        "tags": [
+            {
+                "id": "tag1",
+                "name": "Tag 1",
+                "icon_url": "https://example.com/icon1.png"
+            },
+            {
+                "id": "tag2",
+                "name": "Tag 2",
+                "icon_url": "https://example.com/icon2.png"
+            }
+        ]
     }
     ```
 
-- `GET /api/posts/<post_id>/plaintext`
+- `GET /api/posts/<post_id>/markdown`
 
     ```plaintext
     ---
@@ -106,6 +158,7 @@
     "thumbnail": "https://example.com/thumbnail.jpg"
     "created_at": "2023-10-01T12:00:00Z",
     "updated_at": "2023-10-01T12:00:00Z",
+    "tags": [ "tag1", "tag2" ]
     ---
 
     # Test Post
