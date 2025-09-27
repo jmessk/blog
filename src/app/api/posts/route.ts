@@ -106,7 +106,7 @@ export async function POST(request: NextRequest) {
     id,
     title: newFrontmatter.title!,
     description: newFrontmatter.description!,
-    thumbnail_url: newFrontmatter.thumbnail_url!,
+    thumbnail_uri: newFrontmatter.thumbnail_uri!,
     created_at: createdAt,
     content: newContent,
   }).run();
@@ -225,8 +225,8 @@ function updateFrontmatter(
   frontmatter.created_at = createdAt;
   frontmatter.tags = tags;
 
-  if (frontmatter.thumbnail_url) {
-    frontmatter.thumbnail_url = urlMap[frontmatter.thumbnail_url];
+  if (frontmatter.thumbnail_uri) {
+    frontmatter.thumbnail_uri = urlMap[frontmatter.thumbnail_uri];
   }
 
   return frontmatter;

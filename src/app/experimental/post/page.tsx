@@ -1,18 +1,18 @@
-import { Island } from "@/components/Island";
+import { Island } from "@/components/common/Island";
 import { PostHeader } from "@/components/post/PostHeader";
 import { PostMeta } from "@/types/post";
-import { Markdown } from "@/components/post/Markdown";
+import { Markdown } from "@/components/common/Markdown";
 
 
 const mockPost1: PostMeta = {
   id: "12345",
   title: "Mock Post",
   description: "This is a mock post for testing purposes.",
-  thumbnail_url: "https://upload.wikimedia.org/wikipedia/commons/4/4b/Cloudflare_Logo.svg",
+  thumbnail_uri: "https://upload.wikimedia.org/wikipedia/commons/4/4b/Cloudflare_Logo.svg",
   created_at: new Date().toISOString(),
   tags: [
-    { id: "typescript", name: "TypeScript", icon_url: "https://upload.wikimedia.org/wikipedia/commons/4/4c/Typescript_logo_2020.svg" },
-    { id: "linux", name: "Linux", icon_url: "https://upload.wikimedia.org/wikipedia/commons/3/35/Tux.svg" }
+    { id: "typescript", name: "TypeScript", icon_uri: "https://upload.wikimedia.org/wikipedia/commons/4/4c/Typescript_logo_2020.svg" },
+    { id: "linux", name: "Linux", icon_uri: "https://upload.wikimedia.org/wikipedia/commons/3/35/Tux.svg" }
   ]
 };
 
@@ -20,10 +20,10 @@ const mockPost2: PostMeta = {
   id: "12345",
   title: "Mock Post",
   description: "This is a mock post for testing purposes.",
-  thumbnail_url: undefined,
+  thumbnail_uri: undefined,
   tags: [
-    { id: "typescript", name: "TypeScript", icon_url: "https://upload.wikimedia.org/wikipedia/commons/4/4b/Cloudflare_Logo.svg" },
-    { id: "linux", name: "Linux", icon_url: undefined }
+    { id: "typescript", name: "TypeScript", icon_uri: "https://upload.wikimedia.org/wikipedia/commons/4/4b/Cloudflare_Logo.svg" },
+    { id: "linux", name: "Linux", icon_uri: undefined }
   ],
   created_at: new Date().toISOString(),
   updated_at: new Date().toISOString(),

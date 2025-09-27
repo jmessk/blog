@@ -1,14 +1,14 @@
 export type Tag = {
   id: string;
   name: string;
-  icon_url?: string;
+  icon_uri?: string;
 }
 
 export type PostMeta = {
   id: string;
   title: string;
   description?: string;
-  thumbnail_url?: string;
+  thumbnail_uri?: string;
   created_at: string;
   updated_at?: string;
   deleted_at?: string;

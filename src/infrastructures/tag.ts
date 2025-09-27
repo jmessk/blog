@@ -13,7 +13,7 @@ export async function getAllTags(): Promise<Tag[]> {
     .select({
       id: tagsTable.id,
       name: tagsTable.name,
-      icon_url: tagsTable.icon_url,
+      icon_url: tagsTable.icon_uri,
     })
     .from(tagsTable)
     .orderBy(tagsTable.name);

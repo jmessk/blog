@@ -9,12 +9,12 @@
         {
             "id": "tag1",
             "name": "Tag 1",
-            "icon_url": "https://example.com/icon1.png"
+            "icon_uri": "https://example.com/icon1.png"
         },
         {
             "id": "tag2",
             "name": "Tag 2",
-            "icon_url": "https://example.com/icon2.png"
+            "icon_uri": "https://example.com/icon2.png"
         }
     ]
     ```
@@ -30,19 +30,19 @@
                 "title": "Test Post",
                 "description": "This is a test post.",
                 "tags": [ "tag1", "tag2" ],
-                "thumbnail_url": "https://example.com/thumbnail.jpg",
+                "thumbnail_uri": "https://example.com/thumbnail.jpg",
                 "created_at": "2023-10-01T12:00:00Z",
                 "updated_at": "2023-10-01T12:00:00Z",
                 "tags": [
                     {
                         "id": "tag1",
                         "name": "Tag 1",
-                        "icon_url": "https://example.com/icon1.png"
+                        "icon_uri": "https://example.com/icon1.png"
                     },
                     {
                         "id": "tag2",
                         "name": "Tag 2",
-                        "icon_url": "https://example.com/icon2.png"
+                        "icon_uri": "https://example.com/icon2.png"
                     }
                 ]
             },
@@ -51,13 +51,13 @@
                 "title": "Another Post",
                 "description": "This is another post.",
                 "tags": [ "tag3" ],
-                "thumbnail_url": "https://example.com/thumbnail.jpg",
+                "thumbnail_uri": "https://example.com/thumbnail.jpg",
                 "created_at": "2023-10-02T12:00:00Z",
                 "tags": [
                     {
                         "id": "tag3",
                         "name": "Tag 3",
-                        "icon_url": "https://example.com/icon3.png"
+                        "icon_uri": "https://example.com/icon3.png"
                     }
                 ]
             }
@@ -104,19 +104,19 @@
         "title": "Test Post",
         "description": "This is a test post.",
         "tags": [ "tag1", "tag2" ],
-        "thumbnail_url": "https://example.com/thumbnail.jpg",
+        "thumbnail_uri": "https://example.com/thumbnail.jpg",
         "created_at": "2023-10-01T12:00:00Z",
         "updated_at": "2023-10-01T12:00:00Z",
         "tags": [
             {
                 "id": "tag1",
                 "name": "Tag 1",
-                "icon_url": "https://example.com/icon1.png"
+                "icon_uri": "https://example.com/icon1.png"
             },
             {
                 "id": "tag2",
                 "name": "Tag 2",
-                "icon_url": "https://example.com/icon2.png"
+                "icon_uri": "https://example.com/icon2.png"
             }
         ]
     }
@@ -129,7 +129,7 @@
         "title": "Test Post",
         "description": "This is a test post.",
         "tags": [ "tag1", "tag2" ],
-        "thumbnail_url": "https://example.com/thumbnail.jpg",
+        "thumbnail_uri": "https://example.com/thumbnail.jpg",
         "created_at": "2023-10-01T12:00:00Z",
         "updated_at": "2023-10-01T12:00:00Z",
         "content": "# Test Post\n\nThis is a test post.",
@@ -137,12 +137,12 @@
             {
                 "id": "tag1",
                 "name": "Tag 1",
-                "icon_url": "https://example.com/icon1.png"
+                "icon_uri": "https://example.com/icon1.png"
             },
             {
                 "id": "tag2",
                 "name": "Tag 2",
-                "icon_url": "https://example.com/icon2.png"
+                "icon_uri": "https://example.com/icon2.png"
             }
         ]
     }

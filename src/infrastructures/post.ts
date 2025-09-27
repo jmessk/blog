@@ -20,7 +20,7 @@ export async function getPost({ id, withContent }: { id: string; withContent: bo
       id: postsTable.id,
       title: postsTable.title,
       description: postsTable.description,
-      thumbnail_url: postsTable.thumbnail_url,
+      thumbnail_url: postsTable.thumbnail_uri,
       content: withContent ? postsTable.content : sql`NULL`.as("content"),
       created_at: postsTable.created_at,
       updated_at: postsTable.updated_at,
@@ -32,7 +32,7 @@ export async function getPost({ id, withContent }: { id: string; withContent: bo
             json_object(
               'id', ${tagsTable.id},
               'name', ${tagsTable.name},
-              'icon_url', ${tagsTable.icon_url}
+              'icon_uri', ${tagsTable.icon_uri}
             )
           )
         END`
@@ -55,7 +55,7 @@ export async function getPost({ id, withContent }: { id: string; withContent: bo
     id: dbPost.id,
     title: dbPost.title,
     description: dbPost.description ?? undefined,
-    thumbnail_url: dbPost.thumbnail_url ?? undefined,
+    thumbnail_uri: dbPost.thumbnail_url ?? undefined,
     created_at: dbPost.created_at,
     updated_at: dbPost.updated_at ?? undefined,
     deleted_at: dbPost.deleted_at ?? undefined,
@@ -79,7 +79,7 @@ export async function getPosts(tagIds: string[] = []): Promise<PostMeta[]> {
       id: postsTable.id,
       title: postsTable.title,
       description: postsTable.description,
-      thumbnail_url: postsTable.thumbnail_url,
+      thumbnail_url: postsTable.thumbnail_uri,
       created_at: postsTable.created_at,
       updated_at: postsTable.updated_at,
       deleted_at: postsTable.deleted_at,
@@ -90,7 +90,7 @@ export async function getPosts(tagIds: string[] = []): Promise<PostMeta[]> {
             json_object(
               'id', ${tagsTable.id},
               'name', ${tagsTable.name},
-              'icon_url', ${tagsTable.icon_url}
+              'icon_uri', ${tagsTable.icon_uri}
             )
           )
         END`
@@ -123,7 +123,7 @@ export async function getPosts(tagIds: string[] = []): Promise<PostMeta[]> {
     id: row.id,
     title: row.title,
     description: row.description ?? undefined,
-    thumbnail_url: row.thumbnail_url ?? undefined,
+    thumbnail_uri: row.thumbnail_url ?? undefined,
     created_at: row.created_at,
     updated_at: row.updated_at ?? undefined,
     deleted_at: row.deleted_at ?? undefined,

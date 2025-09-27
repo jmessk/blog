@@ -2,7 +2,7 @@
 title: "Test Post"
 description: "This is a test post."
 tags: ["demo","curl"]
-thumbnail_url: "image-a.png"
+thumbnail_uri: "image-a.png"
 ---
 
 ## Test Post

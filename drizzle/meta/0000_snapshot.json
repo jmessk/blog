@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "9b9b2275-4fce-4911-a989-37f857503ed5",
+  "id": "23cfedb8-e2a7-4b1c-8ddc-29545f445b8b",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "post_tags": {
@@ -79,8 +79,8 @@
           "notNull": false,
           "autoincrement": false
         },
-        "thumbnail_url": {
-          "name": "thumbnail_url",
+        "thumbnail_uri": {
+          "name": "thumbnail_uri",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
@@ -138,8 +138,8 @@
           "notNull": true,
           "autoincrement": false
         },
-        "icon_url": {
-          "name": "icon_url",
+        "icon_uri": {
+          "name": "icon_uri",
           "type": "text",
           "primaryKey": false,
           "notNull": false,

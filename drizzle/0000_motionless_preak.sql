@@ -9,7 +9,7 @@ CREATE TABLE `posts` (
 	`id` text PRIMARY KEY NOT NULL,
 	`title` text NOT NULL,
 	`description` text,
-	`thumbnail_url` text,
+	`thumbnail_uri` text,
 	`content` text NOT NULL,
 	`created_at` text NOT NULL,
 	`updated_at` text,
@@ -19,7 +19,7 @@ CREATE TABLE `posts` (
 CREATE TABLE `tags` (
 	`id` text PRIMARY KEY NOT NULL,
 	`name` text NOT NULL,
-	`icon_url` text
+	`icon_uri` text
 );
 --> statement-breakpoint
 CREATE UNIQUE INDEX `tags_name_unique` ON `tags` (`name`);
