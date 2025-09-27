@@ -38,7 +38,7 @@ export function PostHeader({ postMeta }: { postMeta: PostMeta }) {
 
       <div className="grid w-full px-4 sm:px-6 md:px-8 gap-4">
 
-        <h1 className={`mt-0 scroll-m-20 text-center text-2xl font-bold ${postMeta.thumbnail_url ? "sm:mt-2" : "mt-2"}`}>
+        <h1 className={`scroll-m-20 text-center text-2xl font-bold mt-2`}>
           {postMeta.title}
         </h1>
 

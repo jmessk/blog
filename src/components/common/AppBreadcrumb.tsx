@@ -1,5 +1,6 @@
 "use client"
 
+import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -12,7 +13,7 @@ import {
 } from "@/components/ui/breadcrumb";
 
 
-export function BreadcrumbDemo({ className }: { className?: string }) {
+export function AppBreadcrumb({ className }: { className?: string }) {
   const paths = usePathname().split("/").filter(Boolean);
 
   let pathsWithLabel = paths.map((path, index) => {
@@ -27,7 +28,7 @@ export function BreadcrumbDemo({ className }: { className?: string }) {
   }
 
   return (
-    <Breadcrumb className={`${className}`}>
+    <Breadcrumb className={className}>
       <BreadcrumbList>
         {/* <BreadcrumbSeparator /> */}
         {pathsWithLabel.map(({ path, label }) => {
@@ -42,14 +43,14 @@ export function BreadcrumbDemo({ className }: { className?: string }) {
           }
 
           return (
-            <>
-              <BreadcrumbItem key={path}>
+            <React.Fragment key={path}>
+              <BreadcrumbItem>
                 <BreadcrumbLink asChild className="text-base text-neutral-500">
                   <Link href={path}>{label}</Link>
                 </BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator />
-            </>
+            </React.Fragment>
           )
         })}
       </BreadcrumbList>

@@ -6,7 +6,7 @@ import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 
 import "@/styles/globals.css";
 import { AppSidebar } from "@/components/common/AppSidebar";
-import { BreadcrumbDemo } from "@/components/common/AppBreadcrumb";
+import { AppBreadcrumb } from "@/components/common/AppBreadcrumb";
 import { AppHeader } from "@/components/header/AppHeader";
 import { MainContainer } from "@/components/common/MainContainer";
 
@@ -39,7 +39,7 @@ export default function RootLayout({
             <AppSidebar />
             <SidebarInset>
               <MainContainer>
-                <BreadcrumbDemo className="my-6" />
+                <AppBreadcrumb className="my-6" />
                 {children}
               </MainContainer>
             </SidebarInset>

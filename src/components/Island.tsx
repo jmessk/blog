@@ -10,7 +10,7 @@ export function Island(
   const twExpand = onMobileExpand ? 'max-sm:-mx-4 max-sm:w-screen max-sm:rounded-none' : '';
 
   return (
-    <div className={`grid my-6 py-6 w-full bg-card rounded-xl ${twExpand} ${twPadding} ${className}`}>
+    <div className={`my-6 py-6 w-full bg-card rounded-xl ${twExpand} ${twPadding} ${className}`}>
       {children}
     </div>
   );

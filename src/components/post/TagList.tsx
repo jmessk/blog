@@ -21,7 +21,7 @@ export function TagItem({ tag }: { tag: Tag }) {
     >
       {tag.icon_url &&
         <div className="w-5 h-5 overflow-hidden rounded-full bg-white">
-          <Image src={tag.icon_url} alt="" width={30} height={30} className="object-cover w-full h-full" />
+          <Image src={tag.icon_url} alt="" width={16} height={16} className="object-cover w-full h-full" />
         </div>
       }
       <span className="text-sm">{tag.name}</span>
