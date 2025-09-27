@@ -1,9 +1,5 @@
+export default async function Page() {
 
-
-export default function Post() {
-  return (
-    <>
-      <h1>Posts</h1>
-    </>
+  return (<div></div>
   );
 }

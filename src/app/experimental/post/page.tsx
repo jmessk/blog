@@ -32,8 +32,8 @@ const mockPost2: PostMeta = {
 export default function Post() {
   return (
     <>
-      <PostHeader postMeta={mockPost1}></PostHeader>
-      <PostHeader postMeta={mockPost2}></PostHeader>
+      <PostHeader meta={mockPost1}></PostHeader>
+      <PostHeader meta={mockPost2}></PostHeader>
       <Island onMobileExpand>
         <div className="doc">
           <Markdown>

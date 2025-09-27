@@ -13,7 +13,7 @@ export type PostMeta = {
   updated_at?: string;
   deleted_at?: string;
 
-  tags: Tag[];
+  tags?: Tag[];
 };
 
 // `content` is includeing the front-matter

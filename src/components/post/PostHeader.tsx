@@ -26,47 +26,47 @@ const twTimestamp = `text-sm flex items-center gap-2 text-muted-foreground strok
 const twIcon = `w-4 h-4`;
 
 
-export function PostHeader({ postMeta }: { postMeta: PostMeta }) {
+export function PostHeader({ meta }: { meta: PostMeta }) {
   return (
     <Island noPadding className="gap-6">
 
-      {postMeta.thumbnail_url &&
+      {meta.thumbnail_url &&
         <AspectRatio ratio={3 / 1} className="overflow-hidden">
-          <Image src={postMeta.thumbnail_url} alt="" width={1800} height={600} className="object-cover w-full h-full" />
+          <Image src={meta.thumbnail_url} alt="" width={1800} height={600} className="object-cover w-full h-full" />
         </AspectRatio>
       }
 
       <div className="grid w-full px-4 sm:px-6 md:px-8 gap-4">
 
         <h1 className={`scroll-m-20 text-center text-2xl font-bold mt-2`}>
-          {postMeta.title}
+          {meta.title}
         </h1>
 
         <p className="text-center">
-          {postMeta.description}
+          {meta.description}
         </p>
 
-        {postMeta.tags &&
+        {meta.tags && meta.tags.length > 0 &&
           <div className="flex flex-row justify-center gap-3">
-            <TagList tags={postMeta.tags} />
+            <TagList tags={meta.tags} />
           </div>
         }
 
         <div className="flex gap-5 justify-center">
           <div className={twTimestamp}>
             <Clock className={twIcon} />
-            <span className="">{formatDate(postMeta.created_at)}</span>
+            <span className="">{formatDate(meta.created_at)}</span>
           </div>
-          {postMeta.updated_at &&
+          {meta.updated_at &&
             <div className={twTimestamp}>
               <PenLine className={twIcon} />
-              <span>{formatDate(postMeta.updated_at)}</span>
+              <span>{formatDate(meta.updated_at)}</span>
             </div>
           }
-          {postMeta.deleted_at &&
+          {meta.deleted_at &&
             <div className={twTimestamp}>
               <BrushCleaning className={twIcon} />
-              <span>{postMeta.deleted_at}</span>
+              <span>{meta.deleted_at}</span>
             </div>
           }
         </div>

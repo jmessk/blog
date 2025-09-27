@@ -1,85 +1,24 @@
 import { NextRequest, NextResponse } from "next/server";
+import path from "path";
 import { getCloudflareContext } from "@opennextjs/cloudflare";
 import { drizzle } from "drizzle-orm/d1";
-import { eq, and, isNull, inArray, sql, exists } from "drizzle-orm";
-import path from "path";
 import { URL } from "url";
 import { uuidv7 } from "uuidv7";
-
 import { postsTable, tagsTable, postTagsTable } from "@/db/schema";
-import { FrontMatter, PostMeta, Tag } from "@/types/post";
+import { FrontMatter, PostMeta } from "@/types/post";
 import { extractContents } from "@/utils/markdown/extract";
 import { replacePaths } from "@/utils/markdown/replace";
 import { rebuildMarkdown } from "@/utils/markdown/rebuild";
 import { uploadImage } from "@/utils/image";
 import { normalizeTags } from "@/utils/tag";
+import { getPosts } from "@/infrastructures/post";
 
 
 export async function GET(request: NextRequest): Promise<NextResponse<PostMeta[]>> {
-  const { env } = getCloudflareContext();
-  const db = drizzle(env.D1_POSTS);
-
-  // クエリパラメータからタグを取得
-  const tagsNames = request
-    .nextUrl
-    .searchParams
-    .get("tags")?.split(",") ?? [];
-
+  const tagsNames = request.nextUrl.searchParams.get("tags")?.split(",") ?? [];
   const tagIds = normalizeTags(tagsNames);
 
-  const rows = await db
-    .select({
-      id: postsTable.id,
-      title: postsTable.title,
-      description: postsTable.description,
-      thumbnail_url: postsTable.thumbnail_url,
-      content: postsTable.content,
-      created_at: postsTable.created_at,
-      updated_at: postsTable.updated_at,
-      deleted_at: postsTable.deleted_at,
-      tags: sql<string>`
-        CASE
-          WHEN COUNT(${tagsTable.id}) = 0 THEN json('[]')
-          ELSE json_group_array(
-            json_object(
-              'id', ${tagsTable.id},
-              'name', ${tagsTable.name},
-              'icon_url', ${tagsTable.icon_url}
-            )
-          )
-        END`
-        .as("tags"),
-    })
-    .from(postsTable)
-    .leftJoin(postTagsTable, eq(postsTable.id, postTagsTable.post_id))
-    .leftJoin(tagsTable, eq(tagsTable.id, postTagsTable.tag_id))
-    .where(
-      tagIds.length === 0
-        ? isNull(postsTable.deleted_at)
-        : and(
-          isNull(postsTable.deleted_at),
-          exists(
-            db
-              .select()
-              .from(postTagsTable)
-              .where(
-                and(
-                  eq(postTagsTable.post_id, postsTable.id),
-                  inArray(postTagsTable.tag_id, tagIds)
-                )
-              )
-          )
-        )
-    )
-    .groupBy(postsTable.id);
-
-  const posts = rows
-    .map((row) => {
-      return {
-        ...row,
-        tags: JSON.parse(row.tags) as Tag[]
-      } as PostMeta;
-    });
+  const posts = await getPosts(tagIds);
 
   return NextResponse.json(posts);
 };
@@ -136,7 +75,7 @@ export async function POST(request: NextRequest) {
     }
 
     // const mdFileNames = extractPathFileNames(imagePaths);
-    const mdImagePaths = imagePaths.filter((imagePath) => !isUrl(imagePath));
+    const mdImagePaths = imagePaths.filter((imagePath: string) => !isUrl(imagePath));
 
     if (!checkAllFilesExist(mdImagePaths, files)) {
       throw new Error("Some files are referenced in markdown, but not uploaded");
