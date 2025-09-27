@@ -46,7 +46,7 @@ export function PostListItem({ meta, basePath }: { meta: PostMeta; basePath: str
   return (
     <li className="list-none">
       <Link href={href}>
-        <Island noPadding noMargin className="flex flex-col sm:flex-row overflow-hidden">
+        <Island noPadding className="flex flex-col sm:flex-row overflow-hidden">
 
           {thumbnail}
 

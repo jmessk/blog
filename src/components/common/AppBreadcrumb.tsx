@@ -27,6 +27,16 @@ export function AppBreadcrumb({ className }: { className?: string }) {
     pathsWithLabel.push({ path: "/", label: "Home" });
   }
 
+  if (pathsWithLabel.length == 1) {
+    return <Breadcrumb className={className}>
+      <BreadcrumbList>
+        <BreadcrumbItem>
+          <BreadcrumbPage className="text-xl" >{pathsWithLabel[0].label}</BreadcrumbPage>
+        </BreadcrumbItem>
+      </BreadcrumbList>
+    </Breadcrumb>
+  }
+
   return (
     <Breadcrumb className={className}>
       <BreadcrumbList>

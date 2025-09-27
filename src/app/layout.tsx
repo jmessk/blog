@@ -9,6 +9,7 @@ import { AppSidebar } from "@/components/common/AppSidebar";
 import { AppBreadcrumb } from "@/components/common/AppBreadcrumb";
 import { AppHeader } from "@/components/header/AppHeader";
 import { MainContainer } from "@/components/common/MainContainer";
+import { AppFooter } from "@/components/common/AppFooter";
 
 
 const notoSansJP = Noto_Sans_JP({
@@ -27,7 +28,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" suppressHydrationWarning className={notoSansJP.variable}>
-      <body>
+      <body className="min-h-screen flex flex-col">
         <NextThemesProvider
           attribute="class"
           defaultTheme="system"
@@ -38,9 +39,10 @@ export default function RootLayout({
             <AppHeader />
             <AppSidebar />
             <SidebarInset>
-              <MainContainer>
-                <AppBreadcrumb className="my-6" />
+              <MainContainer className="pt-6">
+                <AppBreadcrumb />
                 {children}
+                <AppFooter />
               </MainContainer>
             </SidebarInset>
           </SidebarProvider>

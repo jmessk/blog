@@ -33,7 +33,6 @@ export default async function Page() {
 
   return (
     <>
-      <h1 className="text-2xl font-bold mb-6">Posts (Experimental)</h1>
       <PostList metas={posts} basePath="/experimental" />
     </>
   );

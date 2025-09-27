@@ -34,7 +34,7 @@ export default function Post() {
     <>
       <PostHeader meta={mockPost1}></PostHeader>
       <PostHeader meta={mockPost2}></PostHeader>
-      <Island onMobileExpand className="doc">
+      <Island onMobileExpand className="doc py-12">
         <Markdown>
           {`
 ## h2
