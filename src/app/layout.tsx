@@ -14,6 +14,7 @@ import { AppFooter } from "@/components/common/AppFooter";
 
 const notoSansJP = Noto_Sans_JP({
   variable: "--font-noto-sans-jp",
+  subsets: ["latin"],
 });
 
 
