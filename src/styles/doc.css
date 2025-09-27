@@ -3,6 +3,14 @@
         @apply prose max-w-none dark:prose-invert;
     }
 
+    /* 最初と最後の直下要素の外側マージンを統一 (上/下余白の跳ねを防ぐ) */
+    .doc > *:first-child {
+        @apply mt-4;
+    }
+    .doc > *:last-child {
+        @apply mb-4;
+    }
+
     /* 見出し */
     .doc h1 {
         @apply text-base font-normal;
@@ -45,6 +53,7 @@
     .doc :not(pre)>code {
         @apply py-1 px-2 rounded-md bg-gray-100 dark:bg-neutral-800;
     }
+
     .doc :not(pre)>code::before,
     .doc :not(pre)>code::after {
         content: none !important;
@@ -85,15 +94,15 @@
     }
 
     /* TOC (rehype-toc) */
-    /* .doc .table-of-contents {
-        @apply text-sm border rounded-lg p-4 my-8 bg-zinc-50 dark:bg-zinc-800/40;
+    .doc .table-of-contents {
+        @apply my-8;
     }
 
-    .doc .table-of-contents ul {
+    /* .doc .table-of-contents ul {
         @apply list-none pl-0 space-y-1;
-    }
+    } */
 
-    .doc .table-of-contents a {
+    /* .doc .table-of-contents a {
         @apply no-underline hover:underline;
     } */
 }

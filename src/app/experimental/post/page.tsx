@@ -34,17 +34,12 @@ export default function Post() {
     <>
       <PostHeader meta={mockPost1}></PostHeader>
       <PostHeader meta={mockPost2}></PostHeader>
-      <Island onMobileExpand>
-        <div className="doc">
-          <Markdown>
-            {`
-# h1 don't be used
+      <Island onMobileExpand className="doc">
+        <Markdown>
+          {`
+## h2
 
 Rust（ラスト）は、性能、メモリ安全性、安全な並行性を目指して設計されたマルチパラダイムのプログラミング言語である。C言語、C++に代わるシステムプログラミング言語を目指しており[^2]、構文的にはC++に似ているが[3]、「ボローチェッカー」(borrow checker) で参照の有効性を検証することによってメモリ安全性を保証できる。Rustはガベージコレクションなしでのメモリ安全性を達成しており、必要な場面で参照カウントを使うこともできる[4][5]。
-
-[^2]: 注釈
-
-## h2
 
 Rust is a multi-paradigm, general-purpose programming language that emphasizes performance, type safety, and concurrency. It enforces memory safety, meaning that all references point to valid memory, without requiring the use of automated memory management techniques such as garbage collection. To simultaneously enforce memory safety and prevent data races, its "borrow checker" tracks the object lifetime of all references in a program during compilation. Rust was influenced by ideas from functional programming, including immutability, higher-order functions, and algebraic data types. It is popular for systems programming.[12][13][14]
 
@@ -125,8 +120,7 @@ term1
 term2
 : def1
 `}
-          </Markdown>
-        </div>
+        </Markdown>
       </Island>
     </>
   );

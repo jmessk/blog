@@ -1,6 +1,7 @@
 import Image from "next/image";
-import { Tag } from "@/types/post";
 import Link from "next/link";
+
+import { Tag } from "@/types/post";
 
 
 const twTagColor = `transition-colors bg-gray-100 hover:bg-gray-200 dark:bg-neutral-800 dark:hover:bg-neutral-700`;
@@ -15,7 +16,7 @@ export function TagList({ tags }: { tags: Tag[] }) {
 export function TagListItem({ tag }: { tag: Tag }) {
   return (
     <Link
-      href={`/tags/${tag.id}`}
+      href={`/posts?tags=${tag.id}`}
       key={tag.id}
       className={`shrink-0 flex items-center gap-2 rounded-full p-1 text-foreground ${twTagColor} ${tag.icon_uri ? "pr-3" : "px-3"}`}
     >

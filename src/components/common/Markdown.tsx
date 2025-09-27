@@ -1,4 +1,4 @@
-import { renderReact } from "@/utils/markdown/renderer";
+import { renderReact } from "@/utils/markdown/render";
 
 
 export async function Markdown({ children }: { children: string }) {

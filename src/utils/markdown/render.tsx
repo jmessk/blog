@@ -43,12 +43,12 @@ const processor = unified()
   .use(remarkParse)
   .use(remarkGfm)
   .use(remarkRehype)
-  .use(rehypeSlug)
-  .use(rehypeToc, {
-    headings: ['h2', 'h3'], cssClasses: {
-      toc: "table-of-contents"
-    }
-  })
+  // .use(rehypeSlug)
+  // .use(rehypeToc, {
+  //   headings: ['h2', 'h3'], cssClasses: {
+  //     toc: "table-of-contents"
+  //   }
+  // })
   .use(rehypeReact, { ...prod, components: { pre: codeBlockPre } });
 
 
