@@ -1,39 +1,14 @@
 import { Island } from "@/components/common/Island";
 import { PostHeader } from "@/components/post/PostHeader";
-import { PostMeta } from "@/types/post";
 import { Markdown } from "@/components/common/Markdown";
+import { posts } from "@/assets/mock/posts";
 
-
-const mockPost1: PostMeta = {
-  id: "12345",
-  title: "Mock Post",
-  description: "This is a mock post for testing purposes.",
-  thumbnail_uri: "https://upload.wikimedia.org/wikipedia/commons/4/4b/Cloudflare_Logo.svg",
-  created_at: new Date().toISOString(),
-  tags: [
-    { id: "typescript", name: "TypeScript", icon_uri: "https://upload.wikimedia.org/wikipedia/commons/4/4c/Typescript_logo_2020.svg" },
-    { id: "linux", name: "Linux", icon_uri: "https://upload.wikimedia.org/wikipedia/commons/3/35/Tux.svg" }
-  ]
-};
-
-const mockPost2: PostMeta = {
-  id: "12345",
-  title: "Mock Post",
-  description: "This is a mock post for testing purposes.",
-  thumbnail_uri: undefined,
-  tags: [
-    { id: "typescript", name: "TypeScript", icon_uri: "https://upload.wikimedia.org/wikipedia/commons/4/4b/Cloudflare_Logo.svg" },
-    { id: "linux", name: "Linux", icon_uri: undefined }
-  ],
-  created_at: new Date().toISOString(),
-  updated_at: new Date().toISOString(),
-};
 
 export default function Post() {
   return (
     <>
-      <PostHeader meta={mockPost1}></PostHeader>
-      <PostHeader meta={mockPost2}></PostHeader>
+      <PostHeader meta={posts[0]}></PostHeader>
+      <PostHeader meta={posts[1]}></PostHeader>
       <Island onMobileExpand className="doc py-12">
         <Markdown>
           {`

@@ -31,7 +31,7 @@ export function AppBreadcrumb({ className }: { className?: string }) {
     return <Breadcrumb className={className}>
       <BreadcrumbList>
         <BreadcrumbItem>
-          <BreadcrumbPage className="text-xl" >{pathsWithLabel[0].label}</BreadcrumbPage>
+          <BreadcrumbPage className="text-xl font-bold" >{pathsWithLabel[0].label}</BreadcrumbPage>
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>

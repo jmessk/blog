@@ -1,14 +1,15 @@
-import { Island } from "@/components/common/Island";
-import Link from "next/link";
+import { PostList, PostListItem } from "@/components/post/PostList";
+import { posts } from "@/assets/mock/posts";
 
 
-export default function Experimental() {
+export default async function Page() {
+
   return (
     <>
-      <Island>Island</Island>
-      <Island onMobileExpand>Island onMobileExpand</Island>
-      <Island><Link href="/experimental/post">post</Link></Island>
-      <Island><Link href="/experimental/list">list</Link></Island>
+      <PostList >
+        <PostListItem meta={posts[0]} href={`/experimental/${posts[0].id}`} />
+        <PostListItem meta={posts[1]} href={`/experimental/${posts[1].id}`} />
+      </PostList>
     </>
   );
 }

@@ -17,7 +17,7 @@ export default function Home() {
 
           <dt>GitHub</dt>
           <dd>
-            <a href="https://github.com/jmessk" className="underline hover:no-underline">
+            <a href="https://github.com/jmessk">
               jmessk
             </a>
           </dd>

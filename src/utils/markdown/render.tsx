@@ -5,8 +5,8 @@ import remarkParse from "remark-parse";
 import remarkGfm from "remark-gfm";
 import remarkRehype from "remark-rehype";
 import rehypeReact from "rehype-react";
-import rehypeToc from "rehype-toc";
-import rehypeSlug from "rehype-slug";
+// import rehypeToc from "rehype-toc";
+// import rehypeSlug from "rehype-slug";
 
 import * as prod from "react/jsx-runtime";
 

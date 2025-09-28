@@ -8,25 +8,16 @@ import { TagList } from "./TagList";
 import { Island } from "@/components/common/Island";
 
 
-type PostListProps = {
-  metas: PostMeta[];
-  basePath: string;
-  className?: string;
-};
-
-export function PostList({ metas, className, basePath }: PostListProps) {
+export function PostList({ className, children }: { className?: string; children: React.ReactNode }) {
   return (
     <ul className={`flex flex-col gap-6 ${className || ""}`}>
-      {metas.map((meta) => (
-        <PostListItem key={meta.id} meta={meta} basePath={basePath} />
-      ))}
+      {children}
     </ul>
   );
 }
 
 
-export function PostListItem({ meta, basePath }: { meta: PostMeta; basePath: string }) {
-  const href = path.join(basePath, meta.id);
+export function PostListItem({ meta, href }: { meta: PostMeta; href: string }) {
   const createdAt = formatDateShort(meta.created_at);
   const updatedAt = meta.updated_at ? formatDateShort(meta.updated_at) : undefined;
 
