@@ -1,9 +1,27 @@
-import { codeToHtml, createHighlighter } from "shiki"
+import { createHighlighterCore } from 'shiki/core'
+import { createJavaScriptRegexEngine } from 'shiki/engine/javascript'
+
+
+const highlighter = await createHighlighterCore({
+  themes: [
+    import('@shikijs/themes/dark-plus'),
+  ],
+  langs: [
+    import('@shikijs/langs/json'),
+    import('@shikijs/langs/yaml'),
+    import('@shikijs/langs/markdown'),
+    import('@shikijs/langs/bash'),
+    import('@shikijs/langs/typescript'),
+    import('@shikijs/langs/javascript'),
+    import('@shikijs/langs/python'),
+    import('@shikijs/langs/rust'),
+    import('@shikijs/langs/tsx'),
+  ],
+  engine: createJavaScriptRegexEngine()
+})
 
 
 export async function CodeBlock({ lang, filename, children }: { lang: string; filename?: string; children: string }) {
-  const highlighter = await createHighlighter({ langs: [lang], themes: ["dark-plus"] });
-
   let codeHtml = children;
 
   try {
@@ -13,7 +31,6 @@ export async function CodeBlock({ lang, filename, children }: { lang: string; fi
       transformers: [
         {
           pre(node) { this.addClassToHast(node, "px-4 py-5 overflow-x-auto") },
-          // code(node) { this.addClassToHast(node, "") }
         }
       ]
     });
