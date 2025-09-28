@@ -14,11 +14,17 @@ import { normalizeTags } from "@/utils/tag";
 import { getPosts } from "@/infrastructures/post";
 
 
-export async function GET(request: NextRequest): Promise<NextResponse<PostMeta[]>> {
+export async function GET(request: NextRequest) {
+  const category = request.nextUrl.searchParams.get("category");
+
+  if (!category) {
+    return NextResponse.json({ error: "`category` is required" }, { status: 400 });
+  }
+
   const tagsNames = request.nextUrl.searchParams.get("tags")?.split(",") ?? [];
   const tagIds = normalizeTags(tagsNames);
 
-  const posts = await getPosts(tagIds);
+  const posts = await getPosts(category, tagIds);
 
   return NextResponse.json(posts);
 };
@@ -55,6 +61,11 @@ export async function GET(request: NextRequest): Promise<NextResponse<PostMeta[]
 // }
 // ```
 export async function POST(request: NextRequest) {
+  const category = request.nextUrl.searchParams.get("category");
+
+  if (!category) {
+    return NextResponse.json({ error: "`category` is required" }, { status: 400 });
+  }
 
   const form = await request.formData();
 
@@ -107,6 +118,7 @@ export async function POST(request: NextRequest) {
     title: newFrontmatter.title!,
     description: newFrontmatter.description!,
     thumbnail_uri: newFrontmatter.thumbnail_uri!,
+    category: category,
     created_at: createdAt,
     content: newContent,
   }).run();

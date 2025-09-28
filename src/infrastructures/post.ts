@@ -21,6 +21,7 @@ export async function getPost({ id, withContent }: { id: string; withContent: bo
       title: postsTable.title,
       description: postsTable.description,
       thumbnail_url: postsTable.thumbnail_uri,
+      category: postsTable.category,
       content: withContent ? postsTable.content : sql`NULL`.as("content"),
       created_at: postsTable.created_at,
       updated_at: postsTable.updated_at,
@@ -56,6 +57,7 @@ export async function getPost({ id, withContent }: { id: string; withContent: bo
     title: dbPost.title,
     description: dbPost.description ?? undefined,
     thumbnail_uri: dbPost.thumbnail_url ?? undefined,
+    category: dbPost.category,
     created_at: dbPost.created_at,
     updated_at: dbPost.updated_at ?? undefined,
     deleted_at: dbPost.deleted_at ?? undefined,
@@ -70,7 +72,7 @@ export async function getPost({ id, withContent }: { id: string; withContent: bo
 }
 
 // Get multiple posts optionally filtered by tag names (normalized externally)
-export async function getPosts(tagIds: string[] = []): Promise<PostMeta[]> {
+export async function getPosts(category: string, tagIds: string[] = []): Promise<PostMeta[]> {
   const { env } = getCloudflareContext();
   const db = drizzle(env.D1_POSTS);
 
@@ -80,6 +82,7 @@ export async function getPosts(tagIds: string[] = []): Promise<PostMeta[]> {
       title: postsTable.title,
       description: postsTable.description,
       thumbnail_url: postsTable.thumbnail_uri,
+      category: postsTable.category,
       created_at: postsTable.created_at,
       updated_at: postsTable.updated_at,
       deleted_at: postsTable.deleted_at,
@@ -101,9 +104,13 @@ export async function getPosts(tagIds: string[] = []): Promise<PostMeta[]> {
     .leftJoin(tagsTable, eq(tagsTable.id, postTagsTable.tag_id))
     .where(
       tagIds.length === 0
-        ? isNull(postsTable.deleted_at)
+        ? and(
+          isNull(postsTable.deleted_at),
+          eq(postsTable.category, category)
+        )
         : and(
           isNull(postsTable.deleted_at),
+          eq(postsTable.category, category),
           exists(
             db
               .select()
@@ -124,6 +131,7 @@ export async function getPosts(tagIds: string[] = []): Promise<PostMeta[]> {
     title: row.title,
     description: row.description ?? undefined,
     thumbnail_uri: row.thumbnail_url ?? undefined,
+    category: row.category,
     created_at: row.created_at,
     updated_at: row.updated_at ?? undefined,
     deleted_at: row.deleted_at ?? undefined,

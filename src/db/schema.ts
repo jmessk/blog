@@ -1,4 +1,4 @@
-import { sqliteTable, text} from "drizzle-orm/sqlite-core";
+import { sqliteTable, text } from "drizzle-orm/sqlite-core";
 
 
 export const postsTable = sqliteTable("posts", {
@@ -6,6 +6,7 @@ export const postsTable = sqliteTable("posts", {
   title: text().notNull(),
   description: text(),
   thumbnail_uri: text(),
+  category: text().notNull(),
   content: text().notNull(),
   created_at: text().notNull(),
   updated_at: text(),

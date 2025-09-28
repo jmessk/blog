@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "23cfedb8-e2a7-4b1c-8ddc-29545f445b8b",
+  "id": "eaca1d6c-ac00-45d6-a3d3-86fcb6eb719f",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "post_tags": {
@@ -84,6 +84,13 @@
           "type": "text",
           "primaryKey": false,
           "notNull": false,
+          "autoincrement": false
+        },
+        "category": {
+          "name": "category",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
           "autoincrement": false
         },
         "content": {

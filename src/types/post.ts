@@ -9,6 +9,7 @@ export type PostMeta = {
   title: string;
   description?: string;
   thumbnail_uri?: string;
+  category: string;
   created_at: string;
   updated_at?: string;
   deleted_at?: string;
