@@ -16,7 +16,7 @@ export function TagList({ tags }: { tags: Tag[] }) {
 export function TagListItem({ tag }: { tag: Tag }) {
   return (
     <Link
-      href={`/posts?tags=${tag.id}`}
+      href={`/posts?category=${tag.category}&tags=${tag.id}`}
       key={tag.id}
       className={`shrink-0 flex items-center gap-2 rounded-full p-1 text-foreground ${twTagColor} ${tag.icon_uri ? "pr-3" : "px-3"}`}
     >

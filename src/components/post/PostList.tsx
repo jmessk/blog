@@ -26,8 +26,8 @@ export function PostListItem({ meta, href }: { meta: PostMeta; href: string }) {
       <Image
         src={meta.thumbnail_uri}
         alt=""
-        width={600}
-        height={400}
+        width={300}
+        height={200}
         className="object-cover w-full h-full"
         priority={false}
       />
@@ -37,11 +37,11 @@ export function PostListItem({ meta, href }: { meta: PostMeta; href: string }) {
   return (
     <li className="list-none">
       <Link href={href}>
-        <Island noPadding className="flex flex-col sm:flex-row overflow-hidden">
+        <Island noPadding className="flex flex-col sm:flex-row sm:h-37 overflow-hidden">
 
           {thumbnail}
 
-          <div className="flex flex-col w-full sm:w-3/4 px-4 sm:px-6 md:px-8 gap-1 py-4 ">
+          <div className="flex flex-col w-full sm:w-3/4 px-4 sm:px-6 md:px-8 py-4 gap-1">
 
             <h2 className="text-xl text-foreground font-semibold leading-snug line-clamp-1">{meta.title}</h2>
 

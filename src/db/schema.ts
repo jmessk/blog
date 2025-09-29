@@ -17,6 +17,7 @@ export const tagsTable = sqliteTable("tags", {
   id: text().notNull().primaryKey(), // e.g. javascript
   name: text().notNull().unique(),   // e.g. JavaScript
   icon_uri: text(),
+  category: text().notNull(),
 });
 
 export const postTagsTable = sqliteTable("post_tags", {

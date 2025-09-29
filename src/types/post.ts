@@ -2,6 +2,7 @@ export type Tag = {
   id: string;
   name: string;
   icon_uri?: string;
+  category: string;
 }
 
 export type PostMeta = {

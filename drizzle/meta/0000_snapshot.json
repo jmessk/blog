@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "eaca1d6c-ac00-45d6-a3d3-86fcb6eb719f",
+  "id": "2fc6fa5a-da65-4cc1-9594-6a69fc305e03",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "post_tags": {
@@ -150,6 +150,13 @@
           "type": "text",
           "primaryKey": false,
           "notNull": false,
+          "autoincrement": false
+        },
+        "category": {
+          "name": "category",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
           "autoincrement": false
         }
       },

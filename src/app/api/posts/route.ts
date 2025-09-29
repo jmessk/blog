@@ -11,20 +11,18 @@ import { replacePaths } from "@/utils/markdown/replace";
 import { rebuildMarkdown } from "@/utils/markdown/rebuild";
 import { uploadImage } from "@/infrastructures/image";
 import { normalizeTags } from "@/utils/tag";
+import { normalizeCategory } from "@/utils/category";
 import { getPosts } from "@/infrastructures/post";
 
 
 export async function GET(request: NextRequest) {
-  const category = request.nextUrl.searchParams.get("category");
+  const categoryParam = request.nextUrl.searchParams.get("category");
+  const category = categoryParam ? normalizeCategory(categoryParam) : undefined;
 
-  if (!category) {
-    return NextResponse.json({ error: "`category` is required" }, { status: 400 });
-  }
+  const tagsParam = request.nextUrl.searchParams.get("tags")?.split(",");
+  const tagIds = tagsParam ? normalizeTags(tagsParam) : undefined;
 
-  const tagsNames = request.nextUrl.searchParams.get("tags")?.split(",") ?? [];
-  const tagIds = normalizeTags(tagsNames);
-
-  const posts = await getPosts(category, tagIds);
+  const posts = await getPosts({ category, tagIds });
 
   return NextResponse.json(posts);
 };
@@ -61,12 +59,6 @@ export async function GET(request: NextRequest) {
 // }
 // ```
 export async function POST(request: NextRequest) {
-  const category = request.nextUrl.searchParams.get("category");
-
-  if (!category) {
-    return NextResponse.json({ error: "`category` is required" }, { status: 400 });
-  }
-
   const form = await request.formData();
 
   let content;
@@ -83,6 +75,10 @@ export async function POST(request: NextRequest) {
     // frontmatterの `title` が存在するか検証
     if (!frontmatter.title) {
       throw new Error("`title` does not exists in frontmatter");
+    }
+
+    if (!frontmatter.category) {
+      throw new Error("`category` does not exists in frontmatter");
     }
 
     // const mdFileNames = extractPathFileNames(imagePaths);
@@ -105,10 +101,12 @@ export async function POST(request: NextRequest) {
   const id = uuidv7();
   const createdAt = new Date().toISOString();
 
+  const newCategory = normalizeCategory(frontmatter.category!);
   const newTags = normalizeTags(frontmatter.tags || []);
+
   const newFrontmatter = updateFrontmatter(
     frontmatter,
-    id, newTags, createdAt, urlMap
+    id, newCategory, newTags, createdAt, urlMap
   );
   const newContent = replacePaths(content, urlMap);
   const newMarkdown = rebuildMarkdown(newFrontmatter, newContent);
@@ -118,7 +116,7 @@ export async function POST(request: NextRequest) {
     title: newFrontmatter.title!,
     description: newFrontmatter.description!,
     thumbnail_uri: newFrontmatter.thumbnail_uri!,
-    category: category,
+    category: newCategory,
     created_at: createdAt,
     content: newContent,
   }).run();
@@ -128,6 +126,7 @@ export async function POST(request: NextRequest) {
     newTags.map((tag) => ({
       id: tag,
       name: tag,
+      category: newCategory,
     }))
   ).onConflictDoNothing().run();
 
@@ -229,6 +228,7 @@ async function uploadAndMakeMap(fileMap: Record<string, File>): Promise<Record<s
 function updateFrontmatter(
   frontmatter: FrontMatter,
   id: string,
+  category: string,
   tags: string[],
   createdAt: string,
   urlMap: Record<string, string>

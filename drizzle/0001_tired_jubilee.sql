@@ -6,7 +6,7 @@ INSERT INTO "posts" ("id", "title", "description", "thumbnail_uri", "category", 
   'Example Post 1',
   'This is a test post.',
   'https://rustacean.net/assets/rustacean-orig-noshadow.png',
-  'tech',
+  'example',
   '## Example Post 1
   
   This is a test post.
@@ -14,10 +14,11 @@ INSERT INTO "posts" ("id", "title", "description", "thumbnail_uri", "category", 
   '2000-01-01T00:00:00Z'
 );
 --> statement-breakpoint
-INSERT INTO "tags" ("id", "name", "icon_uri") VALUES (
+INSERT INTO "tags" ("id", "name", "icon_uri", "category") VALUES (
   'rust',
   'Rust',
-  'https://www.rust-lang.org/static/images/rust-logo-blk.svg'
+  'https://www.rust-lang.org/static/images/rust-logo-blk.svg',
+  'example'
 );
 --> statement-breakpoint
 INSERT INTO "post_tags" ("post_id", "tag_id") VALUES ('0', 'rust');
@@ -29,7 +30,7 @@ INSERT INTO "posts" ("id", "title", "description", "thumbnail_uri", "category", 
   'Example Post 2',
   'This is a test post.',
   'https://upload.wikimedia.org/wikipedia/commons/3/35/Tux.svg',
-  'tech',
+  'example',
   '## Example Post 2
   
   This is a test post.
@@ -37,10 +38,11 @@ INSERT INTO "posts" ("id", "title", "description", "thumbnail_uri", "category", 
   '1999-12-31T23:59:59Z'
 );
 --> statement-breakpoint
-INSERT INTO "tags" ("id", "name", "icon_uri") VALUES (
+INSERT INTO "tags" ("id", "name", "icon_uri", "category") VALUES (
   'linux',
   'Linux',
-  'https://upload.wikimedia.org/wikipedia/commons/3/35/Tux.svg'
+  'https://upload.wikimedia.org/wikipedia/commons/3/35/Tux.svg',
+  'example'
 );
 --> statement-breakpoint
 INSERT INTO "post_tags" ("post_id", "tag_id") VALUES ('1', 'linux');

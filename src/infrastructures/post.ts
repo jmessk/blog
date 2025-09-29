@@ -33,7 +33,8 @@ export async function getPost({ id, withContent }: { id: string; withContent: bo
             json_object(
               'id', ${tagsTable.id},
               'name', ${tagsTable.name},
-              'icon_uri', ${tagsTable.icon_uri}
+              'icon_uri', ${tagsTable.icon_uri},
+              'category', ${tagsTable.category}
             )
           )
         END`
@@ -71,8 +72,13 @@ export async function getPost({ id, withContent }: { id: string; withContent: bo
   return meta;
 }
 
+type GetPostsParams = {
+  category?: string;
+  tagIds?: string[];
+}
+
 // Get multiple posts optionally filtered by tag names (normalized externally)
-export async function getPosts(category: string, tagIds: string[] = []): Promise<PostMeta[]> {
+export async function getPosts({ category, tagIds = [] }: GetPostsParams): Promise<PostMeta[]> {
   const { env } = getCloudflareContext();
   const db = drizzle(env.D1_POSTS);
 
@@ -93,7 +99,8 @@ export async function getPosts(category: string, tagIds: string[] = []): Promise
             json_object(
               'id', ${tagsTable.id},
               'name', ${tagsTable.name},
-              'icon_uri', ${tagsTable.icon_uri}
+              'icon_uri', ${tagsTable.icon_uri},
+              'category', ${tagsTable.category}
             )
           )
         END`
@@ -106,11 +113,11 @@ export async function getPosts(category: string, tagIds: string[] = []): Promise
       tagIds.length === 0
         ? and(
           isNull(postsTable.deleted_at),
-          eq(postsTable.category, category)
+          category ? eq(postsTable.category, category) : sql`1=1`
         )
         : and(
           isNull(postsTable.deleted_at),
-          eq(postsTable.category, category),
+          category ? eq(postsTable.category, category) : sql`1=1`,
           exists(
             db
               .select()

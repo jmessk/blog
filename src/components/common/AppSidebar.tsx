@@ -69,8 +69,8 @@ export function AppSidebar() {
           <SidebarGroupContent>
             <SidebarMenu>
 
-              <ButtonItem text={"Tech"} href={"/posts"} icon={Code} />
-              <ButtonItem text={"Life"} href={"/posts"} icon={Sprout} />
+              <ButtonItem text={"Tech"} href={"/posts?category=tech"} icon={Code} />
+              <ButtonItem text={"Life"} href={"/posts?category=life"} icon={Sprout} />
 
             </SidebarMenu>
           </SidebarGroupContent>
