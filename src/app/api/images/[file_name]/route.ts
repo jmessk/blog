@@ -1,7 +1,8 @@
 import { getCloudflareContext } from "@opennextjs/cloudflare";
+import { NextRequest, NextResponse } from "next/server";
 
 
-export async function GET({ params }: { params: Promise<{ file_name: string }> }) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ file_name: string }> }) {
   const { env } = getCloudflareContext();
 
   const { file_name } = await params;
