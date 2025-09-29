@@ -30,8 +30,14 @@ export default function Home() {
         <h2>Technical Stack</h2>
         <p>Source: <a href="https://github.com/jmessk/blog">jmessk/blog</a> on GitHub.</p>
         <ul>
-          <li>Base: <b>Next.js</b> and <b>OpenNext-Cloudflare</b> (with <b>React</b>, <b>TypeScript</b>, <b>Tailwind CSS</b>)</li>
-          <li>Hosting on: <b>Cloudflare Workers</b>
+          <li><b>Next.js</b> and <b>OpenNext-Cloudflare</b> as base framework.
+            <ul>
+              <li><b>React</b> and <b>TypeScript</b>.</li>
+              <li><b>Tailwind CSS</b> for styling.</li>
+              <li><b>drizzle-orm</b> for database access.</li>
+            </ul>
+          </li>
+          <li>Hosting on <b>Cloudflare Workers</b>
             <ul>
               <li>Domain (<code>blog.jmessk.net</code>)</li>
               <li><b>D1</b> and <b>R2</b> as Storage</li>
