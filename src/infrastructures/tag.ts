@@ -14,7 +14,7 @@ export async function getTags(category?: string): Promise<Tag[]> {
     .select({
       id: tagsTable.id,
       name: tagsTable.name,
-      icon_url: tagsTable.icon_uri,
+      icon_uri: tagsTable.icon_uri,
       category: tagsTable.category,
     })
     .from(tagsTable)

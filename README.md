@@ -19,7 +19,7 @@
     ]
     ```
 
-- `GET /api/posts?tags=<tag>,<tag>`
+- `GET /api/posts?category=<category>&tags=<tag>,<tag>`
 
     ```json
     {
@@ -31,6 +31,7 @@
                 "description": "This is a test post.",
                 "tags": [ "tag1", "tag2" ],
                 "thumbnail_uri": "https://example.com/thumbnail.jpg",
+                "category": "example",
                 "created_at": "2023-10-01T12:00:00Z",
                 "updated_at": "2023-10-01T12:00:00Z",
                 "tags": [
@@ -52,6 +53,7 @@
                 "description": "This is another post.",
                 "tags": [ "tag3" ],
                 "thumbnail_uri": "https://example.com/thumbnail.jpg",
+                "category": "example",
                 "created_at": "2023-10-02T12:00:00Z",
                 "tags": [
                     {
@@ -65,7 +67,7 @@
     }
     ```
 
-- `POST /api/posts`: Create new posts.
+- `POST /api/posts?category=<category>`: Create new posts.
 
     Request:
 
@@ -105,6 +107,7 @@
         "description": "This is a test post.",
         "tags": [ "tag1", "tag2" ],
         "thumbnail_uri": "https://example.com/thumbnail.jpg",
+        "category": "example",
         "created_at": "2023-10-01T12:00:00Z",
         "updated_at": "2023-10-01T12:00:00Z",
         "tags": [
@@ -130,6 +133,7 @@
         "description": "This is a test post.",
         "tags": [ "tag1", "tag2" ],
         "thumbnail_uri": "https://example.com/thumbnail.jpg",
+        "category": "example",
         "created_at": "2023-10-01T12:00:00Z",
         "updated_at": "2023-10-01T12:00:00Z",
         "content": "# Test Post\n\nThis is a test post.",
@@ -156,6 +160,7 @@
     "description": "This is a test post.",
     "tags": [ "tag1", "tag2" ],
     "thumbnail": "https://example.com/thumbnail.jpg"
+    "category": "example",
     "created_at": "2023-10-01T12:00:00Z",
     "updated_at": "2023-10-01T12:00:00Z",
     "tags": [ "tag1", "tag2" ]
@@ -195,6 +200,28 @@
         "id": "<UUID>",
         "deleted_at": "2023-10-01T12:00:00Z",
         "delete_type": "soft",
-        "deleted_content": "# Test Post\n\nThis is a test post."
+        "post": {
+            "id": "<UUID>",
+            "title": "Test Post",
+            "description": "This is a test post.",
+            "tags": [ "tag1", "tag2" ],
+            "thumbnail_uri": "https://example.com/thumbnail.jpg",
+            "category": "example",
+            "created_at": "2023-10-01T12:00:00Z",
+            "updated_at": "2023-10-01T12:00:00Z",
+            "deleted_at": "2023-10-01T12:00:00Z",
+            "tags": [
+                {
+                    "id": "tag1",
+                    "name": "Tag 1",
+                    "icon_uri": "https://example.com/icon1.png"
+                },
+                {
+                    "id": "tag2",
+                    "name": "Tag 2",
+                    "icon_uri": "https://example.com/icon2.png"
+                }
+            ]
+        }
     }
     ```

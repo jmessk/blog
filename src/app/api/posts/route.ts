@@ -59,6 +59,12 @@ export async function GET(request: NextRequest) {
 // }
 // ```
 export async function POST(request: NextRequest) {
+  const category = request.nextUrl.searchParams.get("category");
+
+  if (category) {
+    return NextResponse.json({ error: "`category` should not be specified in query parameters for POST /api/posts" }, { status: 400 });
+  }
+
   const form = await request.formData();
 
   let content;
@@ -75,10 +81,6 @@ export async function POST(request: NextRequest) {
     // frontmatterの `title` が存在するか検証
     if (!frontmatter.title) {
       throw new Error("`title` does not exists in frontmatter");
-    }
-
-    if (!frontmatter.category) {
-      throw new Error("`category` does not exists in frontmatter");
     }
 
     // const mdFileNames = extractPathFileNames(imagePaths);
@@ -101,7 +103,7 @@ export async function POST(request: NextRequest) {
   const id = uuidv7();
   const createdAt = new Date().toISOString();
 
-  const newCategory = normalizeCategory(frontmatter.category!);
+  const newCategory = normalizeCategory(category!);
   const newTags = normalizeTags(frontmatter.tags || []);
 
   const newFrontmatter = updateFrontmatter(

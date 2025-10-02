@@ -41,12 +41,12 @@ const processor = unified()
   .use(remarkStringify);
 
 export function extractContents(markdown: string) {
-  const file = processor.processSync(markdown);
+  const file = processor.processSync(markdown) as VFile;
   const frontmatter = file.data.frontmatter ?? {}
   const imagePaths = file.data.images ?? [];
 
-  if (file.data.frontmatter?.thumbnail_url) {
-    imagePaths.push(file.data.frontmatter.thumbnail_url);
+  if (file.data.frontmatter?.thumbnail_uri) {
+    imagePaths.push(file.data.frontmatter.thumbnail_uri);
   }
 
   return {
