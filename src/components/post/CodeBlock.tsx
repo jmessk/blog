@@ -47,7 +47,7 @@ export async function CodeBlock({ lang, filename, children }: { lang: string; fi
   return (
     <div className="not-prose codeblock">
       {filename &&
-        <div className="px-4 py-2 rounded-t-2xl bg-slate-200 dark:bg-slate-500/20">
+        <div className="px-4 py-2 rounded-t-2xl bg-secondary">
           <span className="font-mono text-sm">{filename}</span>
         </div>
       }

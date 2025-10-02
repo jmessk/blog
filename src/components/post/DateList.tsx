@@ -1,7 +1,7 @@
 import { Clock, PenLine } from "lucide-react";
 
 
-// 2025/01/01 15:30
+// 2025/01/01 05:30
 export function formatDate(isoString: string): string {
   const date = new Date(isoString);
 
@@ -11,7 +11,7 @@ export function formatDate(isoString: string): string {
   const hour = date.getHours();
   const minute = date.getMinutes();
 
-  return `${year}/${month}/${day} ${hour}:${minute}`;
+  return `${year}/${month}/${day} ${hour.toString().padStart(2, "0")}:${minute.toString().padStart(2, "0")}`;
 }
 
 // 2025/01/01

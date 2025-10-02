@@ -46,7 +46,7 @@
 
     /* リンク */
     .doc a {
-        @apply text-sky-600 no-underline;
+        @apply text-link no-underline;
     }
 
     /* 定義リスト (ラベル列固定幅 + 値可変) */
@@ -96,7 +96,10 @@
         @apply bg-zinc-100 dark:bg-zinc-800;
     }
 
-    .doc th,
+    .doc th {
+        @apply border px-3 py-2 border-neutral-200 dark:border-neutral-700 bg-secondary;
+    }
+
     .doc td {
         @apply border px-3 py-2 border-neutral-200 dark:border-neutral-700;
     }

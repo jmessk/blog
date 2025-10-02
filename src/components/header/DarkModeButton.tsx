@@ -4,7 +4,7 @@ import { useTheme } from "next-themes";
 import { Moon, Sun } from "lucide-react";
 
 
-const twIcon = `w-7 h-7 transition-colors stroke-gray-600 hover:stroke-gray-800 dark:stroke-gray-400 dark:hover:stroke-gray-300`;
+const twIcon = `w-7 h-7 transition-colors stroke-primary hover:stroke-primary-hover`;
 
 
 export function DarkModeButton(props: React.HTMLAttributes<HTMLButtonElement>) {

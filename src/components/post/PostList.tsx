@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import path from "path";
 
 import { PostMeta } from "@/types/post";
 import { DateList, formatDateShort } from "./DateList";
@@ -37,7 +36,7 @@ export function PostListItem({ meta, href }: { meta: PostMeta; href: string }) {
   return (
     <li className="list-none">
       <Link href={href}>
-        <Island noPadding className="flex flex-col sm:flex-row sm:h-37 overflow-hidden">
+        <Island noPadding className="group flex flex-col sm:flex-row sm:h-37 overflow-hidden hover:bg-card-hover transition-colors">
 
           {thumbnail}
 
@@ -56,7 +55,7 @@ export function PostListItem({ meta, href }: { meta: PostMeta; href: string }) {
                 <div className="flex flex-nowrap gap-2 whitespace-nowrap">
                   <TagList tags={meta.tags} />
                 </div>
-                <div className="pointer-events-none absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-card to-transparent" />
+                <div className="pointer-events-none absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-card to-transparent group-hover:hidden" />
               </div>
             )}
             <div className="mt-auto flex gap-5 text-muted-foreground">

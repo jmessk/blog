@@ -37,8 +37,8 @@ function ButtonItem({
             `size` prop is not working.
             more information: https://github.com/shadcn-ui/ui/issues/6316
            */}
-          <Icon className="!size-6 stroke-gray-500 dark:stroke-gray-400" />
-          <span className="text-base font-medium text-gray-700 dark:text-gray-300">{text}</span>
+          <Icon className="!size-6 stroke-primary" />
+          <span className="text-base font-medium text-foreground">{text}</span>
         </Link>
       </SidebarMenuButton>
     </SidebarMenuItem>
@@ -52,7 +52,7 @@ const twGroupeLabel = "text-sm text-muted-foreground";
 export function AppSidebar() {
   return (
     <Sidebar className="top-12">
-      <SidebarContent className="pt-13 flex flex-col">
+      <SidebarContent className="pt-13 flex flex-col border-none">
 
         <SidebarGroup>
           <SidebarGroupContent>

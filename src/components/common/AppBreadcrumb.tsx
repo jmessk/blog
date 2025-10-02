@@ -55,7 +55,7 @@ export function AppBreadcrumb({ className }: { className?: string }) {
           return (
             <React.Fragment key={path}>
               <BreadcrumbItem>
-                <BreadcrumbLink asChild className="text-base text-neutral-500">
+                <BreadcrumbLink asChild className="text-base text-primary hover:text-primary-hover">
                   <Link href={path}>{label}</Link>
                 </BreadcrumbLink>
               </BreadcrumbItem>
