@@ -1,5 +1,6 @@
 export function Island(
-  { children, className, noPadding, onMobileExpand }: {
+  { title, children, className, noPadding, onMobileExpand }: {
+    title?: string;
     children?: React.ReactNode;
     className?: string;
     noPadding?: boolean;
@@ -10,8 +11,11 @@ export function Island(
   const twExpand = onMobileExpand ? 'max-sm:-mx-4 max-sm:w-screen max-sm:rounded-none' : '';
 
   return (
-    <div className={`w-full bg-card rounded-xl ${twExpand} ${twPadding} ${className || ''}`}>
-      {children}
+    <div>
+      {title && <h2 className="text-xl font-bold mb-3 px-2">{title}</h2>}
+      <div className={`w-full bg-card rounded-xl ${twExpand} ${twPadding} ${className || ''}`}>
+        {children}
+      </div>
     </div>
   );
 }

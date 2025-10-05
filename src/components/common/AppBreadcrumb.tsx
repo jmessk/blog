@@ -28,17 +28,19 @@ export function AppBreadcrumb({ className }: { className?: string }) {
   }
 
   if (pathsWithLabel.length == 1) {
-    return <Breadcrumb className={className}>
-      <BreadcrumbList>
-        <BreadcrumbItem>
-          <BreadcrumbPage className="text-xl font-bold" >{pathsWithLabel[0].label}</BreadcrumbPage>
-        </BreadcrumbItem>
-      </BreadcrumbList>
-    </Breadcrumb>
+    return (
+      <Breadcrumb className={`px-2 $${className}`}>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbPage className="text-xl font-bold" >{pathsWithLabel[0].label}</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+    );
   }
 
   return (
-    <Breadcrumb className={className}>
+    <Breadcrumb className={`px-2 $${className}`}>
       <BreadcrumbList>
         {/* <BreadcrumbSeparator /> */}
         {pathsWithLabel.map(({ path, label }) => {

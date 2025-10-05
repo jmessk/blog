@@ -41,7 +41,6 @@ export default function RootLayout({
             <AppSidebar />
             <SidebarInset>
               <MainContainer className="pt-6">
-                <AppBreadcrumb />
                 {children}
                 <AppFooter />
               </MainContainer>
