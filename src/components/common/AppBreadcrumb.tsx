@@ -13,12 +13,20 @@ import {
 } from "@/components/ui/breadcrumb";
 
 
-export function AppBreadcrumb({ className }: { className?: string }) {
+export function AppBreadcrumb({ title, pathMap, className }: {
+  title?: string;
+  pathMap?: { [key: string]: string };
+  className?: string
+}) {
   const paths = usePathname().split("/").filter(Boolean);
 
   let pathsWithLabel = paths.map((path, index) => {
     const fullPath = "/" + paths.slice(0, index + 1).join("/");
     const label = path.charAt(0).toUpperCase() + path.slice(1);
+
+    if (pathMap && pathMap[fullPath]) {
+      return { path: pathMap[fullPath], label };
+    }
 
     return { path: fullPath, label };
   });
@@ -30,9 +38,11 @@ export function AppBreadcrumb({ className }: { className?: string }) {
   if (pathsWithLabel.length == 1) {
     return (
       <Breadcrumb className={`px-2 $${className}`}>
-        <BreadcrumbList>
+        <BreadcrumbList className="flex-nowrap">
           <BreadcrumbItem>
-            <BreadcrumbPage className="text-xl font-bold" >{pathsWithLabel[0].label}</BreadcrumbPage>
+            <BreadcrumbPage className="text-xl font-bold" >
+              {title || pathsWithLabel[0].label}
+            </BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
@@ -41,7 +51,7 @@ export function AppBreadcrumb({ className }: { className?: string }) {
 
   return (
     <Breadcrumb className={`px-2 $${className}`}>
-      <BreadcrumbList>
+      <BreadcrumbList className="flex-nowrap">
         {/* <BreadcrumbSeparator /> */}
         {pathsWithLabel.map(({ path, label }) => {
 
@@ -49,7 +59,9 @@ export function AppBreadcrumb({ className }: { className?: string }) {
           if (path === usePathname()) {
             return (
               <BreadcrumbItem key={path}>
-                <BreadcrumbPage className="text-base" >{label}</BreadcrumbPage>
+                <BreadcrumbPage className="text-base inline-block max-w-[10rem] truncate" >
+                  {title || label}
+                </BreadcrumbPage>
               </BreadcrumbItem>
             )
           }

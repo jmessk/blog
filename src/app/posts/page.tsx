@@ -1,3 +1,5 @@
+import { AppBreadcrumb } from "@/components/common/AppBreadcrumb";
+
 import { getPosts } from "@/infrastructures/post";
 import { PostList, PostListItem } from "@/components/post/PostList";
 import { normalizeTags } from "@/utils/tag";
@@ -27,6 +29,7 @@ export default async function Page({
 
   return (
     <>
+      <AppBreadcrumb />
       <PostList >
         {posts.map((post) => (
           <PostListItem key={post.id} meta={post} href={`/posts/${post.id}`} />
