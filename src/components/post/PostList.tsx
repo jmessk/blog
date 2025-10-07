@@ -36,13 +36,15 @@ export function PostListItem({ meta, href }: { meta: PostMeta; href: string }) {
   return (
     <li className="list-none">
       <Link href={href}>
-        <Island noPadding className="group flex flex-col sm:flex-row sm:h-37 overflow-hidden hover:bg-card-hover transition-colors">
+        <Island noPadding className="group flex flex-col sm:flex-row overflow-hidden hover:bg-card-hover transition-colors">
 
           {thumbnail}
 
           <div className="flex flex-col w-full sm:w-3/4 px-4 sm:px-6 md:px-8 py-4 gap-1">
 
-            <h2 className="text-xl text-foreground font-semibold leading-snug line-clamp-1">{meta.title}</h2>
+            <div className="flex items-center min-h-[3.5rem]">
+              <h2 className="text-xl text-foreground font-semibold leading-snug line-clamp-2">{meta.title}</h2>
+            </div>
 
             {meta.description && (
               <p className="text-sm sm:text-base text-muted-foreground leading-relaxed line-clamp-1">
