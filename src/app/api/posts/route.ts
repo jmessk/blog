@@ -59,6 +59,21 @@ export async function GET(request: NextRequest) {
 // }
 // ```
 export async function POST(request: NextRequest) {
+  const { env } = getCloudflareContext();
+
+  const authorization = request.headers.get("authorization") ?? "";
+  const tokenMatch = authorization.match(/^Bearer\s+(.+)$/i);
+  const providedToken = tokenMatch?.[1];
+  const expectedToken = env.POSTS_API_TOKEN;
+
+  if (!expectedToken) {
+    console.error("POSTS_API_TOKEN is not configured in the environment");
+    return NextResponse.json({ error: "Server configuration error" }, { status: 500 });
+  }
+
+  if (!providedToken || providedToken !== expectedToken) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
 
   const form = await request.formData();
 
@@ -97,7 +112,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: (error as Error).message }, { status: 400 });
   }
 
-  const { env } = getCloudflareContext();
   const db = drizzle(env.D1_POSTS);
 
   const id = uuidv7();

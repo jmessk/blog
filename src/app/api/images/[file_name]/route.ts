@@ -8,8 +8,8 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
   const { file_name } = await params;
   const options = { cf: { images: {} } };
 
-  // https://<R2_IMAGES_URL>/<file_name>
-  const url = new URL(file_name, env.R2_IMAGES_URL);
+  // https://<R2_IMAGES_BASE_URL>/<file_name>
+  const url = new URL(file_name, env.R2_IMAGES_BASE_URL);
 
   return await fetch(url.toString(), options);
 }

@@ -67,7 +67,7 @@
     }
     ```
 
-- `POST /api/posts`: Create new posts.
+- `POST /api/posts`: Create new posts. Requires `Authorization: Bearer <token>` header. The token value must match the secret stored in `POSTS_API_BEARER_TOKEN`.
 
     Request:
 
