@@ -61,8 +61,8 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   const category = request.nextUrl.searchParams.get("category");
 
-  if (category) {
-    return NextResponse.json({ error: "`category` should not be specified in query parameters for POST /api/posts" }, { status: 400 });
+  if (!category) {
+    return NextResponse.json({ error: "`category` is required in query parameters for POST /api/posts" }, { status: 400 });
   }
 
   const form = await request.formData();
