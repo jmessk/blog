@@ -8,9 +8,11 @@ export async function uploadImage(file: File): Promise<string> {
   const fileExtension = file.name.split('.').pop() || '';
   const objectKey = `${id}.${fileExtension}`;
 
-  await env.R2_IMAGES.put(objectKey, file.stream(), {
+  const arrayBuffer = await file.arrayBuffer();
+
+  await env.R2_IMAGES.put(objectKey, arrayBuffer, {
     httpMetadata: {
-      contentType: file.type,
+      contentType: file.type || "application/octet-stream",
     },
   });
 

@@ -67,7 +67,7 @@
     }
     ```
 
-- `POST /api/posts?category=<category>`: Create new posts.
+- `POST /api/posts`: Create new posts.
 
     Request:
 

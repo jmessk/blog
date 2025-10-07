@@ -5,7 +5,7 @@ set -euo pipefail
 #   ./upload.bash [API_URL]
 # Default API_URL: http://localhost:8787/api/posts
 
-API_URL=${1:-${API_URL:-http://localhost:8787/api/posts}}
+API_URL=${1:-${API_URL:-http://localhost:3000/api/posts}}
 
 SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 MD_FILE="$SCRIPT_DIR/example.md"
