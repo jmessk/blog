@@ -40,7 +40,7 @@ export function PostListItem({ meta, href }: { meta: PostMeta; href: string }) {
 
           {thumbnail}
 
-          <div className="flex flex-col w-full sm:w-3/4 px-4 sm:px-6 md:px-8 py-4 gap-1">
+          <div className={`flex flex-col w-full ${meta.thumbnail_uri ? "sm:w-3/4" : ""} px-4 sm:px-6 md:px-8 py-4 gap-1`}>
 
             <div className="flex items-center min-h-[3.5rem]">
               <h2 className="text-xl text-foreground font-semibold leading-snug line-clamp-2">{meta.title}</h2>

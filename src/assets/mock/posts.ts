@@ -26,7 +26,7 @@ export const posts: PostMeta[] = [
   },
   {
     id: "1",
-    title: "Mock Post 1",
+    title: "Mock Post 1 Mock Post 1 Mock Post 1 Mock Post 1 Mock Post 1",
     description: "This is a mock post for testing purposes.",
     thumbnail_uri: undefined,
     category: "experimental",
