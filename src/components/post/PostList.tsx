@@ -21,7 +21,7 @@ export function PostListItem({ meta, href }: { meta: PostMeta; href: string }) {
   const updatedAt = meta.updated_at ? formatDateShort(meta.updated_at) : undefined;
 
   const thumbnail = meta.thumbnail_uri ? (
-    <div className="relative w-full overflow-hidden h-20 sm:h-auto sm:w-1/4">
+    <div className="relative w-full overflow-hidden h-30 sm:h-[168px] sm:w-40 sm:flex-shrink-0">
       <Image
         src={meta.thumbnail_uri}
         alt=""
@@ -40,10 +40,10 @@ export function PostListItem({ meta, href }: { meta: PostMeta; href: string }) {
 
           {thumbnail}
 
-          <div className={`flex flex-col w-full ${meta.thumbnail_uri ? "sm:w-3/4" : ""} px-4 sm:px-6 md:px-8 py-4 gap-1`}>
+          <div className={`flex flex-col w-full px-4 sm:px-6 md:px-8 py-4 gap-1`}>
 
-            <div className="flex items-center min-h-[3.5rem]">
-              <h2 className="text-xl text-foreground font-semibold leading-snug line-clamp-2">{meta.title}</h2>
+            <div className="flex items-center sm:h-[50px]">
+              <h2 className="text-lg text-foreground font-semibold leading-snug line-clamp-2">{meta.title}</h2>
             </div>
 
             {meta.description && (
@@ -60,7 +60,7 @@ export function PostListItem({ meta, href }: { meta: PostMeta; href: string }) {
                 <div className="pointer-events-none absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-card to-transparent group-hover:hidden" />
               </div>
             )}
-            <div className="mt-auto flex gap-5 text-muted-foreground">
+            <div className="flex gap-5 text-muted-foreground">
               <DateList createdAt={createdAt} updatedAt={updatedAt} />
             </div>
 
