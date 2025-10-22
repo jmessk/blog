@@ -2,20 +2,18 @@ export type Tag = {
   id: string;
   name: string;
   icon_uri?: string;
-  category: string;
 }
 
 export type PostMeta = {
   id: string;
   title: string;
   description?: string;
-  thumbnail_uri?: string;
   category: string;
+  tags?: Tag[];
+  thumbnail_uri?: string;
   created_at: string;
   updated_at?: string;
   deleted_at?: string;
-
-  tags?: Tag[];
 };
 
 // `content` is includeing the front-matter

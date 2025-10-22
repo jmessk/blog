@@ -116,7 +116,6 @@ export async function POST(request: NextRequest) {
 
   const id = uuidv7();
   const createdAt = new Date().toISOString();
-
   const newCategory = normalizeCategory(frontmatter.category!);
   const newTags = normalizeTags(frontmatter.tags || []);
 
@@ -125,6 +124,7 @@ export async function POST(request: NextRequest) {
     id, newCategory, newTags, createdAt,
     urlMap
   );
+
   const newContent = replacePaths(content, urlMap);
   const newMarkdown = rebuildMarkdown(newFrontmatter, newContent);
 
@@ -132,8 +132,8 @@ export async function POST(request: NextRequest) {
     id,
     title: newFrontmatter.title!,
     description: newFrontmatter.description!,
-    thumbnail_uri: newFrontmatter.thumbnail_uri!,
     category: newCategory,
+    thumbnail_uri: newFrontmatter.thumbnail_uri!,
     created_at: createdAt,
     content: newContent,
   }).run();

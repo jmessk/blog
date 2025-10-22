@@ -21,7 +21,7 @@ export function PostListItem({ meta, href }: { meta: PostMeta; href: string }) {
   const updatedAt = meta.updated_at ? formatDateShort(meta.updated_at) : undefined;
 
   const thumbnail = meta.thumbnail_uri ? (
-    <div className="relative w-full overflow-hidden h-30 sm:h-[168px] sm:w-40 sm:flex-shrink-0">
+    <div className="relative w-full overflow-hidden h-30 sm:h-[142px] sm:w-50 sm:flex-shrink-0">
       <Image
         src={meta.thumbnail_uri}
         alt=""
@@ -42,15 +42,15 @@ export function PostListItem({ meta, href }: { meta: PostMeta; href: string }) {
 
           <div className={`flex flex-col w-full px-4 sm:px-6 py-4 gap-1`}>
 
-            <div className={`flex items-center ${meta.thumbnail_uri ? "sm:h-[50px]" : ""}`}>
+            <div className={`flex items-center mb-1 h-[50px]`}>
               <h2 className="text-lg text-foreground font-semibold leading-snug line-clamp-2">{meta.title}</h2>
             </div>
 
-            {meta.description && (
+            {/* {meta.description && (
               <p className="text-sm sm:text-base text-muted-foreground leading-relaxed line-clamp-1">
                 {meta.description}
               </p>
-            )}
+            )} */}
 
             {meta.tags && meta.tags.length > 0 && (
               <div className="relative overflow-hidden pr-4">

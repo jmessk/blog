@@ -20,8 +20,7 @@ CREATE TABLE `posts` (
 CREATE TABLE `tags` (
 	`id` text PRIMARY KEY NOT NULL,
 	`name` text NOT NULL,
-	`icon_uri` text,
-	`category` text NOT NULL
+	`icon_uri` text
 );
 --> statement-breakpoint
 CREATE UNIQUE INDEX `tags_name_unique` ON `tags` (`name`);

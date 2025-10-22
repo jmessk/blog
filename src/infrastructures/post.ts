@@ -33,8 +33,7 @@ export async function getPost({ id, withContent }: { id: string; withContent: bo
             json_object(
               'id', ${tagsTable.id},
               'name', ${tagsTable.name},
-              'icon_uri', ${tagsTable.icon_uri},
-              'category', ${tagsTable.category}
+              'icon_uri', ${tagsTable.icon_uri}
             )
           )
         END`
@@ -99,8 +98,7 @@ export async function getPosts({ category, tagIds = [] }: GetPostsParams): Promi
             json_object(
               'id', ${tagsTable.id},
               'name', ${tagsTable.name},
-              'icon_uri', ${tagsTable.icon_uri},
-              'category', ${tagsTable.category}
+              'icon_uri', ${tagsTable.icon_uri}
             )
           )
         END`
