@@ -14,13 +14,13 @@ export const posts: PostMeta[] = [
         id: "typescript",
         name: "TypeScript",
         icon_uri: "https://upload.wikimedia.org/wikipedia/commons/4/4c/Typescript_logo_2020.svg",
-        category: "experimental"
+        // category: "experimental"
       },
       {
         id: "linux",
         name: "Linux",
         icon_uri: "https://upload.wikimedia.org/wikipedia/commons/3/35/Tux.svg",
-        category: "experimental"
+        // category: "experimental"
       }
     ]
   },
@@ -35,13 +35,13 @@ export const posts: PostMeta[] = [
         id: "typescript",
         name: "TypeScript",
         icon_uri: "https://upload.wikimedia.org/wikipedia/commons/4/4b/Cloudflare_Logo.svg",
-        category: "experimental"
+        // category: "experimental"
       },
       {
         id: "linux",
         name: "Linux",
         icon_uri: undefined,
-        category: "experimental"
+        // category: "experimental"
       }
     ],
     created_at: new Date().toISOString(),
