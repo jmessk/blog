@@ -20,29 +20,30 @@ export async function getPost({ id, withContent }: { id: string; withContent: bo
       id: postsTable.id,
       title: postsTable.title,
       description: postsTable.description,
-      thumbnail_uri: postsTable.thumbnail_uri,
       category: postsTable.category,
+      thumbnail_uri: postsTable.thumbnailUri,
       content: withContent ? postsTable.content : sql`NULL`.as("content"),
-      created_at: postsTable.created_at,
-      updated_at: postsTable.updated_at,
-      deleted_at: postsTable.deleted_at,
+      created_at: postsTable.createdAt,
+      updated_at: postsTable.updatedAt,
+      deleted_at: postsTable.deletedAt,
       tags: sql<string>`
         CASE
           WHEN COUNT(${tagsTable.id}) = 0 THEN json('[]')
           ELSE json_group_array(
             json_object(
               'id', ${tagsTable.id},
+              'category', ${postsTable.category},
               'name', ${tagsTable.name},
-              'icon_uri', ${tagsTable.icon_uri}
+              'icon_uri', ${tagsTable.iconUri}
             )
           )
         END`
         .as("tags"),
     })
     .from(postsTable)
-    .where(and(eq(postsTable.id, id), isNull(postsTable.deleted_at)))
-    .leftJoin(postTagsTable, eq(postsTable.id, postTagsTable.post_id))
-    .leftJoin(tagsTable, eq(tagsTable.id, postTagsTable.tag_id))
+    .where(and(eq(postsTable.id, id), isNull(postsTable.deletedAt)))
+    .leftJoin(postTagsTable, eq(postsTable.id, postTagsTable.postId))
+    .leftJoin(tagsTable, eq(tagsTable.id, postTagsTable.tagId))
     .groupBy(postsTable.id)
     .limit(1);
 
@@ -56,11 +57,11 @@ export async function getPost({ id, withContent }: { id: string; withContent: bo
     id: dbPost.id,
     title: dbPost.title,
     description: dbPost.description ?? undefined,
-    thumbnail_uri: dbPost.thumbnail_uri ?? undefined,
     category: dbPost.category,
-    created_at: dbPost.created_at,
-    updated_at: dbPost.updated_at ?? undefined,
-    deleted_at: dbPost.deleted_at ?? undefined,
+    thumbnailUri: dbPost.thumbnail_uri ?? undefined,
+    createdAt: dbPost.created_at,
+    updatedAt: dbPost.updated_at ?? undefined,
+    deletedAt: dbPost.deleted_at ?? undefined,
     tags: JSON.parse(dbPost.tags) as Tag[],
   };
 
@@ -86,35 +87,36 @@ export async function getPosts({ category, tagIds = [] }: GetPostsParams): Promi
       id: postsTable.id,
       title: postsTable.title,
       description: postsTable.description,
-      thumbnail_uri: postsTable.thumbnail_uri,
+      thumbnail_uri: postsTable.thumbnailUri,
       category: postsTable.category,
-      created_at: postsTable.created_at,
-      updated_at: postsTable.updated_at,
-      deleted_at: postsTable.deleted_at,
+      created_at: postsTable.createdAt,
+      updated_at: postsTable.updatedAt,
+      deleted_at: postsTable.deletedAt,
       tags: sql<string>`
         CASE
           WHEN COUNT(${tagsTable.id}) = 0 THEN json('[]')
           ELSE json_group_array(
             json_object(
               'id', ${tagsTable.id},
+              'category', ${postsTable.category},
               'name', ${tagsTable.name},
-              'icon_uri', ${tagsTable.icon_uri}
+              'icon_uri', ${tagsTable.iconUri}
             )
           )
         END`
         .as("tags"),
     })
     .from(postsTable)
-    .leftJoin(postTagsTable, eq(postsTable.id, postTagsTable.post_id))
-    .leftJoin(tagsTable, eq(tagsTable.id, postTagsTable.tag_id))
+    .leftJoin(postTagsTable, eq(postsTable.id, postTagsTable.postId))
+    .leftJoin(tagsTable, eq(tagsTable.id, postTagsTable.tagId))
     .where(
       tagIds.length === 0
         ? and(
-          isNull(postsTable.deleted_at),
+          isNull(postsTable.deletedAt),
           category ? eq(postsTable.category, category) : sql`1=1`
         )
         : and(
-          isNull(postsTable.deleted_at),
+          isNull(postsTable.deletedAt),
           category ? eq(postsTable.category, category) : sql`1=1`,
           exists(
             db
@@ -122,8 +124,8 @@ export async function getPosts({ category, tagIds = [] }: GetPostsParams): Promi
               .from(postTagsTable)
               .where(
                 and(
-                  eq(postTagsTable.post_id, postsTable.id),
-                  inArray(postTagsTable.tag_id, tagIds)
+                  eq(postTagsTable.postId, postsTable.id),
+                  inArray(postTagsTable.tagId, tagIds)
                 )
               )
           )
@@ -135,11 +137,11 @@ export async function getPosts({ category, tagIds = [] }: GetPostsParams): Promi
     id: row.id,
     title: row.title,
     description: row.description ?? undefined,
-    thumbnail_uri: row.thumbnail_uri ?? undefined,
     category: row.category,
-    created_at: row.created_at,
-    updated_at: row.updated_at ?? undefined,
-    deleted_at: row.deleted_at ?? undefined,
+    thumbnailUri: row.thumbnail_uri ?? undefined,
+    createdAt: row.created_at,
+    updatedAt: row.updated_at ?? undefined,
+    deletedAt: row.deleted_at ?? undefined,
     tags: JSON.parse(row.tags) as Tag[],
   } satisfies PostMeta));
 }

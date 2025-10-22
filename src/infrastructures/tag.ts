@@ -13,9 +13,9 @@ export async function getTags(category?: string): Promise<Tag[]> {
   const rows = await db
     .select({
       id: tagsTable.id,
-      name: tagsTable.name,
-      icon_uri: tagsTable.icon_uri,
       category: tagsTable.category,
+      name: tagsTable.name,
+      icon_uri: tagsTable.iconUri,
     })
     .from(tagsTable)
     .where(category ? eq(tagsTable.category, category) : sql`1=1`)
