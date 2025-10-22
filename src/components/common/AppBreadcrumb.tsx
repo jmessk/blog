@@ -37,10 +37,10 @@ export function AppBreadcrumb({ title, pathMap, className }: {
 
   if (pathsWithLabel.length == 1) {
     return (
-      <Breadcrumb className={`px-2 $${className}`}>
+      <Breadcrumb className={`px-2 ${className}`}>
         <BreadcrumbList className="flex-nowrap">
           <BreadcrumbItem>
-            <BreadcrumbPage className="text-xl font-bold" >
+            <BreadcrumbPage className="text-2xl font-bold" >
               {title || pathsWithLabel[0].label}
             </BreadcrumbPage>
           </BreadcrumbItem>
@@ -50,7 +50,7 @@ export function AppBreadcrumb({ title, pathMap, className }: {
   }
 
   return (
-    <Breadcrumb className={`px-2 $${className}`}>
+    <Breadcrumb className={`px-2 ${className}`}>
       <BreadcrumbList className="flex-nowrap">
         {/* <BreadcrumbSeparator /> */}
         {pathsWithLabel.map(({ path, label }) => {

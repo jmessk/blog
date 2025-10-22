@@ -8,7 +8,6 @@ import "@/styles/globals.css";
 import { AppSidebar } from "@/components/common/AppSidebar";
 import { AppBreadcrumb } from "@/components/common/AppBreadcrumb";
 import { AppHeader } from "@/components/header/AppHeader";
-import { MainContainer } from "@/components/common/MainContainer";
 import { AppFooter } from "@/components/common/AppFooter";
 
 
@@ -40,10 +39,13 @@ export default function RootLayout({
             <AppHeader />
             <AppSidebar />
             <SidebarInset>
-              <MainContainer className="pt-6">
-                {children}
-                <AppFooter />
-              </MainContainer>
+              <div className="mt-12 pt-6 max-w-4xl w-full flex-1 flex flex-col mx-auto px-4 sm:px-8 md:px-12">
+                <AppBreadcrumb className="mb-6" />
+                <div className="flex-1 flex flex-col gap-10">
+                  {children}
+                </div>
+                <AppFooter className="mt-10 mb-4" />
+              </div>
             </SidebarInset>
           </SidebarProvider>
         </NextThemesProvider>

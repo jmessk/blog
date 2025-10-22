@@ -4,7 +4,7 @@ import { Island } from "@/components/common/Island";
 export default function Home() {
   return (
     <>
-      <Island title="Home" className="doc">
+      <Island className="doc">
         <p>このブログの目的は、プログラミングや開発で得られた知見を記録・発信することです。現在は開発中です。</p>
         <p>以前のブログ: <a href="https://jme-blog.vercel.app/">https://jme-blog.vercel.app/</a></p>
       </Island>
