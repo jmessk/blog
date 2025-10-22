@@ -22,7 +22,7 @@ export function PostHeader({ meta }: { meta: PostMeta }) {
 
       <div className="grid w-full px-4 sm:px-6 md:px-8 gap-4 pt-8 pb-6">
 
-        <h1 className={`scroll-m-20 text-center text-2xl font-bold`}>
+        <h1 className={`scroll-m-20 text-center text-2xl font-bold mb-6 ${meta.thumbnailUri ? "" : "my-6"}`}>
           {meta.title}
         </h1>
 

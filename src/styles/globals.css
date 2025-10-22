@@ -48,6 +48,7 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
   --color-link: var(--link);
+  --color-paragraph: var(--paragraph);
 }
 
 :root {
@@ -78,6 +79,8 @@
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
   --link: var(--primary);
+  --paragraph: var(--color-gray-700);
+
   --sidebar: var(--color-white);
   --sidebar-foreground: var(--color-gray-700);
   --sidebar-primary: oklch(0.21 0.034 264.665);
@@ -115,6 +118,8 @@
   --chart-4: oklch(0.627 0.265 303.9);
   --chart-5: oklch(0.645 0.246 16.439);
   --link: var(--primary);
+  --paragraph: var(--color-gray-200);
+
   --sidebar: var(--color-neutral-900);
   --sidebar-foreground: var(--color-gray-300);
   --sidebar-primary: oklch(0.488 0.243 264.376);
