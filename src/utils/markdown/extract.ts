@@ -45,8 +45,8 @@ export function extractContents(markdown: string) {
   const frontmatter = file.data.frontmatter ?? {}
   const imagePaths = file.data.images ?? [];
 
-  if (file.data.frontmatter?.thumbnail_uri) {
-    imagePaths.push(file.data.frontmatter.thumbnail_uri);
+  if (file.data.frontmatter?.thumbnailUri) {
+    imagePaths.push(file.data.frontmatter.thumbnailUri);
   }
 
   return {

@@ -32,7 +32,7 @@ export async function getPost({ id, withContent }: { id: string; withContent: bo
           ELSE json_group_array(
             json_object(
               'id', ${tagsTable.id},
-              'category', ${postsTable.category},
+              'category', ${tagsTable.category},
               'name', ${tagsTable.name},
               'icon_uri', ${tagsTable.iconUri}
             )
@@ -98,7 +98,7 @@ export async function getPosts({ category, tagIds = [] }: GetPostsParams): Promi
           ELSE json_group_array(
             json_object(
               'id', ${tagsTable.id},
-              'category', ${postsTable.category},
+              'category', ${tagsTable.category},
               'name', ${tagsTable.name},
               'icon_uri', ${tagsTable.iconUri}
             )

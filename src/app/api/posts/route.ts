@@ -133,8 +133,8 @@ export async function POST(request: NextRequest) {
     title: newFrontmatter.title!,
     description: newFrontmatter.description!,
     category: newCategory,
-    thumbnail_uri: newFrontmatter.thumbnail_uri!,
-    created_at: createdAt,
+    thumbnailUri: newFrontmatter.thumbnailUri!,
+    createdAt: createdAt,
     content: newContent,
   }).run();
 
@@ -142,16 +142,16 @@ export async function POST(request: NextRequest) {
   await db.insert(tagsTable).values(
     newTags.map((tag) => ({
       id: tag,
-      name: tag,
       category: newCategory,
+      name: tag,
     }))
   ).onConflictDoNothing().run();
 
   // Post と Tag の関連付けを追加
   await db.insert(postTagsTable).values(
     newTags.map((tag) => ({
-      post_id: id,
-      tag_id: tag,
+      postId: id,
+      tagId: tag,
     }))
   ).onConflictDoNothing().run();
 
@@ -251,12 +251,12 @@ function updateFrontmatter(
   urlMap: Record<string, string>
 ): FrontMatter {
   frontmatter.id = id;
-  frontmatter.created_at = createdAt;
+  frontmatter.createdAt = createdAt;
   frontmatter.category = category;
   frontmatter.tags = tags;
 
-  if (frontmatter.thumbnail_uri) {
-    frontmatter.thumbnail_uri = urlMap[frontmatter.thumbnail_uri];
+  if (frontmatter.thumbnailUri) {
+    frontmatter.thumbnailUri = urlMap[frontmatter.thumbnailUri];
   }
 
   return frontmatter;
