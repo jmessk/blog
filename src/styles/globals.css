@@ -89,7 +89,7 @@
 }
 
 .dark {
-  --background: var(--color-neutral-950);
+  --background: var(--color-black);
   --foreground: oklch(0.985 0.002 247.839);
   --card: var(--color-neutral-900);
   --card-foreground: oklch(0.985 0.002 247.839);

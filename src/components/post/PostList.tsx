@@ -60,6 +60,7 @@ export function PostListItem({ meta, href }: { meta: PostMeta; href: string }) {
                 <div className="pointer-events-none absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-card to-transparent group-hover:hidden" />
               </div>
             )}
+
             <div className="flex gap-5 text-muted-foreground">
               <DateList createdAt={createdAt} updatedAt={updatedAt} />
             </div>
