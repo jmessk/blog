@@ -53,7 +53,7 @@ export async function CodeBlock({ lang, filename, children }: { lang: string; fi
       }
       <div
         dangerouslySetInnerHTML={{ __html: codeHtml }}
-        className={`text-sm rounded-2xl overflow-hidden ${filename ? "rounded-t-none" : ""}`}
+        className={`text-sm rounded-2xl overflow-hidden ${filename ? "rounded-t-none" : ""} [&_pre_code_span.line>span]:text-[#D4D4D4]`}
         style={{ backgroundColor: "#1E1E1E" }}
       />
     </div>

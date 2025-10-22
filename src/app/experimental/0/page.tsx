@@ -51,6 +51,10 @@ text **bold** \`code\`
     - test
 - test
 
+\`\`\`plaintext
+console.log("This is a code block");
+\`\`\`
+
 \`\`\`ts
 console.log("This is a code block");
 \`\`\`
