@@ -1,4 +1,4 @@
-import { AppBreadcrumb } from "@/components/common/AppBreadcrumb";
+// import { AppBreadcrumb } from "@/components/common/AppBreadcrumb";
 
 // import { notFound } from "next/navigation";
 import { PostHeader } from "@/components/post/PostHeader";
@@ -20,7 +20,7 @@ export default async function Post({ params }: { params: Promise<{ post_id: stri
 
   return (
     <>
-      <AppBreadcrumb title={post.title} pathMap={{ "/posts": `/posts?category=${post.category}` }} />
+      {/* <AppBreadcrumb title={post.title} pathMap={{ "/posts": `/posts?category=${post.category}` }} /> */}
 
       <PostHeader meta={post} />
       <Island onMobileExpand>
