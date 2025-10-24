@@ -1,6 +1,6 @@
 import { Island } from "@/components/common/Island";
 import { PostHeader } from "@/components/post/PostHeader";
-import { Markdown } from "@/components/common/Markdown";
+import { MarkdownToHtml } from "@/components/common/Markdown";
 import { posts } from "@/assets/mock/posts";
 
 
@@ -10,7 +10,7 @@ export default function Post() {
       <PostHeader meta={posts[0]}></PostHeader>
       <PostHeader meta={posts[1]}></PostHeader>
       <Island onMobileExpand className="doc py-12">
-        <Markdown>
+        <MarkdownToHtml>
           {`
 ## h2
 
@@ -51,6 +51,34 @@ text **bold** \`code\`
     - test
 - test
 
+\`\`\`mermaid
+sequenceDiagram
+    participant Client as ターゲット PC
+    participant DHCP as DHCP サーバ
+    participant TFTP as TFTP サーバ
+    participant HTTP as HTTP サーバ
+
+    Client ->> Client: PXE ブート起動
+
+    Client ->> DHCP: DHCP Discover
+    DHCP -->> Client: DHCP Offer（IP + bootfile=ipxe.efi）
+
+    Client ->> TFTP: TFTP GET ipxe.efi（iPXE 実行ファイル）
+    TFTP -->> Client: ipxe.efi
+
+    Client ->> Client: iPXE 起動（チェーンロード）
+
+    Client ->> DHCP: DHCP Discover
+    DHCP -->> Client: IP 再取得 + bootfile=http://<HTTP サーバホスト>/menu.ipxe
+
+    Client ->> HTTP: HTTP GET menu.ipxe（メニュー取得）
+    HTTP -->> Client: menu.ipxe
+
+    Client ->> Client: OS 選択（ユーザ操作）
+    Client ->> HTTP: kernel/initrd, ISO を取得
+    Client ->> Client: OS インストーラ起動
+\`\`\`
+
 \`\`\`plaintext
 console.log("This is a code block");
 \`\`\`
@@ -73,8 +101,8 @@ console.log("This is a code block");
 > console.log("This is a code block");
 > \`\`\`
 
-![](nyancat.png)
-![](icon-512x512.png)
+![](https://www.club-t.com/ct/kanko/guide/kokunai/info/k_196/k_196_000.jpg)
+![](https://www.japantowers.jp/tokyo_tower/img/g_001.jpg)
 
 - [ ] item
 - [x] checked
@@ -99,7 +127,7 @@ term1
 term2
 : def1
 `}
-        </Markdown>
+        </MarkdownToHtml>
       </Island>
     </>
   );

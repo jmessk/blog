@@ -3,7 +3,7 @@
 // import { notFound } from "next/navigation";
 import { PostHeader } from "@/components/post/PostHeader";
 import { Island } from "@/components/common/Island";
-import { Markdown } from "@/components/common/Markdown";
+import { MarkdownToHtml } from "@/components/common/Markdown";
 import { getPost } from "@/infrastructures/post";
 
 
@@ -25,7 +25,7 @@ export default async function Post({ params }: { params: Promise<{ post_id: stri
       <PostHeader meta={post} />
       <Island onMobileExpand>
         <div className="doc">
-          <Markdown>{post.content}</Markdown>
+          <MarkdownToHtml>{post.content}</MarkdownToHtml>
         </div>
       </Island>
     </>

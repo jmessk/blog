@@ -16,6 +16,8 @@ const highlighter = await createHighlighterCore({
     import('@shikijs/langs/python'),
     import('@shikijs/langs/rust'),
     import('@shikijs/langs/tsx'),
+    import('@shikijs/langs/dockerfile'),
+    import('@shikijs/langs/nginx'),
   ],
   engine: createJavaScriptRegexEngine()
 })
@@ -25,6 +27,7 @@ export async function CodeBlock({ lang, filename, children }: { lang: string; fi
   let codeHtml = children;
 
   try {
+
     codeHtml = highlighter.codeToHtml(children, {
       lang,
       theme: "dark-plus",
@@ -34,14 +37,24 @@ export async function CodeBlock({ lang, filename, children }: { lang: string; fi
         }
       ]
     });
-  }
-  catch (e) {
+
+  } catch (e) {
+
     console.error("Error in codeToHtml:", e);
     console.error("CodeBlock input", { lang, filename, children: children.slice(0, 32) + (children.length > 30 ? "..." : "") });
 
     filename = lang;
-    codeHtml = highlighter.codeToHtml(children, { lang: "plaintext", theme: "dark-plus" });
+    codeHtml = highlighter.codeToHtml(children, {
+      lang: "plaintext",
+      theme: "dark-plus",
+      transformers: [
+        {
+          pre(node) { this.addClassToHast(node, "px-4 py-5 overflow-x-auto") },
+        }
+      ]
+    });
     console.error("CodeBlock output", { lang, filename, children: children.slice(0, 32) + (children.length > 30 ? "..." : "") });
+
   }
 
   return (

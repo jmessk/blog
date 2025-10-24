@@ -94,9 +94,13 @@
     }
 
     /* 画像 */
-    /* .doc img {
-        @apply rounded-lg shadow-sm;
-    } */
+    .doc img {
+        @apply rounded-2xl shadow-md object-contain max-h-[500px] mx-auto;
+    }
+
+    .doc div.img-container {
+        @apply flex justify-center;
+    }
 
     /* テーブル */
     .doc table {

@@ -5,12 +5,24 @@ import remarkParse from "remark-parse";
 import remarkGfm from "remark-gfm";
 import remarkRehype from "remark-rehype";
 import rehypeReact from "rehype-react";
-// import rehypeToc from "rehype-toc";
-// import rehypeSlug from "rehype-slug";
-
 import * as prod from "react/jsx-runtime";
+// import Image from "next/image";
 
 import { CodeBlock } from "@/components/post/CodeBlock";
+
+
+// function nextImage(props: React.ImgHTMLAttributes<HTMLImageElement>) {
+//   return (
+//     <div className="img-container">
+//       <Image
+//         src={props.src || ""}
+//         alt={props.alt || ""}
+//         width={props.width as number}
+//         height={600}
+//       />
+//     </div>
+//   )
+// }
 
 
 function codeBlockPre(props: React.HTMLAttributes<HTMLPreElement>) {
@@ -49,7 +61,13 @@ const processor = unified()
   //     toc: "table-of-contents"
   //   }
   // })
-  .use(rehypeReact, { ...prod, components: { pre: codeBlockPre } });
+  .use(rehypeReact, {
+    ...prod,
+    components: {
+      pre: codeBlockPre,
+      // img: nextImage
+    }
+  });
 
 
 export async function renderReact(markdown: string) {
