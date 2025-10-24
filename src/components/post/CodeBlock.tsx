@@ -43,7 +43,6 @@ export async function CodeBlock({ lang, filename, children }: { lang: string; fi
     console.error("Error in codeToHtml:", e);
     console.error("CodeBlock input", { lang, filename, children: children.slice(0, 32) + (children.length > 30 ? "..." : "") });
 
-    filename = lang;
     codeHtml = highlighter.codeToHtml(children, {
       lang: "plaintext",
       theme: "dark-plus",
