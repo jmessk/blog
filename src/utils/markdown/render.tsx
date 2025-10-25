@@ -70,7 +70,7 @@ const processor = unified()
   });
 
 
-export async function renderReact(markdown: string) {
-  const component = await processor.process(markdown);
+export function renderReact(markdown: string) {
+  const component = processor.processSync(markdown);
   return <>{component.result}</>;
 }

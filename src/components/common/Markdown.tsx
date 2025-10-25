@@ -1,7 +1,9 @@
+"use client";
+
 import { renderReact } from "@/utils/markdown/render";
 
 
-export async function MarkdownToHtml({ children }: { children: string }) {
-  const components = await renderReact(children);
+export function MarkdownToHtml({ children }: { children: string }) {
+  const components = renderReact(children);
   return (<>{components}</>);
 }

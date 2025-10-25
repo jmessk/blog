@@ -23,7 +23,7 @@ const highlighter = await createHighlighterCore({
 })
 
 
-export async function CodeBlock({ lang, filename, children }: { lang: string; filename?: string; children: string }) {
+export function CodeBlock({ lang, filename, children }: { lang: string; filename?: string; children: string }) {
   let codeHtml = children;
 
   try {
