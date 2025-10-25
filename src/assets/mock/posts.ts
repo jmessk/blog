@@ -22,30 +22,6 @@ export const posts: PostMeta[] = [
         iconUri: "https://upload.wikimedia.org/wikipedia/commons/3/35/Tux.svg",
         category: "expexrimental"
       },
-      {
-        id: "linux",
-        name: "Linux",
-        iconUri: "https://upload.wikimedia.org/wikipedia/commons/3/35/Tux.svg",
-        category: "expexrimental"
-      },
-      {
-        id: "linux",
-        name: "Linux",
-        iconUri: "https://upload.wikimedia.org/wikipedia/commons/3/35/Tux.svg",
-        category: "expexrimental"
-      },
-      {
-        id: "linux",
-        name: "Linux",
-        iconUri: "https://upload.wikimedia.org/wikipedia/commons/3/35/Tux.svg",
-        category: "expexrimental"
-      },
-      {
-        id: "linux",
-        name: "Linux",
-        iconUri: "https://upload.wikimedia.org/wikipedia/commons/3/35/Tux.svg",
-        category: "expexrimental"
-      }
     ]
   },
   {

@@ -5,15 +5,15 @@ import remarkParse from "remark-parse";
 import remarkGfm from "remark-gfm";
 import remarkRehype from "remark-rehype";
 import rehypeReact from "rehype-react";
-import rehypeMermaid from "rehype-mermaid";
+// import rehypeMermaid from "rehype-mermaid";
 
 import * as prod from "react/jsx-runtime";
 // import Image from "next/image";
 
 import { CodeBlock } from "@/components/post/CodeBlock";
 
-import mermaid from "mermaid";
-mermaid.initialize({ startOnLoad: true , theme: "dark"});
+// import mermaid from "mermaid";
+// mermaid.initialize({ startOnLoad: true , theme: "dark"});
 
 // function nextImage(props: React.ImgHTMLAttributes<HTMLImageElement>) {
 //   return (
@@ -47,6 +47,12 @@ function codeBlockPre(props: React.HTMLAttributes<HTMLPreElement>) {
   const lang = split?.[0] ?? "plaintext";
   const filename = split?.slice(1).join();
 
+  if (lang === "mermaid") {
+    return (
+      <pre className="mermaid">{first.props?.children ?? ""}</pre>
+    )
+  }
+
   return (
     <CodeBlock lang={lang} filename={filename}>
       {first.props?.children ?? ""}
@@ -65,7 +71,7 @@ const processor = unified()
   //     toc: "table-of-contents"
   //   }
   // })
-  .use(rehypeMermaid, { strategy: "pre-mermaid" })
+  // .use(rehypeMermaid, { strategy: "pre-mermaid" })
   .use(rehypeReact, {
     ...prod,
     components: {
