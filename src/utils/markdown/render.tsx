@@ -1,15 +1,19 @@
-// "use client";
+"use client";
 
 import { unified } from "unified";
 import remarkParse from "remark-parse";
 import remarkGfm from "remark-gfm";
 import remarkRehype from "remark-rehype";
 import rehypeReact from "rehype-react";
+import rehypeMermaid from "rehype-mermaid";
+
 import * as prod from "react/jsx-runtime";
 // import Image from "next/image";
 
 import { CodeBlock } from "@/components/post/CodeBlock";
 
+import mermaid from "mermaid";
+mermaid.initialize({ startOnLoad: true , theme: "dark"});
 
 // function nextImage(props: React.ImgHTMLAttributes<HTMLImageElement>) {
 //   return (
@@ -41,7 +45,7 @@ function codeBlockPre(props: React.HTMLAttributes<HTMLPreElement>) {
   // class="language-<lang>:<filename>"
   const split = className?.split("-")[1]?.split(":");
   const lang = split?.[0] ?? "plaintext";
-  const filename = split?.[1];
+  const filename = split?.slice(1).join();
 
   return (
     <CodeBlock lang={lang} filename={filename}>
@@ -61,6 +65,7 @@ const processor = unified()
   //     toc: "table-of-contents"
   //   }
   // })
+  .use(rehypeMermaid, { strategy: "pre-mermaid" })
   .use(rehypeReact, {
     ...prod,
     components: {

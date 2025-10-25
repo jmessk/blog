@@ -4,17 +4,17 @@ import { Island } from "@/components/common/Island";
 export default function Changelog() {
   return (
     <>
-      <Island className="doc" title="2025/10/xx">
+      <Island className="doc" title="2025/10/25">
         <ul>
-          <li>Initial release</li>
+          <li><a href="https://mermaid.js.org/">Mermaid</a> のレンダリングに対応</li>
         </ul>
       </Island>
 
-      {/* <Island className="doc" title="2025/10/01">
+      <Island className="doc" title="2025/10">
         <ul>
-          <li>Initial release</li>
+          <li>初期リリース</li>
         </ul>
-      </Island> */}
+      </Island>
     </>
   );
 }

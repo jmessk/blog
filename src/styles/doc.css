@@ -85,6 +85,10 @@
         @apply my-6;
     }
 
+    .doc .mermaid {
+        @apply my-6 bg-[#1E1E1E] rounded-2xl;
+    }
+
     /* 引用 */
     .doc blockquote {
         @apply my-6 font-normal border-muted;
