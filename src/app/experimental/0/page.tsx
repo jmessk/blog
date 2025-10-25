@@ -35,6 +35,8 @@ text **bold** \`code\`
 
 <https://github.com/jmessk>
 
+<http://help.sonicwall.com/help/sw/jpn/7100/26/2/4/content/Network_DHCP_Server.042.12.html>
+
 1. test
 2. test
    1. test

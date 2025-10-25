@@ -51,7 +51,7 @@
 
     /* リンク */
     .doc a {
-        @apply text-link no-underline;
+        @apply text-link no-underline break-words;
     }
 
     /* 定義リスト (ラベル列固定幅 + 値可変) */
@@ -95,12 +95,12 @@
 
     /* 画像 */
     .doc img {
-        @apply rounded-2xl shadow-md object-contain max-h-[500px] mx-auto;
+        @apply block w-full rounded-2xl shadow-md object-contain max-h-[500px] mx-auto;
     }
 
-    .doc div.img-container {
+    /* .doc div.img-container {
         @apply flex justify-center;
-    }
+    } */
 
     /* テーブル */
     .doc table {

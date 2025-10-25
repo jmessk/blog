@@ -20,9 +20,9 @@ export function PostHeader({ meta }: { meta: PostMeta }) {
         </AspectRatio>
       }
 
-      <div className="grid w-full px-4 sm:px-6 md:px-8 gap-4 pt-8 pb-6">
+      <div className={`grid w-full px-4 sm:px-6 md:px-8 gap-4 py-6`}>
 
-        <h1 className={`scroll-m-20 text-center text-2xl font-bold mb-6 ${meta.thumbnailUri ? "" : "my-6"}`}>
+        <h1 className={`scroll-m-20 text-center text-2xl font-bold my-4`}>
           {meta.title}
         </h1>
 
@@ -31,7 +31,7 @@ export function PostHeader({ meta }: { meta: PostMeta }) {
         </p>
 
         {meta.tags && meta.tags.length > 0 &&
-          <div className="flex flex-row justify-center gap-3">
+          <div className="flex flex-row justify-center gap-x-3 gap-y-2 flex-wrap">
             <TagList tags={meta.tags} />
           </div>
         }
