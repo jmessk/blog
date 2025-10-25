@@ -15,7 +15,7 @@ export async function getTags(category?: string): Promise<Tag[]> {
       id: tagsTable.id,
       category: tagsTable.category,
       name: tagsTable.name,
-      icon_uri: tagsTable.iconUri,
+      iconUri: tagsTable.iconUri,
     })
     .from(tagsTable)
     .where(category ? eq(tagsTable.category, category) : sql`1=1`)

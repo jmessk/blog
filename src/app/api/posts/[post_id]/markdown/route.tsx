@@ -20,11 +20,11 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
       title: postsTable.title,
       description: postsTable.description,
       category: postsTable.category,
-      thumbnail_uri: postsTable.thumbnailUri,
+      thumbnailUri: postsTable.thumbnailUri,
       content: postsTable.content,
-      created_at: postsTable.createdAt,
-      updated_at: postsTable.updatedAt,
-      deleted_at: postsTable.deletedAt,
+      createdAt: postsTable.createdAt,
+      updatedAt: postsTable.updatedAt,
+      deletedAt: postsTable.deletedAt,
       tags: sql<string | null>`json_group_array(${tagsTable.id})`.as("tags"),
     })
     .from(postsTable)
@@ -46,10 +46,10 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
     title: post.title,
     description: post.description ?? undefined,
     category: post.category,
-    thumbnailUri: post.thumbnail_uri ?? undefined,
-    createdAt: post.created_at,
-    updatedAt: post.updated_at ?? undefined,
-    deletedAt: post.deleted_at ?? undefined,
+    thumbnailUri: post.thumbnailUri ?? undefined,
+    createdAt: post.createdAt,
+    updatedAt: post.updatedAt ?? undefined,
+    deletedAt: post.deletedAt ?? undefined,
     tags: post.tags ? JSON.parse(post.tags) as string[] : undefined
   } as FrontMatter;
 

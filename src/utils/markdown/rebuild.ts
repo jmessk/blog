@@ -1,5 +1,4 @@
 import { stringify } from "yaml";
-
 import { FrontMatter } from "@/types/post";
 
 

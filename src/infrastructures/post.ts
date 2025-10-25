@@ -21,11 +21,11 @@ export async function getPost({ id, withContent }: { id: string; withContent: bo
       title: postsTable.title,
       description: postsTable.description,
       category: postsTable.category,
-      thumbnail_uri: postsTable.thumbnailUri,
+      thumbnailUri: postsTable.thumbnailUri,
       content: withContent ? postsTable.content : sql`NULL`.as("content"),
-      created_at: postsTable.createdAt,
-      updated_at: postsTable.updatedAt,
-      deleted_at: postsTable.deletedAt,
+      createdAt: postsTable.createdAt,
+      updatedAt: postsTable.updatedAt,
+      deletedAt: postsTable.deletedAt,
       tags: sql<string>`
         CASE
           WHEN COUNT(${tagsTable.id}) = 0 THEN json('[]')
@@ -34,7 +34,7 @@ export async function getPost({ id, withContent }: { id: string; withContent: bo
               'id', ${tagsTable.id},
               'category', ${tagsTable.category},
               'name', ${tagsTable.name},
-              'icon_uri', ${tagsTable.iconUri}
+              'iconUri', ${tagsTable.iconUri}
             )
           )
         END`
@@ -58,10 +58,10 @@ export async function getPost({ id, withContent }: { id: string; withContent: bo
     title: dbPost.title,
     description: dbPost.description ?? undefined,
     category: dbPost.category,
-    thumbnailUri: dbPost.thumbnail_uri ?? undefined,
-    createdAt: dbPost.created_at,
-    updatedAt: dbPost.updated_at ?? undefined,
-    deletedAt: dbPost.deleted_at ?? undefined,
+    thumbnailUri: dbPost.thumbnailUri ?? undefined,
+    createdAt: dbPost.createdAt,
+    updatedAt: dbPost.updatedAt ?? undefined,
+    deletedAt: dbPost.deletedAt ?? undefined,
     tags: JSON.parse(dbPost.tags) as Tag[],
   };
 
@@ -87,11 +87,11 @@ export async function getPosts({ category, tagIds = [] }: GetPostsParams): Promi
       id: postsTable.id,
       title: postsTable.title,
       description: postsTable.description,
-      thumbnail_uri: postsTable.thumbnailUri,
+      thumbnailUri: postsTable.thumbnailUri,
       category: postsTable.category,
-      created_at: postsTable.createdAt,
-      updated_at: postsTable.updatedAt,
-      deleted_at: postsTable.deletedAt,
+      createdAt: postsTable.createdAt,
+      updatedAt: postsTable.updatedAt,
+      deletedAt: postsTable.deletedAt,
       tags: sql<string>`
         CASE
           WHEN COUNT(${tagsTable.id}) = 0 THEN json('[]')
@@ -100,7 +100,7 @@ export async function getPosts({ category, tagIds = [] }: GetPostsParams): Promi
               'id', ${tagsTable.id},
               'category', ${tagsTable.category},
               'name', ${tagsTable.name},
-              'icon_uri', ${tagsTable.iconUri}
+              'iconUri', ${tagsTable.iconUri}
             )
           )
         END`
@@ -138,10 +138,10 @@ export async function getPosts({ category, tagIds = [] }: GetPostsParams): Promi
     title: row.title,
     description: row.description ?? undefined,
     category: row.category,
-    thumbnailUri: row.thumbnail_uri ?? undefined,
-    createdAt: row.created_at,
-    updatedAt: row.updated_at ?? undefined,
-    deletedAt: row.deleted_at ?? undefined,
+    thumbnailUri: row.thumbnailUri ?? undefined,
+    createdAt: row.createdAt,
+    updatedAt: row.updatedAt ?? undefined,
+    deletedAt: row.deletedAt ?? undefined,
     tags: JSON.parse(row.tags) as Tag[],
   } satisfies PostMeta));
 }
