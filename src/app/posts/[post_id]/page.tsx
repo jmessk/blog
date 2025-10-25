@@ -14,8 +14,8 @@ export default async function Post({ params }: { params: Promise<{ post_id: stri
 
   try {
     post = await getPost({ id: post_id, withContent: true });
-  } catch (error) {
-    return (<div>{(error as Error).message}</div>);
+  } catch (_e) {
+    return (<div>Internal Server Error</div>);
   }
 
   return (
@@ -24,7 +24,7 @@ export default async function Post({ params }: { params: Promise<{ post_id: stri
 
       <PostHeader meta={post} />
       <Island onMobileExpand>
-        <div className="doc">
+        <div className="doc py-12">
           <MarkdownToHtml>{post.content}</MarkdownToHtml>
         </div>
       </Island>

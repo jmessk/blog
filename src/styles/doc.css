@@ -3,6 +3,7 @@
         @apply prose max-w-none;
     }
 
+    /* doc 以下の要素に指定 */
     .doc * {
         @apply text-paragraph;
     }
@@ -22,26 +23,26 @@
     }
 
     .doc h2 {
-        @apply mt-14 scroll-mt-20 font-bold text-foreground;
+        @apply mt-16 mb-4 scroll-mt-20 font-bold text-foreground;
     }
 
     .doc h3 {
-        @apply mt-8 scroll-mt-20 font-bold text-foreground;
+        @apply mt-12 mb-4 scroll-mt-20 font-bold text-foreground;
     }
 
     .doc h4 {
-        @apply mt-6 scroll-mt-20 font-semibold text-foreground;
+        @apply mt-8 mb-4 scroll-mt-20 font-semibold text-foreground text-lg;
     }
 
     /* 段落 */
-    /* .doc p {
+    .doc p {
         @apply leading-7 my-4;
-    } */
+    }
 
     /* リスト */
     .doc ul,
     .doc ol {
-        @apply my-8 marker:text-muted-foreground;
+        @apply my-6 marker:text-muted-foreground;
     }
 
     .doc li>ul,
@@ -57,7 +58,7 @@
     /* 定義リスト (ラベル列固定幅 + 値可変) */
     .doc dl {
         grid-template-columns: 5rem 1fr;
-        @apply grid gap-y-2 my-8;
+        @apply grid gap-y-2 my-6;
     }
 
     .doc dt,
@@ -81,12 +82,12 @@
 
     /* コードブロック */
     .doc .codeblock {
-        @apply my-8;
+        @apply my-6;
     }
 
     /* 引用 */
     .doc blockquote {
-        @apply my-8 font-normal border-muted;
+        @apply my-6 font-normal border-muted;
     }
 
     .doc blockquote * {
@@ -95,7 +96,7 @@
 
     /* 画像 */
     .doc img {
-        @apply block w-full rounded-2xl shadow-md object-contain max-h-[500px] mx-auto;
+        @apply block rounded-2xl shadow-md object-contain max-h-[500px] mx-auto;
     }
 
     /* .doc div.img-container {
@@ -104,7 +105,7 @@
 
     /* テーブル */
     .doc table {
-        @apply my-8;
+        @apply my-6;
     }
 
     .doc thead {
@@ -125,7 +126,7 @@
 
     /* TOC (rehype-toc) */
     .doc .table-of-contents {
-        @apply my-8;
+        @apply my-6;
     }
 
     /* .doc .table-of-contents ul {

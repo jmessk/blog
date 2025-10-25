@@ -21,7 +21,7 @@ export function PostListItem({ meta, href }: { meta: PostMeta; href: string }) {
   const updatedAt = meta.updatedAt ? formatDateShort(meta.updatedAt) : undefined;
 
   const thumbnail = meta.thumbnailUri ? (
-    <div className="relative w-full overflow-hidden h-30 sm:h-[142px] sm:w-50 sm:flex-shrink-0">
+    <div className="relative w-full overflow-hidden h-50 sm:h-[142px] sm:w-50 sm:flex-shrink-0">
       <Image
         src={meta.thumbnailUri}
         alt=""
@@ -40,7 +40,7 @@ export function PostListItem({ meta, href }: { meta: PostMeta; href: string }) {
 
           {thumbnail}
 
-          <div className={`flex flex-col w-full px-4 sm:px-6 py-4 gap-1`}>
+          <div className={`flex flex-col w-full px-4 sm:px-6 py-4 gap-1 min-w-0`}>
 
             <div className={`flex items-center mb-1 h-[50px]`}>
               <h2 className="text-lg text-foreground font-semibold leading-snug line-clamp-2">{meta.title}</h2>
@@ -54,10 +54,10 @@ export function PostListItem({ meta, href }: { meta: PostMeta; href: string }) {
 
             {meta.tags && meta.tags.length > 0 && (
               <div className="relative overflow-hidden pr-4">
-                <div className="flex flex-nowrap gap-2 whitespace-nowrap">
+                <div className="flex flex-nowrap gap-2 whitespace-nowrap max-w-full overflow-hidden">
                   <TagList tags={meta.tags} />
                 </div>
-                <div className="pointer-events-none absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-card to-transparent group-hover:hidden" />
+                <div className="pointer-events-none absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-card via-card to-transparent group-hover:from-card-hover group-hover:via-card-hover transition-colors" />
               </div>
             )}
 
