@@ -5,7 +5,7 @@ import remarkStringify from "remark-stringify";
 import { visit } from "unist-util-visit";
 import type { Root, Image } from "mdast";
 import { VFile } from "vfile";
-import path from "path";
+// import path from "path";
 
 
 declare module "vfile" {

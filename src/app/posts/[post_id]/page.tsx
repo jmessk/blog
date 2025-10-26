@@ -1,10 +1,5 @@
-// import { AppBreadcrumb } from "@/components/common/AppBreadcrumb";
-
-// import { notFound } from "next/navigation";
-import { PostHeader } from "@/components/post/PostHeader";
-import { Island } from "@/components/common/Island";
-import { MarkdownToHtml } from "@/components/common/Markdown";
-import { getPost } from "@/infrastructures/post";
+import { getPost } from "@/infrastructures/post"; import { renderReact } from "@/utils/markdown/render";
+import { PostView } from "@/components/post/PostView";
 
 
 export default async function Post({ params }: { params: Promise<{ post_id: string }> }) {
@@ -20,14 +15,7 @@ export default async function Post({ params }: { params: Promise<{ post_id: stri
 
   return (
     <>
-      {/* <AppBreadcrumb title={post.title} pathMap={{ "/posts": `/posts?category=${post.category}` }} /> */}
-
-      <PostHeader meta={post} />
-      <Island onMobileExpand>
-        <div className="doc py-12">
-          <MarkdownToHtml>{post.content}</MarkdownToHtml>
-        </div>
-      </Island>
+      <PostView post={post} />
     </>
   );
 }

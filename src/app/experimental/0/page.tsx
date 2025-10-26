@@ -1,17 +1,12 @@
-import { Island } from "@/components/common/Island";
-import { PostHeader } from "@/components/post/PostHeader";
-import { MarkdownToHtml } from "@/components/common/Markdown";
+"use client";
+
+import React from "react";
 import { posts } from "@/assets/mock/posts";
+import { PostView } from "@/components/post/PostView";
+import { Post } from "@/types/post";
 
 
-export default function Post() {
-  return (
-    <>
-      <PostHeader meta={posts[0]}></PostHeader>
-      <PostHeader meta={posts[1]}></PostHeader>
-      <Island onMobileExpand className="doc py-12">
-        <MarkdownToHtml>
-          {`
+const markdown = `
 ## h2
 
 Rust（ラスト）は、性能、メモリ安全性、安全な並行性を目指して設計されたマルチパラダイムのプログラミング言語である。C言語、C++に代わるシステムプログラミング言語を目指しており[^2]、構文的にはC++に似ているが[3]、「ボローチェッカー」(borrow checker) で参照の有効性を検証することによってメモリ安全性を保証できる。Rustはガベージコレクションなしでのメモリ安全性を達成しており、必要な場面で参照カウントを使うこともできる[4][5]。
@@ -138,9 +133,16 @@ term1
 
 term2
 : def1
-`}
-        </MarkdownToHtml>
-      </Island>
+`;
+
+
+export default function Page() {
+  const post = (posts[0] as Post);
+  post.content = markdown;
+
+  return (
+    <>
+      <PostView post={post} />
     </>
   );
 }

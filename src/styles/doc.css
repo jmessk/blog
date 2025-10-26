@@ -50,6 +50,10 @@
         @apply my-1;
     }
 
+    .doc:has(.toc) ol {
+        @apply my-0;
+    }
+
     /* リンク */
     .doc a {
         @apply text-link no-underline break-words;

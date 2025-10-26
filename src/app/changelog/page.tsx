@@ -7,6 +7,7 @@ export default function Changelog() {
       <Island className="doc" title="2025/10/25">
         <ul>
           <li><a href="https://mermaid.js.org/">Mermaid</a> のレンダリングに対応</li>
+          <li>目次 (TOC: Table of Contents) 対応</li>
         </ul>
       </Island>
 

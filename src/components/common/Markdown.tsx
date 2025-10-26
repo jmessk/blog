@@ -5,10 +5,10 @@ import Script from "next/script";
 
 
 export function MarkdownToHtml({ children }: { children: string }) {
-  const components = renderReact(children);
+  const content = renderReact(children).content;
   return (
     <>
-      {components}
+      {content}
       <Script src="https://cdn.jsdelivr.net/npm/mermaid@11.12.0/dist/mermaid.min.js" />
     </>
   );

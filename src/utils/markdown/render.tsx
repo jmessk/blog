@@ -4,15 +4,30 @@ import { unified } from "unified";
 import remarkParse from "remark-parse";
 import remarkGfm from "remark-gfm";
 import remarkRehype from "remark-rehype";
-import rehypeReact from "rehype-react";
+import rehypeSlug from "rehype-slug";
+import rehypeToc from "rehype-toc";
 // import rehypeMermaid from "rehype-mermaid";
+import rehypeReact from "rehype-react";
 
+import React from "react";
+import type { VFile } from "vfile";
 import * as prod from "react/jsx-runtime";
 // import Image from "next/image";
+// import mermaid from "mermaid";
+import type { Root, Image } from "mdast";
+import { visit } from "unist-util-visit";
+import { toHtml } from 'hast-util-to-html';
 
 import { CodeBlock } from "@/components/post/CodeBlock";
 
-// import mermaid from "mermaid";
+
+declare module "vfile" {
+  interface DataMap {
+    toc: string;
+  }
+}
+
+
 // mermaid.initialize({ startOnLoad: true , theme: "dark"});
 
 // function nextImage(props: React.ImgHTMLAttributes<HTMLImageElement>) {
@@ -29,13 +44,32 @@ import { CodeBlock } from "@/components/post/CodeBlock";
 // }
 
 
-function codeBlockPre(props: React.HTMLAttributes<HTMLPreElement>) {
+function extractToc() {
+  return (tree: Root, file: VFile) => {
+
+    visit(tree, "element", (node: any, index: number | null, parent: any) => {
+      if (node.tagName === "nav" && node.properties.className.includes("toc")) {
+        const tocHtml = toHtml(node);
+        file.data.toc = tocHtml;
+
+        // Remove the toc node from the tree
+        if (parent && typeof index === 'number') {
+          parent.children.splice(index, 1);
+        }
+      }
+    });
+
+  };
+}
+
+
+function codeToCodeBlock(props: React.HTMLAttributes<HTMLPreElement>) {
 
   const childrenArray = Array.isArray(props.children)
     ? props.children
     : [props.children];
-  const first = childrenArray[0] as any;
 
+  const first = childrenArray[0] as any;
   if (!(first && typeof first === "object" && first.type === "code")) {
     return <pre {...props}>{props.children}</pre>;
   }
@@ -65,23 +99,24 @@ const processor = unified()
   .use(remarkParse)
   .use(remarkGfm)
   .use(remarkRehype)
-  // .use(rehypeSlug)
-  // .use(rehypeToc, {
-  //   headings: ['h2', 'h3'], cssClasses: {
-  //     toc: "table-of-contents"
-  //   }
-  // })
+  .use(rehypeSlug)
+  .use(rehypeToc, { headings: ['h2', 'h3'] })
+  .use(extractToc)
   // .use(rehypeMermaid, { strategy: "pre-mermaid" })
   .use(rehypeReact, {
     ...prod,
     components: {
-      pre: codeBlockPre,
+      pre: codeToCodeBlock,
       // img: nextImage
     }
   });
 
 
 export function renderReact(markdown: string) {
-  const component = processor.processSync(markdown);
-  return <>{component.result}</>;
+  const file = processor.processSync(markdown) as VFile;
+
+  return {
+    content: <>{file.result}</>,
+    toc: file.data.toc as string | undefined,
+  }
 }
