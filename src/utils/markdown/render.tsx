@@ -10,6 +10,7 @@ import rehypeToc from "rehype-toc";
 import rehypeReact from "rehype-react";
 
 import React from "react";
+import { useEffect } from "react";
 import type { VFile } from "vfile";
 import * as prod from "react/jsx-runtime";
 // import Image from "next/image";
@@ -17,6 +18,7 @@ import * as prod from "react/jsx-runtime";
 import type { Root, Image } from "mdast";
 import { visit } from "unist-util-visit";
 import { toHtml } from 'hast-util-to-html';
+import mermaid from "mermaid";
 
 import { CodeBlock } from "@/components/post/CodeBlock";
 
@@ -113,6 +115,11 @@ const processor = unified()
 
 
 export function renderReact(markdown: string) {
+  useEffect(() => {
+    mermaid.initialize({ startOnLoad: true, theme: "dark" });
+    mermaid.contentLoaded();
+  }, []);
+
   const file = processor.processSync(markdown) as VFile;
 
   return {
