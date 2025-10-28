@@ -10,7 +10,8 @@ import rehypeToc from "rehype-toc";
 import rehypeReact from "rehype-react";
 
 import React from "react";
-import { useEffect } from "react";
+import Script from "next/script";
+// import { useEffect } from "react";
 import type { VFile } from "vfile";
 import * as prod from "react/jsx-runtime";
 // import Image from "next/image";
@@ -18,9 +19,10 @@ import * as prod from "react/jsx-runtime";
 import type { Root, Image } from "mdast";
 import { visit } from "unist-util-visit";
 import { toHtml } from 'hast-util-to-html';
-import mermaid from "mermaid";
+// import mermaid from "mermaid";
 
 import { CodeBlock } from "@/components/post/CodeBlock";
+import { MermaidCDN } from "@/components/post/Mermaid";
 
 
 declare module "vfile" {
@@ -84,9 +86,7 @@ function codeToCodeBlock(props: React.HTMLAttributes<HTMLPreElement>) {
   const filename = split?.slice(1).join();
 
   if (lang === "mermaid") {
-    return (
-      <pre className="mermaid">{first.props?.children ?? ""}</pre>
-    )
+    return <MermaidCDN code={first.props?.children ?? ""} />
   }
 
   return (
@@ -115,15 +115,21 @@ const processor = unified()
 
 
 export function renderReact(markdown: string) {
-  useEffect(() => {
-    mermaid.initialize({ startOnLoad: true, theme: "dark" });
-    mermaid.contentLoaded();
-  }, []);
+  // useEffect(() => {
+  //   mermaid.initialize({ startOnLoad: true, theme: "dark" });
+  //   mermaid.contentLoaded();
+  // }, []);
 
   const file = processor.processSync(markdown) as VFile;
 
   return {
-    content: <>{file.result}</>,
+    content: (<>
+      {file.result}
+      <Script
+        src="https://cdn.jsdelivr.net/npm/mermaid@11.12.0/dist/mermaid.min.js"
+        strategy="afterInteractive"
+      />
+    </>),
     toc: file.data.toc as string | undefined,
   }
 }

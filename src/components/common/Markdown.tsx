@@ -9,7 +9,6 @@ export function MarkdownToHtml({ children }: { children: string }) {
   return (
     <>
       {content}
-      {/* <Script src="https://cdn.jsdelivr.net/npm/mermaid@11.12.0/dist/mermaid.min.js" /> */}
     </>
   );
 }

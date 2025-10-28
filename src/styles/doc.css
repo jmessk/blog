@@ -89,8 +89,8 @@
         @apply my-6;
     }
 
-    .doc .mermaid {
-        @apply my-6 bg-[#1E1E1E] rounded-2xl;
+    .doc div.mermaid {
+        @apply my-6;
     }
 
     /* 引用 */
