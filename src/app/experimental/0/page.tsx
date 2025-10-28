@@ -61,6 +61,12 @@ text **bold** \`code\`
 \`\`\`mermaid
 sequenceDiagram
     participant Client as ターゲット PC
+    Client ->> Client: PXE ブート起動
+\`\`\`
+
+\`\`\`mermaid
+sequenceDiagram
+    participant Client as ターゲット PC
     participant DHCP as DHCP サーバ
     participant TFTP as TFTP サーバ
     participant HTTP as HTTP サーバ
