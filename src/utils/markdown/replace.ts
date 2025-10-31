@@ -5,12 +5,13 @@ import remarkStringify from "remark-stringify";
 import { visit } from "unist-util-visit";
 import type { Root, Image } from "mdast";
 import { VFile } from "vfile";
+import { UrlMap } from "@/types/helper";
 // import path from "path";
 
 
 declare module "vfile" {
   interface DataMap {
-    urlMap: Record<string, string>;
+    urlMap: UrlMap;
   }
 }
 
@@ -20,7 +21,7 @@ function replaceImagePath() {
 
     visit(tree, "image", (node: Image) => {
       if (urlMap[node.url]) {
-        node.url = urlMap[node.url];
+        node.url = urlMap[node.url].uri;
       }
     });
 
@@ -34,7 +35,7 @@ const processor = unified()
 
 export function replacePaths(
   content: string,
-  urlMap: Record<string, string>,
+  urlMap: UrlMap,
 ): string {
   const file = new VFile({ value: content });
   file.data.urlMap = urlMap;

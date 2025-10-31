@@ -6,6 +6,7 @@ import { eq, and, isNull, sql } from "drizzle-orm";
 import { postsTable, tagsTable, postTagsTable } from "@/db/schema";
 import { FrontMatter } from "@/types/post";
 import { rebuildMarkdown } from "@/utils/markdown/rebuild";
+import { getPostContent } from "@/infrastructures/post";
 
 
 export async function GET(request: NextRequest, { params }: { params: Promise<{ post_id: string }> }) {
@@ -21,7 +22,7 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
       description: postsTable.description,
       category: postsTable.category,
       thumbnailUri: postsTable.thumbnailUri,
-      content: postsTable.content,
+      // content: postsTable.content,
       createdAt: postsTable.createdAt,
       updatedAt: postsTable.updatedAt,
       deletedAt: postsTable.deletedAt,
@@ -38,9 +39,12 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
     return NextResponse.json({ error: `"post_id ${post_id} is not found"` }, { status: 404 });
   }
 
-  const post = rows[0];
+  const content = await getPostContent(post_id);
+  if (!content) {
+    return NextResponse.json({ error: `content for post_id ${post_id} is not found` }, { status: 404 });
+  }
 
-  const content = post.content;
+  const post = rows[0];
   const frontmatter = {
     id: post.id,
     title: post.title,

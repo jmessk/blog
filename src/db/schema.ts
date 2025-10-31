@@ -7,7 +7,7 @@ export const postsTable = sqliteTable("posts", {
   description: text("description"),
   category: text("category").notNull(),
   thumbnailUri: text("thumbnail_uri"),
-  content: text("content").notNull(),
+  // content: text("content").notNull(),
   createdAt: text("created_at").notNull(),
   updatedAt: text("updated_at"),
   deletedAt: text("deleted_at")
@@ -23,4 +23,9 @@ export const tagsTable = sqliteTable("tags", {
 export const postTagsTable = sqliteTable("post_tags", {
   postId: text("post_id").notNull().references(() => postsTable.id, { onDelete: "cascade" }),
   tagId: text("tag_id").notNull().references(() => tagsTable.id, { onDelete: "cascade" }),
+});
+
+export const postObjectsTable = sqliteTable("post_objects", {
+  postId: text("post_id").notNull().references(() => postsTable.id, { onDelete: "cascade" }),
+  objectName: text("object_name").notNull(),
 });

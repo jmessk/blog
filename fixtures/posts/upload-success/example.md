@@ -1,9 +1,9 @@
 ---
 title: "Test Post"
 description: "This is a test post."
-category: "example"
-tags: ["demo","curl"]
-thumbnail_uri: "image-a.png"
+category: "tech"
+tags: ["demo","Curl"]
+thumbnailUri: "image-a.png"
 ---
 
 ## Test Post

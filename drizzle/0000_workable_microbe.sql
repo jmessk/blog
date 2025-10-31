@@ -1,3 +1,9 @@
+CREATE TABLE `post_objects` (
+	`post_id` text NOT NULL,
+	`object_name` text NOT NULL,
+	FOREIGN KEY (`post_id`) REFERENCES `posts`(`id`) ON UPDATE no action ON DELETE cascade
+);
+--> statement-breakpoint
 CREATE TABLE `post_tags` (
 	`post_id` text NOT NULL,
 	`tag_id` text NOT NULL,
@@ -11,7 +17,6 @@ CREATE TABLE `posts` (
 	`description` text,
 	`category` text NOT NULL,
 	`thumbnail_uri` text,
-	`content` text NOT NULL,
 	`created_at` text NOT NULL,
 	`updated_at` text,
 	`deleted_at` text

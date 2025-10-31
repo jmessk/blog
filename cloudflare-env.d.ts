@@ -3,7 +3,7 @@
 
 interface CloudflareEnv {
   D1_POSTS: D1Database;
-  R2_IMAGES: R2Bucket;
+  R2_BUCKET: R2Bucket;
   R2_IMAGES_BASE_URL: string;
   POSTS_API_TOKEN: string;
 }

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getPost } from "@/infrastructures/post";
+import { getPostContent, getPostMeta } from "@/infrastructures/post";
 import { Post, PostMeta } from "@/types/post";
 
 // GET /api/posts/:post_id[?content=true]
@@ -7,24 +7,25 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
   const { post_id } = await params;
   const withContent = request.nextUrl.searchParams.get("content") === "true";
 
-  try {
-
-    if (withContent) {
-      const result = await getPost({ id: post_id, withContent: true });
-      return NextResponse.json(result);
-    } else {
-      const result = await getPost({ id: post_id, withContent: false });
-      return NextResponse.json(result);
+  if (withContent) {
+    const meta = await getPostMeta(post_id);
+    const content = await getPostContent(post_id);
+    if (!meta || !content) {
+      return NextResponse.json({ error: `"post_id ${post_id} is not found"` }, { status: 404 });
     }
 
-  } catch (error) {
-
-    const message = (error as Error).message;
-    if (message.includes("is not found")) {
-      return NextResponse.json({ error: message }, { status: 404 });
-    }
-
-    return NextResponse.json({ error: message }, { status: 500 });
-
+    return NextResponse.json({ ...meta, content } as Post);
   }
+
+  const meta = await getPostMeta(post_id);
+  if (!meta) {
+    return NextResponse.json({ error: `"post_id ${post_id} is not found"` }, { status: 404 });
+  }
+
+  return NextResponse.json(meta);
 }
+
+
+// export async function UPDATE(request: NextRequest, { params }: { params: Promise<{ post_id: string }> }) {
+
+// }

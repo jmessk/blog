@@ -4,25 +4,26 @@ import { getCloudflareContext } from "@opennextjs/cloudflare";
 import { drizzle } from "drizzle-orm/d1";
 import { URL } from "url";
 import { uuidv7 } from "uuidv7";
-import { postsTable, tagsTable, postTagsTable } from "@/db/schema";
+
+import { postsTable, tagsTable, postTagsTable, postObjectsTable } from "@/db/schema";
 import { FrontMatter, PostMeta } from "@/types/post";
 import { extractContents } from "@/utils/markdown/extract";
 import { replacePaths } from "@/utils/markdown/replace";
 import { rebuildMarkdown } from "@/utils/markdown/rebuild";
-import { uploadImage } from "@/infrastructures/image";
+import { putImage } from "@/infrastructures/image";
 import { normalizeTags } from "@/utils/tag";
 import { normalizeCategory } from "@/utils/category";
-import { getPosts } from "@/infrastructures/post";
+import { getPostMetaList, putPostContent } from "@/infrastructures/post";
+import { UrlMap } from "@/types/helper";
 
 
 export async function GET(request: NextRequest) {
   const categoryParam = request.nextUrl.searchParams.get("category");
-  const category = categoryParam ? normalizeCategory(categoryParam) : undefined;
-
   const tagsParam = request.nextUrl.searchParams.get("tags")?.split(",");
-  const tagIds = tagsParam ? normalizeTags(tagsParam) : undefined;
 
-  const posts = await getPosts({ category, tagIds });
+  const category = categoryParam ? normalizeCategory(categoryParam) : undefined;
+  const tagIds = tagsParam ? normalizeTags(tagsParam) : undefined;
+  const posts = await getPostMetaList({ category, tagIds });
 
   return NextResponse.json(posts);
 };
@@ -75,8 +76,9 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const form = await request.formData();
 
+
+  const form = await request.formData();
   let content;
   let frontmatter;
   let urlMap;
@@ -92,7 +94,6 @@ export async function POST(request: NextRequest) {
     if (!frontmatter.title) {
       throw new Error("`title` does not exists in frontmatter");
     }
-
     // frontmatterの `category` が存在するか検証
     if (!frontmatter.category) {
       throw new Error("`category` does not exists in frontmatter");
@@ -100,7 +101,6 @@ export async function POST(request: NextRequest) {
 
     // const mdFileNames = extractPathFileNames(imagePaths);
     const mdImagePaths = imagePaths.filter((imagePath: string) => !isUrl(imagePath));
-
     if (!checkAllFilesExist(mdImagePaths, files)) {
       throw new Error("Some files are referenced in markdown, but not uploaded");
     }
@@ -112,6 +112,8 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: (error as Error).message }, { status: 400 });
   }
 
+
+
   const db = drizzle(env.D1_POSTS);
 
   const id = uuidv7();
@@ -121,12 +123,17 @@ export async function POST(request: NextRequest) {
 
   const newFrontmatter = updateFrontmatter(
     frontmatter,
-    id, newCategory, newTags, createdAt,
+    // id, newCategory, newTags, createdAt,
+    { id, category: newCategory, tags: newTags, createdAt },
     urlMap
   );
 
   const newContent = replacePaths(content, urlMap);
-  const newMarkdown = rebuildMarkdown(newFrontmatter, newContent);
+  const newMarkdownToReturn = rebuildMarkdown(newFrontmatter, newContent);
+
+
+
+  await putPostContent(id, newContent);
 
   await db.insert(postsTable).values({
     id,
@@ -135,10 +142,8 @@ export async function POST(request: NextRequest) {
     category: newCategory,
     thumbnailUri: newFrontmatter.thumbnailUri!,
     createdAt: createdAt,
-    content: newContent,
   }).run();
 
-  // もし存在しないタグがあれば追加
   await db.insert(tagsTable).values(
     newTags.map((tag) => ({
       id: tag,
@@ -147,7 +152,6 @@ export async function POST(request: NextRequest) {
     }))
   ).onConflictDoNothing().run();
 
-  // Post と Tag の関連付けを追加
   await db.insert(postTagsTable).values(
     newTags.map((tag) => ({
       postId: id,
@@ -155,10 +159,17 @@ export async function POST(request: NextRequest) {
     }))
   ).onConflictDoNothing().run();
 
+  await db.insert(postObjectsTable).values(
+    Object.values(urlMap).map(({ filename }) => ({
+      postId: id,
+      objectName: filename,
+    }))
+  );
+
   return NextResponse.json({
     id,
     created_at: createdAt,
-    registered_content: newMarkdown,
+    registered_content: newMarkdownToReturn,
   });
 }
 
@@ -226,14 +237,15 @@ function makeFileMap(filePaths: string[], files: File[]): Record<string, File> {
   return fileMap;
 }
 
-async function uploadAndMakeMap(fileMap: Record<string, File>): Promise<Record<string, string>> {
-  const urlMap: Record<string, string> = {};
+async function uploadAndMakeMap(fileMap: Record<string, File>): Promise<UrlMap> {
+  const urlMap: UrlMap = {};
 
   const uploadings = Object.entries(fileMap)
     .map(async ([filePath, file]) => {
-      const uploadedPath = await uploadImage(file);
+      const filename = await putImage(file);
+      const uploadedPath = `/api/images/${filename}`;
       if (uploadedPath) {
-        urlMap[filePath] = uploadedPath;
+        urlMap[filePath] = { filename, uri: uploadedPath };
       }
     });
 
@@ -243,21 +255,25 @@ async function uploadAndMakeMap(fileMap: Record<string, File>): Promise<Record<s
 }
 
 function updateFrontmatter(
-  frontmatter: FrontMatter,
-  id: string,
-  category: string,
-  tags: string[],
-  createdAt: string,
-  urlMap: Record<string, string>
+  prevFrontmatter: FrontMatter,
+  // id: string,
+  // category: string,
+  // tags: string[],
+  // createdAt: string,
+  newFrontmatter: FrontMatter,
+  urlMap: UrlMap
 ): FrontMatter {
-  frontmatter.id = id;
-  frontmatter.createdAt = createdAt;
-  frontmatter.category = category;
-  frontmatter.tags = tags;
-
-  if (frontmatter.thumbnailUri) {
-    frontmatter.thumbnailUri = urlMap[frontmatter.thumbnailUri];
+  // prevFrontmatter.id = id;
+  // prevFrontmatter.createdAt = createdAt;
+  // prevFrontmatter.category = category;
+  // prevFrontmatter.tags = tags;
+  const updatedFrontmatter = Object.assign(prevFrontmatter, newFrontmatter);
+  
+  if (updatedFrontmatter.thumbnailUri) {
+    updatedFrontmatter.thumbnailUri = urlMap[updatedFrontmatter.thumbnailUri].uri;
   }
+  console.log("Updated frontmatter:", updatedFrontmatter);
+  console.log("URL map:", urlMap);
 
-  return frontmatter;
+  return updatedFrontmatter;
 }

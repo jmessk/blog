@@ -6,11 +6,41 @@ import { postsTable, tagsTable, postTagsTable } from "@/db/schema";
 import { Post, PostMeta, Tag } from "@/types/post";
 
 
-// Overload signatures
-export async function getPost(params: { id: string; withContent: true }): Promise<Post>;
-export async function getPost(params: { id: string; withContent: false }): Promise<PostMeta>;
-export async function getPost(params: { id: string; withContent: boolean }): Promise<Post | PostMeta>;
-export async function getPost({ id, withContent }: { id: string; withContent: boolean }): Promise<Post | PostMeta> {
+export async function getPostContent(id: string): Promise<string | null> {
+  const { env } = getCloudflareContext();
+  const content = await env.R2_BUCKET.get(`${id}.md`);
+  return content ? await content.text() : null;
+}
+
+
+export async function putPostContent(id: string, content: string): Promise<void> {
+  const { env } = getCloudflareContext();
+
+  await env.R2_BUCKET.put(`${id}.md`, content, {
+    httpMetadata: {
+      contentType: "text/plain",
+    },
+  });
+}
+
+
+export async function updatePostContent(id: string, content: string): Promise<void> {
+  const { env } = getCloudflareContext();
+
+  const existing = await env.R2_BUCKET.get(`${id}.md`);
+  if (!existing) {
+    throw new Error(`post content for id ${id} is not found`);
+  }
+
+  await env.R2_BUCKET.put(`${id}.md`, content, {
+    httpMetadata: {
+      contentType: "text/plain",
+    },
+  });
+}
+
+
+export async function getPostMeta(id: string): Promise<PostMeta | null> {
   const { env } = getCloudflareContext();
 
   const db = drizzle(env.D1_POSTS);
@@ -22,7 +52,7 @@ export async function getPost({ id, withContent }: { id: string; withContent: bo
       description: postsTable.description,
       category: postsTable.category,
       thumbnailUri: postsTable.thumbnailUri,
-      content: withContent ? postsTable.content : sql`NULL`.as("content"),
+      // content: withContent ? postsTable.content : sql`NULL`.as("content"),
       createdAt: postsTable.createdAt,
       updatedAt: postsTable.updatedAt,
       deletedAt: postsTable.deletedAt,
@@ -48,7 +78,8 @@ export async function getPost({ id, withContent }: { id: string; withContent: bo
     .limit(1);
 
   if (!(rows && rows[0])) {
-    throw new Error(`post_id ${id} is not found`);
+    // throw new Error(`post_id ${id} is not found`);
+    return null;
   }
 
   const dbPost = rows[0];
@@ -65,10 +96,6 @@ export async function getPost({ id, withContent }: { id: string; withContent: bo
     tags: JSON.parse(dbPost.tags) as Tag[],
   };
 
-  if (withContent) {
-    return { ...meta, content: dbPost.content as string } satisfies Post;
-  }
-
   return meta;
 }
 
@@ -78,7 +105,7 @@ type GetPostsParams = {
 }
 
 // Get multiple posts optionally filtered by tag names (normalized externally)
-export async function getPosts({ category, tagIds = [] }: GetPostsParams): Promise<PostMeta[]> {
+export async function getPostMetaList({ category, tagIds = [] }: GetPostsParams): Promise<PostMeta[]> {
   const { env } = getCloudflareContext();
   const db = drizzle(env.D1_POSTS);
 

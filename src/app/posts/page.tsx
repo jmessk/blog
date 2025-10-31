@@ -1,4 +1,4 @@
-import { getPosts } from "@/infrastructures/post";
+import { getPostMetaList } from "@/infrastructures/post";
 import { PostList, PostListItem } from "@/components/post/PostList";
 import { normalizeTags } from "@/utils/tag";
 import { Island } from "@/components/common/Island";
@@ -15,7 +15,7 @@ export default async function Page({
   const splitedTags = tags?.split(",") ?? [];
   const tagIds = normalizeTags(splitedTags);
 
-  const posts = await getPosts({ category, tagIds });
+  const posts = await getPostMetaList({ category, tagIds });
 
   if (posts.length === 0) {
     return (
