@@ -17,13 +17,13 @@ export function PostList({ className, children }: { className?: string; children
 
 
 export function PostListItem({ meta, href }: { meta: PostMeta; href: string }) {
-  const createdAt = formatDateShort(meta.createdAt);
-  const updatedAt = meta.updatedAt ? formatDateShort(meta.updatedAt) : undefined;
+  const createdAt = formatDateShort(meta.created_at);
+  const updatedAt = meta.updated_at ? formatDateShort(meta.updated_at) : undefined;
 
-  const thumbnail = meta.thumbnailUri ? (
+  const thumbnail = meta.thumbnail_uri ? (
     <div className="relative w-full overflow-hidden h-50 sm:h-[142px] sm:w-50 sm:flex-shrink-0">
       <Image
-        src={meta.thumbnailUri}
+        src={meta.thumbnail_uri}
         alt=""
         width={300}
         height={200}

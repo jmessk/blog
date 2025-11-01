@@ -17,11 +17,11 @@ export async function getPostMeta(id: string): Promise<PostMeta | null> {
       title: postsTable.title,
       description: postsTable.description,
       category: postsTable.category,
-      thumbnailUri: postsTable.thumbnailUri,
+      thumbnailUri: postsTable.thumbnail_uri,
       // content: withContent ? postsTable.content : sql`NULL`.as("content"),
-      createdAt: postsTable.createdAt,
-      updatedAt: postsTable.updatedAt,
-      deletedAt: postsTable.deletedAt,
+      createdAt: postsTable.created_at,
+      updatedAt: postsTable.updated_at,
+      deletedAt: postsTable.deleted_at,
       tags: sql<string>`
         CASE
           WHEN COUNT(${tagsTable.id}) = 0 THEN json('[]')
@@ -29,17 +29,17 @@ export async function getPostMeta(id: string): Promise<PostMeta | null> {
             json_object(
               'id', ${tagsTable.id},
               'category', ${tagsTable.category},
-              'name', ${tagsTable.name},
-              'iconUri', ${tagsTable.iconUri}
+              'label', ${tagsTable.label},
+              'icon_uri', ${tagsTable.icon_uri}
             )
           )
         END`
         .as("tags"),
     })
     .from(postsTable)
-    .where(and(eq(postsTable.id, id), isNull(postsTable.deletedAt)))
-    .leftJoin(postTagsTable, eq(postsTable.id, postTagsTable.postId))
-    .leftJoin(tagsTable, eq(tagsTable.id, postTagsTable.tagId))
+    .where(and(eq(postsTable.id, id), isNull(postsTable.deleted_at)))
+    .leftJoin(postTagsTable, eq(postsTable.id, postTagsTable.post_id))
+    .leftJoin(tagsTable, eq(tagsTable.id, postTagsTable.tag_id))
     .groupBy(postsTable.id)
     .limit(1);
 
@@ -55,10 +55,10 @@ export async function getPostMeta(id: string): Promise<PostMeta | null> {
     title: dbPost.title,
     description: dbPost.description ?? undefined,
     category: dbPost.category,
-    thumbnailUri: dbPost.thumbnailUri ?? undefined,
-    createdAt: dbPost.createdAt,
-    updatedAt: dbPost.updatedAt ?? undefined,
-    deletedAt: dbPost.deletedAt ?? undefined,
+    thumbnail_uri: dbPost.thumbnailUri ?? undefined,
+    created_at: dbPost.createdAt,
+    updated_at: dbPost.updatedAt ?? undefined,
+    deleted_at: dbPost.deletedAt ?? undefined,
     tags: JSON.parse(dbPost.tags) as Tag[],
   };
 
@@ -80,11 +80,11 @@ export async function getPostMetaList({ category, tagIds = [] }: GetPostsParams)
       id: postsTable.id,
       title: postsTable.title,
       description: postsTable.description,
-      thumbnailUri: postsTable.thumbnailUri,
+      thumbnailUri: postsTable.thumbnail_uri,
       category: postsTable.category,
-      createdAt: postsTable.createdAt,
-      updatedAt: postsTable.updatedAt,
-      deletedAt: postsTable.deletedAt,
+      createdAt: postsTable.created_at,
+      updatedAt: postsTable.updated_at,
+      deletedAt: postsTable.deleted_at,
       tags: sql<string>`
         CASE
           WHEN COUNT(${tagsTable.id}) = 0 THEN json('[]')
@@ -92,24 +92,24 @@ export async function getPostMetaList({ category, tagIds = [] }: GetPostsParams)
             json_object(
               'id', ${tagsTable.id},
               'category', ${tagsTable.category},
-              'name', ${tagsTable.name},
-              'iconUri', ${tagsTable.iconUri}
+              'label', ${tagsTable.label},
+              'icon_uri', ${tagsTable.icon_uri}
             )
           )
         END`
         .as("tags"),
     })
     .from(postsTable)
-    .leftJoin(postTagsTable, eq(postsTable.id, postTagsTable.postId))
-    .leftJoin(tagsTable, eq(tagsTable.id, postTagsTable.tagId))
+    .leftJoin(postTagsTable, eq(postsTable.id, postTagsTable.post_id))
+    .leftJoin(tagsTable, eq(tagsTable.id, postTagsTable.tag_id))
     .where(
       tagIds.length === 0
         ? and(
-          isNull(postsTable.deletedAt),
+          isNull(postsTable.deleted_at),
           category ? eq(postsTable.category, category) : sql`1=1`
         )
         : and(
-          isNull(postsTable.deletedAt),
+          isNull(postsTable.deleted_at),
           category ? eq(postsTable.category, category) : sql`1=1`,
           exists(
             db
@@ -117,8 +117,8 @@ export async function getPostMetaList({ category, tagIds = [] }: GetPostsParams)
               .from(postTagsTable)
               .where(
                 and(
-                  eq(postTagsTable.postId, postsTable.id),
-                  inArray(postTagsTable.tagId, tagIds)
+                  eq(postTagsTable.post_id, postsTable.id),
+                  inArray(postTagsTable.tag_id, tagIds)
                 )
               )
           )
@@ -131,10 +131,10 @@ export async function getPostMetaList({ category, tagIds = [] }: GetPostsParams)
     title: row.title,
     description: row.description ?? undefined,
     category: row.category,
-    thumbnailUri: row.thumbnailUri ?? undefined,
-    createdAt: row.createdAt,
-    updatedAt: row.updatedAt ?? undefined,
-    deletedAt: row.deletedAt ?? undefined,
+    thumbnail_uri: row.thumbnailUri ?? undefined,
+    created_at: row.createdAt,
+    updated_at: row.updatedAt ?? undefined,
+    deleted_at: row.deletedAt ?? undefined,
     tags: JSON.parse(row.tags) as Tag[],
   } satisfies PostMeta));
 }

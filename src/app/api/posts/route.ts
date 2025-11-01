@@ -130,7 +130,7 @@ export async function POST(request: NextRequest) {
   const newTags = normalizeTags(frontmatter.tags || []);
   const newFrontmatter = updateFrontmatter(
     frontmatter,
-    { id, category: newCategory, tags: newTags, createdAt },
+    { id, category: newCategory, tags: newTags, created_at: createdAt },
     urlMap
   );
   const newContent = replacePaths(content, urlMap);
@@ -143,13 +143,13 @@ export async function POST(request: NextRequest) {
       title: newFrontmatter.title!,
       description: newFrontmatter.description!,
       category: newCategory,
-      thumbnailUri: newFrontmatter.thumbnailUri!,
-      createdAt: createdAt,
+      thumbnail_uri: newFrontmatter.thumbnail_uri!,
+      created_at: createdAt,
     }),
     insertTags(newTags.map((tagId) => ({
       id: tagId,
       category: newCategory,
-      name: tagId
+      label: tagId
     }))),
     insertPostTags(id, newTags),
     insertPostObjects(

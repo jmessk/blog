@@ -18,14 +18,14 @@ export function TagListItem({ tag }: { tag: Tag }) {
     <Link
       href={`/posts?category=${tag.category}&tags=${tag.id}`}
       key={tag.id}
-      className={`shrink-0 flex items-center gap-2 rounded-full p-1 text-foreground ${twTagColor} ${tag.iconUri ? "pr-3" : "px-3"}`}
+      className={`shrink-0 flex items-center gap-2 rounded-full p-1 text-foreground ${twTagColor} ${tag.icon_uri ? "pr-3" : "px-3"}`}
     >
-      {tag.iconUri &&
+      {tag.icon_uri &&
         <div className="w-5 h-5 overflow-hidden rounded-full bg-white">
-          <Image src={tag.iconUri} alt="" width={16} height={16} className="object-cover w-full h-full" />
+          <Image src={tag.icon_uri} alt="" width={16} height={16} className="object-cover w-full h-full" />
         </div>
       }
-      <span className="text-sm">{tag.name}</span>
+      <span className="text-sm">{tag.label}</span>
     </Link>
   );
 }

@@ -12,6 +12,8 @@ export default async function Post({ params }: { params: Promise<{ post_id: stri
     return (<div>Internal Server Error</div>);
   }
 
+  console.log("Post meta:", meta);
+
   const post = { ...meta, content };
   return (
     <>

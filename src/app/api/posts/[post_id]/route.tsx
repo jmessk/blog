@@ -103,7 +103,7 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
   const newTags = normalizeTags(frontmatter.tags || []);
   const newFrontmatter = updateFrontmatter(
     frontmatter,
-    { category: newCategory, tags: newTags, updatedAt },
+    { category: newCategory, tags: newTags, updated_at: updatedAt },
     urlMap
   );
   const newContent = replacePaths(content, urlMap);
@@ -125,13 +125,13 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
       title: newFrontmatter.title!,
       description: newFrontmatter.description!,
       category: newCategory,
-      thumbnailUri: newFrontmatter.thumbnailUri ,
-      updatedAt,
+      thumbnail_uri: newFrontmatter.thumbnail_uri ,
+      updated_at: updatedAt,
     }),
     insertTags(newTags.map((tagId) => ({
       id: tagId,
       category: newCategory,
-      name: tagId
+      label: tagId
     }))),
     insertPostTags(post_id, newTags),
     insertPostObjects(

@@ -21,17 +21,17 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
       title: postsTable.title,
       description: postsTable.description,
       category: postsTable.category,
-      thumbnailUri: postsTable.thumbnailUri,
+      thumbnailUri: postsTable.thumbnail_uri,
       // content: postsTable.content,
-      createdAt: postsTable.createdAt,
-      updatedAt: postsTable.updatedAt,
-      deletedAt: postsTable.deletedAt,
+      createdAt: postsTable.created_at,
+      updatedAt: postsTable.updated_at,
+      deletedAt: postsTable.deleted_at,
       tags: sql<string | null>`json_group_array(${tagsTable.id})`.as("tags"),
     })
     .from(postsTable)
-    .where(and(eq(postsTable.id, post_id), isNull(postsTable.deletedAt)))
-    .leftJoin(postTagsTable, eq(postsTable.id, postTagsTable.postId))
-    .leftJoin(tagsTable, eq(tagsTable.id, postTagsTable.tagId))
+    .where(and(eq(postsTable.id, post_id), isNull(postsTable.deleted_at)))
+    .leftJoin(postTagsTable, eq(postsTable.id, postTagsTable.post_id))
+    .leftJoin(tagsTable, eq(tagsTable.id, postTagsTable.tag_id))
     .groupBy(postsTable.id)
     .limit(1);
 
@@ -50,10 +50,10 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
     title: post.title,
     description: post.description ?? undefined,
     category: post.category,
-    thumbnailUri: post.thumbnailUri ?? undefined,
-    createdAt: post.createdAt,
-    updatedAt: post.updatedAt ?? undefined,
-    deletedAt: post.deletedAt ?? undefined,
+    thumbnail_uri: post.thumbnailUri ?? undefined,
+    created_at: post.createdAt,
+    updated_at: post.updatedAt ?? undefined,
+    deleted_at: post.deletedAt ?? undefined,
     tags: post.tags ? JSON.parse(post.tags) as string[] : undefined
   } as FrontMatter;
 

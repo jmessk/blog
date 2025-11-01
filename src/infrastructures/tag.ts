@@ -14,12 +14,12 @@ export async function getTags(category?: string): Promise<Tag[]> {
     .select({
       id: tagsTable.id,
       category: tagsTable.category,
-      name: tagsTable.name,
-      iconUri: tagsTable.iconUri,
+      label: tagsTable.label,
+      icon_uri: tagsTable.icon_uri,
     })
     .from(tagsTable)
     .where(category ? eq(tagsTable.category, category) : sql`1=1`)
-    .orderBy(tagsTable.name);
+    .orderBy(tagsTable.label);
 
   return rows as Tag[];
 }
@@ -33,8 +33,8 @@ export async function insertTags(tags: Tag[]) {
     tags.map((tag) => ({
       id: tag.id,
       category: tag.category,
-      name: tag.name,
-      iconUri: tag.iconUri ?? null,
+      label: tag.label,
+      icon_uri: tag.icon_uri ?? null,
     }))
   ).onConflictDoNothing().run();
 }

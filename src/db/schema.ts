@@ -2,30 +2,30 @@ import { sqliteTable, text } from "drizzle-orm/sqlite-core";
 
 
 export const postsTable = sqliteTable("posts", {
-  id: text("id").notNull().primaryKey(), // UUIDv7
-  title: text("title").notNull(),
-  description: text("description"),
-  category: text("category").notNull(),
-  thumbnailUri: text("thumbnail_uri"),
-  // content: text("content").notNull(),
-  createdAt: text("created_at").notNull(),
-  updatedAt: text("updated_at"),
-  deletedAt: text("deleted_at")
+  id: text().notNull().primaryKey(), // UUIDv7
+  title: text().notNull(),
+  description: text(),
+  category: text().notNull(),
+  thumbnail_uri: text(),
+  // content: text().notNull(),
+  created_at: text().notNull(),
+  updated_at: text(),
+  deleted_at: text()
 });
 
 export const tagsTable = sqliteTable("tags", {
-  id: text("id").notNull().primaryKey(), // e.g. javascript
-  category: text("category").notNull(),
-  name: text("name").notNull(),   // e.g. JavaScript
-  iconUri: text("icon_uri"),
+  id: text().notNull().primaryKey(), // e.g. javascript
+  category: text().notNull(),
+  label: text().notNull(),   // e.g. JavaScript
+  icon_uri: text(),
 });
 
 export const postTagsTable = sqliteTable("post_tags", {
-  postId: text("post_id").notNull().references(() => postsTable.id, { onDelete: "cascade" }),
-  tagId: text("tag_id").notNull().references(() => tagsTable.id, { onDelete: "cascade" }),
+  post_id: text().notNull().references(() => postsTable.id, { onDelete: "cascade" }),
+  tag_id: text().notNull().references(() => tagsTable.id, { onDelete: "cascade" }),
 });
 
 export const postObjectsTable = sqliteTable("post_objects", {
-  postId: text("post_id").notNull().references(() => postsTable.id, { onDelete: "cascade" }),
-  objectName: text("object_name").notNull(),
+  post_id: text().notNull().references(() => postsTable.id, { onDelete: "cascade" }),
+  object_key: text().notNull(),
 });

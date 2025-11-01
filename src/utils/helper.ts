@@ -100,8 +100,8 @@ export function updateFrontmatter(
 ): FrontMatter {
   const updatedFrontmatter = Object.assign(prevFrontmatter, newFrontmatter);
 
-  if (updatedFrontmatter.thumbnailUri) {
-    updatedFrontmatter.thumbnailUri = urlMap[updatedFrontmatter.thumbnailUri].uri;
+  if (updatedFrontmatter.thumbnail_uri) {
+    updatedFrontmatter.thumbnail_uri = urlMap[updatedFrontmatter.thumbnail_uri].uri;
   }
   console.log("Updated frontmatter:", updatedFrontmatter);
   console.log("URL map:", urlMap);

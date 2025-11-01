@@ -1,8 +1,8 @@
 export type Tag = {
   id: string;
   category: string;
-  name: string;
-  iconUri?: string;
+  label: string;
+  icon_uri?: string;
 }
 
 export type PostMeta = {
@@ -11,10 +11,10 @@ export type PostMeta = {
   description?: string;
   category: string;
   tags?: Tag[];
-  thumbnailUri?: string;
-  createdAt: string;
-  updatedAt?: string;
-  deletedAt?: string;
+  thumbnail_uri?: string;
+  created_at: string;
+  updated_at?: string;
+  deleted_at?: string;
 };
 
 // `content` is includeing the front-matter

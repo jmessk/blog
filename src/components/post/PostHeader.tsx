@@ -8,15 +8,15 @@ import { DateList, formatDate } from "./DateList";
 
 
 export function PostHeader({ meta }: { meta: PostMeta }) {
-  const createdAt = formatDate(meta.createdAt);
-  const updatedAt = meta.updatedAt ? formatDate(meta.updatedAt) : undefined;
+  const createdAt = formatDate(meta.created_at);
+  const updatedAt = meta.updated_at ? formatDate(meta.updated_at) : undefined;
 
   return (
     <Island noPadding className="">
 
-      {meta.thumbnailUri &&
+      {meta.thumbnail_uri &&
         <AspectRatio ratio={3 / 1} className="overflow-hidden">
-          <Image src={meta.thumbnailUri} alt="" width={1800} height={600} className="object-cover w-full h-full" />
+          <Image src={meta.thumbnail_uri} alt="" width={1800} height={600} className="object-cover w-full h-full" />
         </AspectRatio>
       }
 

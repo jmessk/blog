@@ -11,8 +11,8 @@ export async function insertPostTags(postId: string, tagIds: string[]) {
 
   await db.insert(postTagsTable).values(
     tagIds.map((tagId) => ({
-      postId: postId,
-      tagId: tagId,
+      post_id: postId,
+      tag_id: tagId,
     }))
   ).onConflictDoNothing().run();
 }
@@ -21,5 +21,5 @@ export async function insertPostTags(postId: string, tagIds: string[]) {
 export async function deletePostTags(postId: string) {
   const { env } = getCloudflareContext();
   const db = drizzle(env.D1_POSTS);
-  await db.delete(postTagsTable).where(eq(postTagsTable.postId, postId)).run();
+  await db.delete(postTagsTable).where(eq(postTagsTable.post_id, postId)).run();
 }
