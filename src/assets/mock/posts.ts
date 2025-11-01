@@ -6,7 +6,8 @@ export const posts: PostMeta[] = [
     id: "0",
     title: "Mock Post 0 Mock Post 0 Mock Post 0 Mock Post 0 Mock Post 0",
     description: "This is a mock post for testing purposes.",
-    thumbnail_uri: "https://upload.wikimedia.org/wikipedia/commons/4/4b/Cloudflare_Logo.svg",
+    // thumbnail_uri: "https://upload.wikimedia.org/wikipedia/commons/4/4b/Cloudflare_Logo.svg",
+    thumbnail_uri: "https://www.club-t.com/ct/kanko/guide/kokunai/info/k_196/k_196_000.jpg",
     category: "experimental",
     created_at: new Date().toISOString(),
     tags: [

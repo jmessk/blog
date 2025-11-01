@@ -12,12 +12,15 @@ export function PostHeader({ meta }: { meta: PostMeta }) {
   const updatedAt = meta.updated_at ? formatDate(meta.updated_at) : undefined;
 
   return (
-    <Island noPadding className="">
+    <Island noPadding className="overflow-hidden">
 
       {meta.thumbnail_uri &&
-        <AspectRatio ratio={3 / 1} className="overflow-hidden">
-          <Image src={meta.thumbnail_uri} alt="" width={1800} height={600} className="object-cover w-full h-full" />
-        </AspectRatio>
+        // <AspectRatio ratio={3 / 1} className="overflow-hidden">
+        //   <Image src={meta.thumbnail_uri} alt="" width={1800} height={600} className="object-cover w-full h-full" />
+        // </AspectRatio>
+        <div className="overflow-hidden max-h-70 flex justify-center items-center">
+          <img src={meta.thumbnail_uri} alt="" className="object-cover w-full h-full" />
+        </div>
       }
 
       <div className={`grid w-full px-4 sm:px-6 md:px-8 gap-4 py-6`}>

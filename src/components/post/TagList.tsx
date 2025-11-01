@@ -22,7 +22,7 @@ export function TagListItem({ tag }: { tag: Tag }) {
     >
       {tag.icon_uri &&
         <div className="w-5 h-5 overflow-hidden rounded-full bg-white">
-          <Image src={tag.icon_uri} alt="" width={16} height={16} className="object-cover w-full h-full" />
+          <img src={tag.icon_uri} alt="" width={16} height={16} className="object-cover w-full h-full" />
         </div>
       }
       <span className="text-sm">{tag.label}</span>

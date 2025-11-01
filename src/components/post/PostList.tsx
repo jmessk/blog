@@ -22,13 +22,13 @@ export function PostListItem({ meta, href }: { meta: PostMeta; href: string }) {
 
   const thumbnail = meta.thumbnail_uri ? (
     <div className="relative w-full overflow-hidden h-50 sm:h-[142px] sm:w-50 sm:flex-shrink-0">
-      <Image
+      <img
         src={meta.thumbnail_uri}
         alt=""
         width={300}
         height={200}
         className="object-cover w-full h-full"
-        priority={false}
+        // priority={false}
       />
     </div>
   ) : null;
