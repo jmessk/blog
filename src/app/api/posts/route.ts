@@ -135,23 +135,24 @@ export async function POST(request: NextRequest) {
   );
   const newContent = replacePaths(content, urlMap);
 
+  await insertPostMeta({
+    id,
+    title: newFrontmatter.title!,
+    description: newFrontmatter.description!,
+    category: newCategory,
+    thumbnail_uri: newFrontmatter.thumbnail_uri!,
+    created_at: createdAt,
+  });
+
+  await insertPostTags(id, newTags);
 
   await Promise.all([
     putPostContent(newFrontmatter.id!, newContent),
-    insertPostMeta({
-      id,
-      title: newFrontmatter.title!,
-      description: newFrontmatter.description!,
-      category: newCategory,
-      thumbnail_uri: newFrontmatter.thumbnail_uri!,
-      created_at: createdAt,
-    }),
     insertTags(newTags.map((tagId) => ({
       id: tagId,
       category: newCategory,
       label: tagId
     }))),
-    insertPostTags(id, newTags),
     insertPostObjects(
       id,
       Object.values(urlMap).map(({ key }) => key)
