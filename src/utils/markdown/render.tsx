@@ -114,13 +114,13 @@ const processor = unified()
   });
 
 
-export function renderReact(markdown: string) {
+export async function renderReact(markdown: string) {
   // useEffect(() => {
   //   mermaid.initialize({ startOnLoad: true, theme: "dark" });
   //   mermaid.contentLoaded();
   // }, []);
 
-  const file = processor.processSync(markdown) as VFile;
+  const file = await processor.process(markdown) as VFile;
 
   return {
     content: (<>

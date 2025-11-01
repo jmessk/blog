@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 
 import { PostHeader } from "@/components/post/PostHeader";
 import { Island } from "@/components/common/Island";
@@ -6,8 +6,8 @@ import { renderReact } from "@/utils/markdown/render";
 import { Post } from "@/types/post";
 
 
-export function PostView({ post }: { post: Post }) {
-  const file = renderReact(post.content);
+export async function PostView({ post }: { post: Post }) {
+  const file = await renderReact(post.content);
 
   return (
     <>
