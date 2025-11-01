@@ -6,40 +6,6 @@ import { postsTable, tagsTable, postTagsTable } from "@/db/schema";
 import { Post, PostMeta, Tag } from "@/types/post";
 
 
-export async function getPostContent(id: string): Promise<string | null> {
-  const { env } = getCloudflareContext();
-  const content = await env.R2_BUCKET.get(`${id}.md`);
-  return content ? await content.text() : null;
-}
-
-
-export async function putPostContent(id: string, content: string): Promise<void> {
-  const { env } = getCloudflareContext();
-
-  await env.R2_BUCKET.put(`${id}.md`, content, {
-    httpMetadata: {
-      contentType: "text/plain",
-    },
-  });
-}
-
-
-export async function updatePostContent(id: string, content: string): Promise<void> {
-  const { env } = getCloudflareContext();
-
-  const existing = await env.R2_BUCKET.get(`${id}.md`);
-  if (!existing) {
-    throw new Error(`post content for id ${id} is not found`);
-  }
-
-  await env.R2_BUCKET.put(`${id}.md`, content, {
-    httpMetadata: {
-      contentType: "text/plain",
-    },
-  });
-}
-
-
 export async function getPostMeta(id: string): Promise<PostMeta | null> {
   const { env } = getCloudflareContext();
 
@@ -171,4 +137,18 @@ export async function getPostMetaList({ category, tagIds = [] }: GetPostsParams)
     deletedAt: row.deletedAt ?? undefined,
     tags: JSON.parse(row.tags) as Tag[],
   } satisfies PostMeta));
+}
+
+
+export async function insertPostMeta(meta: PostMeta) {
+  const { env } = getCloudflareContext();
+  const db = drizzle(env.D1_POSTS);
+  await db.insert(postsTable).values({ ...meta }).run();
+}
+
+
+export async function updatePostMeta(meta: Partial<PostMeta>) {
+  const { env } = getCloudflareContext();
+  const db = drizzle(env.D1_POSTS);
+  await db.update(postsTable).set({ ...meta }).where(eq(postsTable.id, meta.id!)).run();
 }

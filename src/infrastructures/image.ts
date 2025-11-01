@@ -1,20 +1,19 @@
 import { getCloudflareContext } from "@opennextjs/cloudflare";
-import { uuidv7 } from "uuidv7";
 
-export async function putImage(file: File): Promise<string> {
+
+export async function putImage(key: string, file: File) {
   const { env } = getCloudflareContext();
-
-  const id = uuidv7();
-  const fileExtension = file.name.split('.').pop() || '';
-  const filename = `${id}.${fileExtension}`;
-
   const arrayBuffer = await file.arrayBuffer();
 
-  await env.R2_BUCKET.put(filename, arrayBuffer, {
+  await env.R2_BUCKET.put(key, arrayBuffer, {
     httpMetadata: {
       contentType: file.type || "application/octet-stream",
     },
   });
+}
 
-  return filename;
+
+export async function deleteImage(key: string) {
+  const { env } = getCloudflareContext();
+  await env.R2_BUCKET.delete(key);
 }

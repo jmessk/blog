@@ -1,4 +1,5 @@
-import { getPostMeta, getPostContent } from "@/infrastructures/post"; import { renderReact } from "@/utils/markdown/render";
+import { getPostMeta } from "@/infrastructures/post/meta";
+import { getPostContent } from "@/infrastructures/post/content";
 import { PostView } from "@/components/post/PostView";
 
 

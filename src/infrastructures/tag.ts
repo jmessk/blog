@@ -23,3 +23,18 @@ export async function getTags(category?: string): Promise<Tag[]> {
 
   return rows as Tag[];
 }
+
+
+export async function insertTags(tags: Tag[]) {
+  const { env } = getCloudflareContext();
+  const db = drizzle(env.D1_POSTS);
+
+  await db.insert(tagsTable).values(
+    tags.map((tag) => ({
+      id: tag.id,
+      category: tag.category,
+      name: tag.name,
+      iconUri: tag.iconUri ?? null,
+    }))
+  ).onConflictDoNothing().run();
+}

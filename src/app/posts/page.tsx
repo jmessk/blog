@@ -1,4 +1,4 @@
-import { getPostMetaList } from "@/infrastructures/post";
+import { getPostMetaList } from "@/infrastructures/post/meta";
 import { PostList, PostListItem } from "@/components/post/PostList";
 import { normalizeTags } from "@/utils/tag";
 import { Island } from "@/components/common/Island";

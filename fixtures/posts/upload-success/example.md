@@ -3,7 +3,7 @@ title: "Test Post"
 description: "This is a test post."
 category: "tech"
 tags: ["demo","Curl"]
-thumbnailUri: "image-a.png"
+thumbnail_uri: "image-a.png"
 ---
 
 ## Test Post

@@ -1,1 +1,1 @@
-export type UrlMap = Record<string, { filename: string; uri: string }>;
+export type UrlMap = Record<string, { id: string; key: string; uri: string }>;

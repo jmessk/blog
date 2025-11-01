@@ -6,7 +6,7 @@ import { eq, and, isNull, sql } from "drizzle-orm";
 import { postsTable, tagsTable, postTagsTable } from "@/db/schema";
 import { FrontMatter } from "@/types/post";
 import { rebuildMarkdown } from "@/utils/markdown/rebuild";
-import { getPostContent } from "@/infrastructures/post";
+import { getPostContent } from "@/infrastructures/post/content";
 
 
 export async function GET(request: NextRequest, { params }: { params: Promise<{ post_id: string }> }) {
