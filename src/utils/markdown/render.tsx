@@ -21,8 +21,8 @@ import { visit } from "unist-util-visit";
 import { toHtml } from 'hast-util-to-html';
 // import mermaid from "mermaid";
 
-import { CodeBlock } from "@/components/post/CodeBlock";
-import { MermaidCDN } from "@/components/post/Mermaid";
+import { CodeBlock } from "@/components/merkdown/CodeBlock";
+import { MermaidCDN } from "@/components/merkdown/Mermaid";
 
 
 declare module "vfile" {

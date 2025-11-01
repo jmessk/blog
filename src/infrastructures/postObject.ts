@@ -6,6 +6,8 @@ import { postObjectsTable } from "@/db/schema";
 
 
 export async function insertPostObjects(postId: string, objectNames: string[]) {
+  if (objectNames.length === 0) { return; }
+
   const { env } = getCloudflareContext();
   const db = drizzle(env.D1_POSTS);
 

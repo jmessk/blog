@@ -6,6 +6,8 @@ import { postTagsTable } from "@/db/schema";
 
 
 export async function insertPostTags(postId: string, tagIds: string[]) {
+  if (tagIds.length === 0) { return; }
+
   const { env } = getCloudflareContext();
   const db = drizzle(env.D1_POSTS);
 
