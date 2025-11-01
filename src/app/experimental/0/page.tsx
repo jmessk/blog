@@ -92,6 +92,10 @@ sequenceDiagram
     Client ->> Client: OS インストーラ起動
 \`\`\`
 
+\`\`\`
+console.log("This is a code block");
+\`\`\`
+
 \`\`\`plaintext
 console.log("This is a code block");
 \`\`\`

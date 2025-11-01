@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 
 import { unified } from "unified";
 import remarkParse from "remark-parse";
@@ -78,12 +78,12 @@ function codeToCodeBlock(props: React.HTMLAttributes<HTMLPreElement>) {
     return <pre {...props}>{props.children}</pre>;
   }
 
-  const className: string | undefined = first.props?.className;
+  const className: string = first.props?.className ?? "language-plaintext";
 
   // class="language-<lang>:<filename>"
-  const split = className?.split("-")[1]?.split(":");
-  const lang = split?.[0] ?? "plaintext";
-  const filename = split?.slice(1).join();
+  const split = className.replace("language-", "").split(":");
+  const lang = split[0] ?? "plaintext";
+  const filename = split[1] ?? undefined;
 
   if (lang === "mermaid") {
     return <MermaidCDN code={first.props?.children ?? ""} />
