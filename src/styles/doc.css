@@ -23,15 +23,15 @@
     }
 
     .doc h2 {
-        @apply mt-16 mb-4 scroll-mt-20 font-bold text-foreground;
+        @apply before:content-['##_'] before:text-muted-foreground mt-16 mb-8 scroll-mt-20 font-bold text-foreground;
     }
 
     .doc h3 {
-        @apply mt-12 mb-4 scroll-mt-20 font-bold text-foreground;
+        @apply before:content-['###_'] before:text-muted-foreground mt-12 mb-8 scroll-mt-20 font-bold text-foreground;
     }
 
     .doc h4 {
-        @apply mt-8 mb-4 scroll-mt-20 font-semibold text-foreground text-lg;
+        @apply mt-8 mb-6 scroll-mt-20 font-semibold text-foreground text-lg;
     }
 
     /* 段落 */
