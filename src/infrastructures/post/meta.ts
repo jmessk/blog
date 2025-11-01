@@ -1,6 +1,6 @@
 import { getCloudflareContext } from "@opennextjs/cloudflare";
 import { drizzle } from "drizzle-orm/d1";
-import { eq, and, isNull, sql, inArray, exists } from "drizzle-orm";
+import { eq, and, isNull, sql, inArray, exists, desc } from "drizzle-orm";
 
 import { postsTable, tagsTable, postTagsTable } from "@/db/schema";
 import { Post, PostMeta, Tag } from "@/types/post";
@@ -124,7 +124,10 @@ export async function getPostMetaList({ category, tagIds = [] }: GetPostsParams)
           )
         )
     )
-    .groupBy(postsTable.id);
+    .groupBy(postsTable.id)
+    .orderBy(
+      desc(sql`COALESCE(${postsTable.updated_at}, ${postsTable.created_at})`)
+    );
 
   return rows.map(row => ({
     id: row.id,

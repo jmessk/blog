@@ -98,16 +98,11 @@ export function updateFrontmatter(
   newFrontmatter: FrontMatter,
   urlMap: UrlMap
 ): FrontMatter {
-  console.log("Previous frontmatter:", prevFrontmatter);
-  console.log("New frontmatter:", newFrontmatter);
   const updatedFrontmatter = Object.assign(prevFrontmatter, newFrontmatter);
-  console.log("Frontmatter before URL update:", updatedFrontmatter);
 
   if (updatedFrontmatter.thumbnail_uri && urlMap[updatedFrontmatter.thumbnail_uri]) {
     updatedFrontmatter.thumbnail_uri = urlMap[updatedFrontmatter.thumbnail_uri].uri;
   }
-  console.log("Updated frontmatter:", updatedFrontmatter);
-  console.log("URL map:", urlMap);
 
   return updatedFrontmatter;
 }

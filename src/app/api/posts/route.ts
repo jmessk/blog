@@ -135,6 +135,8 @@ export async function POST(request: NextRequest) {
   );
   const newContent = replacePaths(content, urlMap);
 
+  console.log("New frontmatter:", newFrontmatter);
+
   await Promise.all([
     insertPostMeta({
       id,

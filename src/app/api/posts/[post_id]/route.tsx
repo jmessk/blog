@@ -108,6 +108,7 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
   );
   const newContent = replacePaths(content, urlMap);
 
+  console.log("New frontmatter:", newFrontmatter);
 
   const existingPostObjectKeys = await getPostObjectKeys(post_id);
 
