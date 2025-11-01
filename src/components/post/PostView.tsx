@@ -7,18 +7,20 @@ import { Post } from "@/types/post";
 
 
 export async function PostView({ post }: { post: Post }) {
-  const file = await renderReact(post.content);
+  const rendered = await renderReact(post.content);
 
   return (
     <>
       <PostHeader meta={post} />
 
       <Island title="目次" className="doc" >
-        {file.toc && <div dangerouslySetInnerHTML={{ __html: file.toc }}></div>}
+        <article>
+          {rendered.toc && <div dangerouslySetInnerHTML={{ __html: rendered.toc }}></div>}
+        </article>
       </Island>
 
       <Island onMobileExpand className="doc py-8">
-        {file.content}
+        {rendered.content}
       </Island>
     </>
   );

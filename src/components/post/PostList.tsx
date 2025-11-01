@@ -28,7 +28,7 @@ export function PostListItem({ meta, href }: { meta: PostMeta; href: string }) {
         width={300}
         height={200}
         className="object-cover w-full h-full"
-        // priority={false}
+      // priority={false}
       />
     </div>
   ) : null;
@@ -36,7 +36,7 @@ export function PostListItem({ meta, href }: { meta: PostMeta; href: string }) {
   return (
     <li className="list-none">
       <Link href={href}>
-        <Island noPadding className="group flex flex-col sm:flex-row overflow-hidden hover:bg-card-hover transition-colors">
+        <Island as="article" noPadding className="group flex flex-col sm:flex-row overflow-hidden hover:bg-card-hover transition-colors">
 
           {thumbnail}
 
@@ -66,6 +66,7 @@ export function PostListItem({ meta, href }: { meta: PostMeta; href: string }) {
             </div>
 
           </div>
+
         </Island>
       </Link>
     </li >

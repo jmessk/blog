@@ -1,8 +1,9 @@
 export function Island(
-  { title, children, className, noPadding, onMobileExpand }: {
+  { title, children, className, as: Component = "div", noPadding, onMobileExpand }: {
     title?: string;
     children?: React.ReactNode;
     className?: string;
+    as?: React.ElementType;
     noPadding?: boolean;
     onMobileExpand?: boolean;
   }) {
@@ -11,11 +12,11 @@ export function Island(
   const twExpand = onMobileExpand ? 'max-sm:-mx-4 max-sm:w-screen max-sm:rounded-none' : '';
 
   return (
-    <div>
-      {title && <h2 className="text-xl font-bold mb-3 px-2">{title}</h2>}
+    <Component>
+      {title && <header className="text-xl font-bold mb-3 px-2">{title}</header>}
       <div className={`w-full bg-card rounded-xl ${twExpand} ${twPadding} ${className || ''}`}>
         {children}
       </div>
-    </div>
+    </Component>
   );
 }
