@@ -117,15 +117,13 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
     deletePostTags(post_id),
   ]);
 
-
   await Promise.all([
-    putPostContent(post_id, newContent),
     updatePostMeta({
       id: post_id,
       title: newFrontmatter.title!,
       description: newFrontmatter.description!,
       category: newCategory,
-      thumbnail_uri: newFrontmatter.thumbnail_uri ,
+      thumbnail_uri: newFrontmatter.thumbnail_uri,
       updated_at: updatedAt,
     }),
     insertTags(newTags.map((tagId) => ({
@@ -133,11 +131,15 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
       category: newCategory,
       label: tagId
     }))),
+  ]);
+
+  await Promise.all([
     insertPostTags(post_id, newTags),
     insertPostObjects(
       post_id,
       Object.values(urlMap).map(({ key }) => key)
-    )
+    ),
+    putPostContent(post_id, newContent),
   ]);
 
   return NextResponse.json({
