@@ -96,18 +96,32 @@ sequenceDiagram
 console.log("This is a code block");
 \`\`\`
 
-\`\`\`plaintext
+\`\`\`ts
 console.log("This is a code block");
 \`\`\`
 
-\`\`\`ts
+\`\`\`ts:test.ts
 console.log("This is a code block");
+\`\`\`
+
+\`\`\`mermaid
+sequenceDiagram
+    participant Client as ターゲット PC
+    participant DHCP as DHCP サーバ
+
+    Client ->> Client: PXE ブート起動
+    Client ->> DHCP: DHCP Discover
+    DHCP -->> Client: DHCP Offer（IP + bootfile=ipxe.efi）
 \`\`\`
 
 \`\`\`ts:test.ts
 console.log("This is a code block");console.log("This is a code block");console.log("This is a code block");console.log("This is a code block");console.log("This is a code block");
 console.log("This is a code block");
 console.log("This is a code block");
+console.log("This is a code block");
+\`\`\`
+
+\`\`\`plaintext
 console.log("This is a code block");
 \`\`\`
 
