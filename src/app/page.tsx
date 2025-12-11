@@ -8,7 +8,7 @@ export default function Home() {
       <Island className="doc">
         <p>このブログは、プログラミングや開発で得られた知見を記録・発信することを目的としています。</p>
         <p>以前のブログ: <a href="https://jme-blog.vercel.app/">https://jme-blog.vercel.app/</a></p>
-        <p>このブログの開発に関する投稿をしました。[Markdown Blog (v2.0) を作った](https://blog.jmessk.net/posts/019b0d03-e0d9-721d-9e8c-e647c9180ae4)</p>
+        <p>このブログの開発に関する投稿をしました。<a href="https://blog.jmessk.net/posts/019b0d03-e0d9-721d-9e8c-e647c9180ae4">Markdown Blog (v2.0) を作った</a></p>
       </Island>
 
       <Island title="Author" className="doc">
