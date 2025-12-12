@@ -1,8 +1,19 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 
 import { PostList, PostListItem } from "@/components/post/PostList";
 import { posts } from "@/assets/mock/posts";
 import { Island } from "@/components/common/Island";
+
+
+export const metadata: Metadata = {
+  title: "Experimental | Hajime's Blog",
+  description: "実験的な機能のテストページ",
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 
 export default async function Page() {

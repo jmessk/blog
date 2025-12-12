@@ -1,7 +1,14 @@
+import type { Metadata } from "next";
 import { getPostMetaList } from "@/infrastructures/post/meta";
 import { PostList, PostListItem } from "@/components/post/PostList";
 import { normalizeTags } from "@/utils/tag";
 import { Island } from "@/components/common/Island";
+
+
+export const metadata: Metadata = {
+  title: "Posts | Hajime's Blog",
+  description: "プログラミングや開発に関する記事一覧",
+};
 
 
 export default async function Page({

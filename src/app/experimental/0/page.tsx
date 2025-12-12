@@ -1,9 +1,20 @@
 // "use client";
 
+import type { Metadata } from "next";
 import React from "react";
 import { posts } from "@/assets/mock/posts";
 import { PostView } from "@/components/post/PostView";
 import { Post } from "@/types/post";
+
+
+export const metadata: Metadata = {
+  title: "Experimental 0 | Hajime's Blog",
+  description: "実験的な機能のテストページ",
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 
 const markdown = `

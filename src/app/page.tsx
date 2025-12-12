@@ -1,5 +1,12 @@
+import type { Metadata } from "next";
 import { Island } from "@/components/common/Island";
 // import { Mail, Github } from "lucide-react";
+
+
+export const metadata: Metadata = {
+  title: "Home | Hajime's Blog",
+  description: "プログラミングや開発で得られた知見を記録・発信するブログ",
+};
 
 
 export default function Home() {

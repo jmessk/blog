@@ -1,4 +1,11 @@
+import type { Metadata } from "next";
 import { Island } from "@/components/common/Island";
+
+
+export const metadata: Metadata = {
+  title: "Changelog | Hajime's Blog",
+  description: "ブログの更新履歴と既知の不具合",
+};
 
 
 export default function Changelog() {
