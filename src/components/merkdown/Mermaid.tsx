@@ -25,16 +25,11 @@ export function MermaidCDN({ code }: Props) {
       await waitForMermaid();
       const mermaid = (window as any).mermaid;
 
-      async function renderSvg(theme: string) {
-        mermaid.initialize({ startOnLoad: false, theme });
-        const { svg } = await mermaid.render(`mermaid-${theme}-${Date.now()}`, code);
-        return svg;
-      };
+      mermaid.initialize({ startOnLoad: false, theme: "default" });
+      const { svg: lightSvg } = await mermaid.render(`mermaid-light-${Date.now()}`, code);
 
-      const [lightSvg, darkSvg] = await Promise.all([
-        renderSvg("default"),
-        renderSvg("dark"),
-      ]);
+      mermaid.initialize({ startOnLoad: false, theme: "dark" });
+      const { svg: darkSvg } = await mermaid.render(`mermaid-dark-${Date.now()}`, code);
 
       setSvgs({ light: lightSvg, dark: darkSvg });
     };
